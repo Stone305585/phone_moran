@@ -32,7 +32,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/edit_mine_btn"
             android:src="@mipmap/mine_default_head"
             android:scaleType="centerCrop"

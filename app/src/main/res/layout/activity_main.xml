@@ -20,7 +20,7 @@
     <LinearLayout
         android:id="@+id/tab"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="52dp"
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:gravity="center"

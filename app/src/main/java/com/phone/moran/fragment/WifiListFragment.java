@@ -226,11 +226,23 @@ public class WifiListFragment extends BaseFragment {
                     startActivityForResult(intent, GPS_REQUEST_CODE);
                 }
             });
+
+            b.show();
         }
 
     }
 
-   /* private void sss() {
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(wifiArray.size() == 0) {
+            getAllNetWorkList();
+        }
+
+    }
+
+    /* private void sss() {
         wifiInfoAdapter = new WiFiInfoAdapter(getApplicationContext(),
                 wifiArray);
         listWifi.setAdapter(wifiInfoAdapter);
