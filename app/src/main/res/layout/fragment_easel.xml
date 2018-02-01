@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.phone.moran.fragment.EaselFragment">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:scrollbars="none"
+        app:tabIndicatorColor="@color/run_blue_main"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="fixed"
+        app:tabPaddingBottom="0dp"
+        app:tabPaddingStart="2dp"
+        app:tabPaddingEnd="2dp"
+        app:tabPaddingTop="0dp"
+        app:tabTextColor="@color/run_text_main"
+        app:tabSelectedTextColor="@color/run_blue_main" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@mipmap/jianbiantiao"
+        android:layout_height="1.7dp" />
+
+
+    <com.phone.moran.view.ScrollerViewPager
+        android:id="@+id/viewpager"
+        android:background="@color/bg_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.phone.moran.view.ScrollerViewPager>
+</LinearLayout>

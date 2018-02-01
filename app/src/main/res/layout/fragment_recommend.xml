@@ -1,0 +1,318 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.phone.moran.fragment.RecommendFragment">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <!--banner-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/banner_background"
+                    android:paddingLeft="6dp">
+
+                    <com.phone.moran.view.ScrollerViewPager
+                        android:id="@+id/viewpager_recommend"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"></com.phone.moran.view.ScrollerViewPager>
+                </LinearLayout>
+
+                <!--最新上传画单-->
+                <LinearLayout
+                    android:id="@+id/upload_new_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/search_shangchuan_tab"
+                        android:textColor="@color/run_text_main"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/to_more" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/upload_FL1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/grid_background">
+
+                        <com.phone.moran.view.roundedimageview.RoundedImageView
+                            android:id="@+id/upload_image1"
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/recyclerview_item"
+                            app:riv_corner_radius="4dp" />
+
+                        <TextView
+                            android:id="@+id/upload_num1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="21张"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/upload_read_num1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="40dp"
+                            android:layout_marginLeft="8dp"
+                            android:drawableStart="@mipmap/eye_read"
+                            android:text="2121"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/upload_title1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|bottom"
+                            android:layout_marginBottom="13dp"
+                            android:text="吴冠中思乡主题"
+                            android:textColor="@color/run_text_main"
+                            android:textSize="9sp" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent" />
+
+                    <FrameLayout
+                        android:id="@+id/upload_FL2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/grid_background">
+
+                        <com.phone.moran.view.roundedimageview.RoundedImageView
+                            android:id="@+id/upload_image2"
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/recyclerview_item"
+                            app:riv_corner_radius="4dp" />
+
+                        <TextView
+                            android:id="@+id/upload_num2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="21张"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/upload_read_num2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="40dp"
+                            android:layout_marginLeft="8dp"
+                            android:drawableStart="@mipmap/eye_read"
+                            android:text="2121"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/upload_title2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|bottom"
+                            android:layout_marginBottom="13dp"
+                            android:text="吴冠中思乡主题"
+                            android:textColor="@color/run_text_main"
+                            android:textSize="9sp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <!--最热主题画单-->
+                <LinearLayout
+                    android:id="@+id/title_new_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/search_zhuti_tab"
+                        android:textColor="@color/run_text_main"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@mipmap/to_more" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="100dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/title_FL1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/grid_background">
+
+                        <com.phone.moran.view.roundedimageview.RoundedImageView
+                            android:id="@+id/title_image1"
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/recyclerview_item"
+                            app:riv_corner_radius="4dp" />
+
+                        <TextView
+                            android:id="@+id/title_num1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="21张"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/title_read_num1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="40dp"
+                            android:layout_marginLeft="8dp"
+                            android:drawableStart="@mipmap/eye_read"
+                            android:text="2121"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/title_title1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|bottom"
+                            android:layout_marginBottom="13dp"
+                            android:text="吴冠中思乡主题"
+                            android:textColor="@color/run_text_main"
+                            android:textSize="9sp" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent" />
+
+                    <FrameLayout
+                        android:id="@+id/title_FL2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/grid_background">
+
+                        <com.phone.moran.view.roundedimageview.RoundedImageView
+                            android:id="@+id/title_image2"
+                            android:layout_width="match_parent"
+                            android:layout_height="128dp"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/recyclerview_item"
+                            app:riv_corner_radius="4dp" />
+
+                        <TextView
+                            android:id="@+id/title_num2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="8dp"
+                            android:text="21张"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/title_read_num2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="40dp"
+                            android:layout_marginLeft="8dp"
+                            android:drawableStart="@mipmap/eye_read"
+                            android:text="2121"
+                            android:textColor="@color/white"
+                            android:textSize="9sp" />
+
+                        <TextView
+                            android:id="@+id/title_title2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal|bottom"
+                            android:layout_marginBottom="13dp"
+                            android:text="吴冠中思乡主题"
+                            android:textColor="@color/run_text_main"
+                            android:textSize="9sp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PictureActivity">
+
+    <ImageView
+        android:id="@+id/image_paint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@color/transparent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_gravity="bottom"
+            android:scaleType="centerCrop"
+            android:src="@drawable/gradient_grey_book" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="17dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/author_paint"
+                style="@style/text_common_moran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="作者/吴冠中" />
+
+            <TextView
+                android:id="@+id/time_paint"
+                style="@style/text_common_moran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="14dp"
+                android:text="作者/吴冠中" />
+
+            <TextView
+                android:id="@+id/other_paint"
+                style="@style/text_common_moran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="14dp"
+                android:text="水墨、设色、宣纸、70 x 140厘米" />
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <include
+        layout="@layout/title_bar_common"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:layout_marginTop="@dimen/status_bar_height"/>
+
+</android.support.design.widget.CoordinatorLayout>

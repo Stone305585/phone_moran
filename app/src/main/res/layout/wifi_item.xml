@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:id="@+id/wifi_LL"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+
+    <ImageView
+        android:layout_marginLeft="100dp"
+        android:src="@mipmap/wifi_icon"
+        android:layout_width="30dp"
+        android:layout_height="25dp" />
+    <TextView
+        android:id="@+id/wifi_name"
+        android:text="wifi名字"
+        android:layout_marginLeft="30dp"
+        android:textSize="16sp"
+        style="@style/text_common_moran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

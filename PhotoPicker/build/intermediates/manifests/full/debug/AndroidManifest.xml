@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="me.iwf.photopicker"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:versionCode="12"
+    android:versionName="0.2.9" >
+
+    <uses-sdk
+        android:minSdkVersion="18"
+        android:targetSdkVersion="26" />
+
+</manifest>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/corner_bg_white_pop_tips"
+    android:layout_height="170dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/bg_light"
+        android:layout_width="match_parent"
+        android:layout_height="43dp">
+        <TextView
+            android:id="@+id/cancel_btn"
+            android:text="取消"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/ok_btn"
+            android:text="完成"
+            style="@style/text_common_moran"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <com.phone.moran.view.WheelView
+        android:id="@+id/wheel_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.phone.moran.view.WheelView>
+</LinearLayout>

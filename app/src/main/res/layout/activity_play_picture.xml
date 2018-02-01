@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/run_main_color"
+    tools:context="com.phone.moran.activity.PlayPictureActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/title_bar_common"/>
+
+            <FrameLayout
+                android:paddingBottom="40dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <com.phone.moran.view.gallery.SpeedRecyclerView
+                    android:id="@+id/recycler_picture"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></com.phone.moran.view.gallery.SpeedRecyclerView>
+
+                <TextView
+                    android:layout_gravity="left"
+                    android:foreground="#ccffffff"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:layout_gravity="right"
+                    android:foreground="#ccffffff"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:id="@+id/play_mode_btn"
+                    android:padding="7dp"
+                    android:src="@mipmap/play_mode_all"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/play_tip_btn"
+                    android:src="@mipmap/play_tip"
+                    android:padding="7dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/play_upload_btn"
+                    android:src="@mipmap/upload"
+                    android:padding="7dp"
+                    android:layout_width="50dp"
+                    android:layout_height="45dp" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/play_lining_btn"
+                    android:src="@mipmap/lining"
+                    android:padding="7dp"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp" />
+
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/play_more_btn"
+                    android:src="@mipmap/play_more"
+                    android:padding="7dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/collect_pop_FL"
+            android:visibility="gone"
+            android:clickable="true"
+            android:background="@color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+                layout="@layout/pop_mine_collect_list"/>
+        </FrameLayout>
+
+    </FrameLayout>
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:background="@color/run_main_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.phone.moran.activity.SettingActivity">
+
+
+    <LinearLayout
+        android:background="#f1f1f1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/title_bar_common" />
+
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/about_LL"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="25dp"
+                android:paddingRight="12dp">
+
+                <TextView
+                    style="@style/text_common_moran"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="关于我们" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/to_next" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider_light" />
+
+            <LinearLayout
+                android:id="@+id/suggest_LL"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="25dp"
+                android:paddingRight="12dp">
+
+                <TextView
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_height="wrap_content"
+                    android:text="意见反馈" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/to_next" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider_light" />
+
+            <LinearLayout
+                android:id="@+id/version_LL"
+                android:paddingLeft="25dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <TextView
+                    android:text="软件版本"
+                    style="@style/text_common_moran"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:src="@mipmap/to_next"
+                    android:layout_width="10dp"
+                    android:layout_height="15dp" />
+            </LinearLayout>
+            <TextView
+                android:background="@color/divider_light"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <LinearLayout
+                android:id="@+id/language_LL"
+                android:paddingLeft="25dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <TextView
+                    android:text="语言选择"
+                    style="@style/text_common_moran"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:src="@mipmap/to_next"
+                    android:layout_width="10dp"
+                    android:layout_height="15dp" />
+            </LinearLayout>
+            <TextView
+                android:background="@color/divider_light"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <LinearLayout
+                android:id="@+id/clear_LL"
+                android:paddingLeft="25dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <TextView
+                    android:text="清除缓存"
+                    style="@style/text_common_moran"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:src="@mipmap/to_next"
+                    android:layout_width="10dp"
+                    android:layout_height="15dp" />
+            </LinearLayout>
+            <TextView
+                android:background="@color/divider_light"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <LinearLayout
+                android:id="@+id/security_LL"
+                android:paddingLeft="25dp"
+                android:paddingRight="12dp"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <TextView
+                    android:text="账户安全"
+                    android:textSize="15sp"
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:src="@mipmap/to_next"
+                    android:layout_width="10dp"
+                    android:layout_height="15dp" />
+            </LinearLayout>
+            <TextView
+                android:background="@color/divider_light"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+        <TextView
+            android:id="@+id/quit_btn"
+            android:text="退出登录"
+            android:textColor="@color/run_text_main"
+            android:background="@color/white"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"/>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

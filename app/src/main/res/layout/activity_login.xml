@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingLeft="42dp"
+    android:paddingRight="42dp"
+    android:paddingTop="50dp"
+    tools:context="com.phone.moran.activity.LoginActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:src="@mipmap/login_bg"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="centerCrop"
+            android:layout_width="240dp"
+            android:layout_height="130dp" />
+
+        <LinearLayout
+            android:layout_marginTop="60dp"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/phone_login"
+                android:layout_width="22dp"
+                android:layout_height="32dp" />
+
+            <EditText
+                android:id="@+id/accountEt"
+                android:textColorHint="@color/run_text_main_hint"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:layout_marginLeft="16dp"
+                android:textSize="15sp"
+                android:textColor="@color/run_text_main"
+                android:hint="请输入用户名/邮箱号/手机号"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/divider_light"
+            android:layout_width="match_parent"
+            android:layout_marginTop="6dp"
+            android:layout_height="1dp" />
+
+        <LinearLayout
+            android:layout_marginTop="22dp"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@mipmap/register_key"
+                android:layout_width="25dp"
+                android:layout_height="30dp" />
+
+            <EditText
+                android:id="@+id/passwordEt"
+                android:textColorHint="@color/run_text_main_hint"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:maxLength="16"
+                android:inputType="textPassword"
+                android:layout_marginLeft="16dp"
+                android:textSize="15sp"
+                android:textColor="@color/run_text_main"
+                android:hint="请输入密码"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <TextView
+            android:background="@color/divider_light"
+            android:layout_width="match_parent"
+            android:layout_marginTop="6dp"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:id="@+id/forget_password_tv"
+            android:text="忘记密码"
+            android:textSize="12sp"
+            android:textColor="@color/run_text_main"
+            android:layout_marginTop="23dp"
+            android:layout_gravity="right"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/login_btn"
+            android:text="登录"
+            android:background="@drawable/login_selector_bg"
+            android:textColor="@drawable/text_login_selector"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <Button
+            android:id="@+id/register_btn"
+            android:text="注册"
+            android:background="@drawable/login_selector_bg"
+            android:textColor="@drawable/text_login_selector"
+            android:textSize="16sp"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <Button
+            android:id="@+id/later_btn"
+            android:text="稍后注册"
+            android:textSize="16sp"
+            android:background="@drawable/login_selector_bg"
+            android:textColor="@drawable/text_login_selector"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/wechat_btn"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@mipmap/wechat_third"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp" />
+                <TextView
+                    android:text="微信登录"
+                    android:layout_marginTop="5dp"
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/weibo_btn"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@mipmap/weibo_third"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp" />
+                <TextView
+                    android:text="微博登录"
+                    android:layout_marginTop="5dp"
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/facebook_btn"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@mipmap/facebook_third"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp" />
+                <TextView
+                    android:text="Facebook"
+                    android:layout_marginTop="5dp"
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/twitter_btn"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:src="@mipmap/twitter_third"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp" />
+                <TextView
+                    android:text="Twitter登录"
+                    android:layout_marginTop="5dp"
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

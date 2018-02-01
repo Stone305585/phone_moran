@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:id="@+id/wifi_LL"
+    android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+
+    <CheckBox
+        android:id="@+id/check_device"
+        android:layout_marginLeft="35dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
+    <TextView
+        android:id="@+id/wifi_name"
+        android:text="画框名字"
+        android:layout_marginLeft="70dp"
+        android:textSize="14sp"
+        style="@style/text_common_moran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/delete"
+        android:text="移除"
+        style="@style/text_common_moran"
+        android:background="@drawable/corner_login_ring"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="50dp"
+        android:layout_height="20dp" />
+</LinearLayout>

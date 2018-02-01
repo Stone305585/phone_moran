@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.phone.moran.fragment.DevicesFragment">
+
+
+    <TextView
+        android:id="@+id/devices_des_tv"
+        android:text="暂无绑定设备"
+        android:textColor="@color/run_blue_main"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:paddingBottom="28dp"
+        android:background="@mipmap/mine_pad_bg"
+        android:layout_gravity="center"
+        android:layout_width="290dp"
+        android:layout_height="210dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/add_device"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@mipmap/mine_add"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
+            <TextView
+                android:text="添加设备"
+                android:textSize="13sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/run_blue_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/wifi_setting"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@mipmap/mine_wifi"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
+            <TextView
+                android:text="wi-fi配置"
+                android:textSize="13sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/run_blue_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

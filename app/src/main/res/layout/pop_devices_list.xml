@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.phone.moran.fragment.ConnectDevicesFragment">
+
+    <TextView
+        android:id="@+id/num_bands"
+        android:text="已绑定画框3款"
+        android:textSize="15sp"
+        android:textColor="@color/run_blue_main"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:background="@color/divider_light"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_devices"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

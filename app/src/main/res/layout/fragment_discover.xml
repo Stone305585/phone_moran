@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.phone.moran.fragment.DiscoverFragment">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--search bar-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:background="@color/run_main_color"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="26dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/search_bar"
+                        android:textSize="13sp"
+                        android:textColor="@color/run_text_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@mipmap/search_bar" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="24dp"
+                            android:src="@mipmap/search_png" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="@string/search_hint"
+                            android:textColor="@color/run_text_hint_more"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/show_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="23dp"
+                    android:layout_marginRight="6dp"
+                    android:src="@mipmap/show_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_shadow"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/recommend_btn"
+                    android:layout_width="125dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@mipmap/tab_selected_bg"
+                    android:gravity="center"
+                    android:text="@string/search_jinrituijian_tab"
+                    android:textColor="@color/run_text_main"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/today_new_btn"
+                    android:layout_width="125dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@mipmap/tab_selected_bg"
+                    android:gravity="center"
+                    android:text="@string/search_yishuxianfeng_tab"
+                    android:textColor="@color/run_text_main"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:background="@mipmap/jianbiantiao"
+                android:layout_width="match_parent"
+                android:layout_height="1.7dp" />
+
+            <FrameLayout
+                android:id="@+id/content_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
+            <!--<com.phone.moran.view.ScrollerViewPager-->
+                <!--android:id="@+id/viewpager_discver"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+
+            <!--</com.phone.moran.view.ScrollerViewPager>-->
+
+        </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

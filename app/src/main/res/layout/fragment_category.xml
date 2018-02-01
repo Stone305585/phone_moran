@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.phone.moran.fragment.CategoryFragment">
+
+    <include layout="@layout/title_bar_common"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:paddingLeft="26dp"
+        android:paddingRight="26dp"
+        android:background="@drawable/bg_shadow"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/yishu_btn"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:background="@mipmap/tab_selected_bg"
+            android:gravity="center"
+            android:text="艺术"
+            android:textColor="@color/run_text_main"
+            android:textSize="@dimen/moran_text_1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/xinqing_btn"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:background="@mipmap/tab_selected_bg"
+            android:gravity="center"
+            android:text="心情"
+            android:textColor="@color/run_text_main"
+            android:textSize="@dimen/moran_text_1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/changjing_btn"
+            android:layout_width="80dp"
+            android:layout_height="32dp"
+            android:background="@mipmap/tab_selected_bg"
+            android:gravity="center"
+            android:text="场景"
+            android:textColor="@color/run_text_main"
+            android:textSize="@dimen/moran_text_1" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@mipmap/jianbiantiao"
+        android:layout_height="3dp" />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_category"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+</LinearLayout>

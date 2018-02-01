@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_coordinator_layout"
+    android:fitsSystemWindows="true"
+    android:background="@color/run_main_color"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.phone.moran.MainActivity">
+    <!--中间内容区域-->
+    <FrameLayout
+        android:id="@+id/fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <!--发现-->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/discover_btn"
+                style="@style/tab_main_text"
+                android:checked="true"
+                android:layout_gravity="center"
+                android:drawableTop="@drawable/tab_discover"
+                android:text="@string/tab_1" />
+
+        </FrameLayout>
+
+        <!--分类-->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/category_btn"
+                android:layout_gravity="center"
+                style="@style/tab_main_text"
+                android:drawableTop="@drawable/tab_category"
+                android:text="@string/tab_2" />
+
+        </FrameLayout>
+
+        <!--画架-->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/easel_btn"
+                style="@style/tab_main_text"
+                android:layout_gravity="center"
+                android:drawableTop="@drawable/tab_easel"
+                android:text="@string/tab_3" />
+
+        </FrameLayout>
+
+        <!--我-->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/mine_btn"
+                android:layout_gravity="center"
+                style="@style/tab_main_text"
+                android:drawableTop="@drawable/tab_mine"
+                android:text="@string/tab_4" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

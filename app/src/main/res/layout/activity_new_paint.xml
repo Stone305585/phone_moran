@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/run_main_color"
+    android:fitsSystemWindows="true"
+    tools:context="com.phone.moran.activity.NewPaintActivity">
+
+    <LinearLayout
+        android:background="@color/run_main_color"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/title_bar_common" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_light"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <EditText
+                    android:id="@+id/msg_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white"
+                    android:gravity="left|top"
+                    android:hint="画单名称"
+                    android:padding="12dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/run_text_hint"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/close_btn"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="16dp"
+                    android:src="@mipmap/close" />
+            </FrameLayout>
+
+
+            <Button
+                android:id="@+id/submit_btn"
+                android:layout_width="60dp"
+                android:layout_height="33dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="26dp"
+                android:background="@mipmap/login_btn_checked"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="200dp"
+    android:layout_marginLeft="9dp"
+    android:layout_marginRight="9dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <com.phone.moran.view.roundedimageview.RoundedImageView
+        android:id="@+id/image_cover"
+        app:riv_corner_radius_bottom_right="16dp"
+        app:riv_corner_radius_top_right="16dp"
+        android:src="@mipmap/recyclerview_item"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:src="@mipmap/book_"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="5dp"
+        android:layout_width="8dp"
+        android:elevation="2dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:background="@color/transparent_grey"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:id="@+id/des_cover"
+            android:text="那些个细腻的人像油画！"
+            android:textSize="10sp"
+            android:layout_marginTop="5dp"
+            style="@style/text_common"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:gravity="right"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/num_cover"
+                android:text="134张"
+                android:textSize="8sp"
+                style="@style/text_common"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:src="@mipmap/eye"
+                android:layout_width="10dp"
+                android:layout_height="11dp" />
+
+            <TextView
+                android:id="@+id/looks_cover"
+                android:text="1348"
+                android:textSize="8sp"
+                style="@style/text_common"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

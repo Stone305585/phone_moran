@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#444444"
+    android:layout_height="240dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="添加心情"
+        android:background="#727272"
+        style="@style/text_common_moran"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="16dp"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_mood"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

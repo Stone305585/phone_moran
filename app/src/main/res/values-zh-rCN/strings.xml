@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">画架手机端</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--主页的tab-->
+    <string name="tab_1">发现</string>
+    <string name="tab_2">分类</string>
+    <string name="tab_3">画架</string>
+    <string name="tab_4">我的</string>
+    
+    <!--discover_fragment-->
+    <string name="search_hint">艺术品名称/作者</string>
+    <string name="search_jinrituijian_tab">今日推荐</string>
+    <string name="search_yishuxianfeng_tab">艺术先锋</string>
+    <string name="search_shangchuan_tab">最新上传画单</string>
+    <string name="search_zhuti_tab">最热主题画单</string>
+    <string name="dakashuo">大咖说</string>
+    <string name="dujingcai">读精彩</string>
+    <string name="lijifenxiang">立即分享</string>
+    <string name="chushifenlei">初始分类</string>
+    <string name="zidingyi">用户自定义</string>
+
+
+    <string name="net_dissconncted">网络失去连接</string>
+    <string name="exit_fenghuo">再次按返回键退出</string>
+</resources>

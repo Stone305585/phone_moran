@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:background="#e4e4e4"
+    android:orientation="horizontal"
+    android:layout_height="100dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/frame_size_0"
+        android:background="#b6b6b6"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="无内衬"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:background="@color/divider_deep"
+        android:layout_width="1dp"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/frame_size_2"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@mipmap/frame_size2"
+            android:paddingTop="28dp"
+            android:scaleType="fitXY"
+            android:paddingLeft="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="2.5cm"
+            android:layout_gravity="right"
+            android:layout_marginTop="47dp"
+            android:textColor="#444444"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+    <TextView
+        android:background="@color/divider_deep"
+        android:layout_width="1dp"
+        android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/frame_size_5"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@mipmap/frame_size5"
+            android:paddingTop="28dp"
+            android:scaleType="fitXY"
+            android:paddingLeft="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="5cm"
+            android:layout_gravity="right"
+            android:layout_marginTop="47dp"
+            android:textColor="#444444"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+    <TextView
+        android:background="@color/divider_deep"
+        android:layout_width="1dp"
+        android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/frame_size_7"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@mipmap/frame_size7"
+            android:paddingTop="28dp"
+            android:scaleType="fitXY"
+            android:paddingLeft="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="7.5cm"
+            android:layout_gravity="right"
+            android:layout_marginTop="47dp"
+            android:textColor="#444444"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+    <TextView
+        android:background="@color/divider_deep"
+        android:layout_width="1dp"
+        android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/frame_size_10"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@mipmap/frame_size10"
+            android:paddingTop="28dp"
+            android:scaleType="fitXY"
+            android:paddingLeft="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="10cm"
+            android:layout_gravity="right"
+            android:layout_marginTop="47dp"
+            android:textColor="#444444"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+</LinearLayout>

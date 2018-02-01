@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="@drawable/corner_bg_white_pop_tips"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <TextView
+        android:text="性别"
+        style="@style/text_common_moran"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="男"
+            android:gravity="left|center_vertical"
+            style="@style/text_common_moran"
+            android:layout_width="0dp"
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/male_btn"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:background="@color/divider_light"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <TextView
+            android:text="女"
+            android:gravity="left|center_vertical"
+            style="@style/text_common_moran"
+            android:textSize="15sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:id="@+id/female_btn"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--风格流派-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/category_bar" />
+
+                <TextView
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="按风格流派"
+                    android:textSize="@dimen/moran_text_1" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fengge_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:padding="5dp"></android.support.v7.widget.RecyclerView>
+
+            <!--画作品流派-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/category_bar" />
+
+                <TextView
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="按风画作品流派"
+                    android:textSize="@dimen/moran_text_1" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/zuopin_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="390dp"></android.support.v7.widget.RecyclerView>
+
+            <!--年代时间轴流派-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/category_bar" />
+
+                <TextView
+                    style="@style/text_common_moran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="按年代时间轴"
+                    android:textSize="@dimen/moran_text_1" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/niandai_recycler"
+                android:layout_marginBottom="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"></android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

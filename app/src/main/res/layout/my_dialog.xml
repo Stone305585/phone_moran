@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:paddingLeft="29dp"
+    android:paddingRight="29dp"
+    android:paddingTop="44dp"
+    android:paddingBottom="34dp"
+    android:background="@drawable/corner_bg_white_pop"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <TextView
+        android:id="@+id/message_dialog"
+        android:text="设置自己应该所属的性别设置自己应该所属的性别"
+        android:lineSpacingExtra="12dp"
+        style="@style/text_common_moran"
+        android:textColor="@color/run_blue_main"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="19dp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="45dp">
+        <TextView
+            android:id="@+id/ok_btn"
+            android:text="确定"
+            android:gravity="center"
+            android:layout_gravity="center"
+            style="@style/text_common_moran"
+            android:layout_width="110dp"
+            android:textColor="@color/white"
+            android:background="@mipmap/dialog_ok_bg"
+            android:textSize="13sp"
+            android:layout_height="40dp" />
+        <TextView
+            android:id="@+id/default_dialog"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/cancel_btn"
+            android:text="取消"
+            android:gravity="center"
+            style="@style/text_common_moran"
+            android:layout_width="110dp"
+            android:textColor="@color/run_text_main"
+            android:background="@mipmap/dialog_cancel_bg"
+            android:textSize="13sp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+</LinearLayout>

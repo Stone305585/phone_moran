@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:orientation="horizontal"
+    android:background="#000000"
+    tools:context="com.phone.moran.fragment.ShareMaterialFragment">
+
+
+    <FrameLayout
+        android:id="@+id/none_huawen"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_gravity="center"
+            android:text="无花纹"
+            style="@style/text_common_moran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/huawen1"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/huawen1" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:id="@+id/huawen2"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/huawen2" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:id="@+id/huawen3"
+        android:layout_width="50dp"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/huawen3" />
+    </FrameLayout>
+</LinearLayout>

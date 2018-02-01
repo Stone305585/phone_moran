@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/run_main_color"
+    tools:context="com.phone.moran.activity.TipActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/title_bar_common"/>
+
+            <FrameLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <ImageView
+                    android:id="@+id/material_background"
+                    android:src="@mipmap/recyclerview_item"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/nine_position"
+                    android:src="@mipmap/nine_position"
+                    android:foreground="@mipmap/nine_position1"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp">
+                        <ImageView
+                            android:id="@+id/pos1"
+                            android:src="@mipmap/nine_selected"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+                        <ImageView
+                            android:id="@+id/pos2"
+                            android:src="@mipmap/nine_selected"
+                            android:scaleType="centerCrop"
+                            android:layout_weight="1"
+                            android:visibility="invisible"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp">
+
+                        <ImageView
+                            android:id="@+id/pos4"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/nine_selected"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:visibility="invisible"
+                            android:layout_height="match_parent" />
+                        <ImageView
+                            android:id="@+id/pos5"
+                            android:src="@mipmap/nine_selected"
+                            android:scaleType="centerCrop"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:visibility="invisible"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tip_tv"
+                    android:text="老婆，\n         祝你生日快乐。"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="70dp"
+                    android:lineSpacingExtra="8dp"
+                    android:background="@mipmap/material_tip1"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="50dp"
+                    android:layout_width="288dp"
+                    android:layout_height="238dp" />
+
+                <com.phone.moran.view.MoveImageView
+                    android:id="@+id/position_tip"
+                    android:src="@mipmap/yu_tip"
+                    android:scaleType="centerCrop"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="75dp"
+                    android:layout_width="48dp"
+                    android:layout_height="52dp" />
+
+                <ImageView
+                    android:id="@+id/tip_tip"
+                    android:src="@mipmap/tip_tip"
+                    android:layout_width="30dp"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginTop="40dp"
+                    android:visibility="gone"
+                    android:layout_height="30dp" />
+
+                <LinearLayout
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical"
+                    android:background="@color/bg_light"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="40dp">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            style="@style/text_common_moran"
+                            android:textSize="14sp"
+                            android:layout_marginRight="5dp"
+                            android:text="显示到画框端"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <com.gc.materialdesign.views.Switch
+                            android:id="@+id/tip_switch"
+                            android:layout_marginRight="3dp"
+                            android:layout_width="60dp"
+                            android:layout_height="35dp"></com.gc.materialdesign.views.Switch>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/material_LL"
+                        android:paddingLeft="44dp"
+                        android:paddingRight="44dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <RadioButton
+                            android:id="@+id/material_1"
+                            android:text="宣纸"
+                            style="@style/text_common_moran"
+                            android:textSize="11sp"
+                            android:button="@null"
+                            android:background="@drawable/material_bg1_selector"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent" />
+
+                        <RadioButton
+                            android:id="@+id/material_2"
+                            android:text="画布"
+                            style="@style/text_common_moran"
+                            android:button="@null"
+                            android:textSize="11sp"
+                            android:background="@drawable/material_bg1_selector"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent" />
+
+                        <RadioButton
+                            android:id="@+id/material_3"
+                            android:text="刻印"
+                            android:button="@null"
+                            style="@style/text_common_moran"
+                            android:textSize="11sp"
+                            android:background="@drawable/material_bg1_selector"
+                            android:layout_width="38dp"
+                            android:layout_height="38dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+
+            </FrameLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:scrollbars="none"
+                app:tabIndicatorColor="@color/run_blue_main"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="fixed"
+                app:tabPaddingBottom="0dp"
+                app:tabPaddingStart="2dp"
+                app:tabPaddingEnd="2dp"
+                app:tabPaddingTop="0dp"
+                app:tabTextColor="@color/run_text_main"
+                app:tabSelectedTextColor="@color/run_blue_main" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/tip_tip_bg"
+            android:visibility="gone"
+            android:background="@mipmap/tip_gauss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/click_gone_iv"
+                android:background="@mipmap/tip_tip_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <ImageView
+                android:layout_marginTop="142dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/read_me"
+                android:layout_width="32dp"
+                android:layout_height="70dp" />
+
+            <TextView
+                android:layout_marginLeft="65dp"
+                android:layout_marginRight="65dp"
+                style="@style/text_common"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:lineSpacingExtra="17dp"
+                android:text="此功能需绑定墨染数字画框使用\n底部点选便签材质、位置\n右上角按钮推送到数字画框硬件端"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

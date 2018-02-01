@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_gravity="center_vertical"
+    android:layout_height="wrap_content"
+    tools:context="com.phone.moran.fragment.ConnectDevicesFragment">
+
+    <TextView
+        android:text="添加到画单"
+        style="@style/text_common_moran"
+        android:textSize="18sp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:background="@color/bg_light"
+        android:layout_width="match_parent"
+        android:layout_height="42dp" />
+
+    <TextView
+        android:background="@color/divider_light"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_paints"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

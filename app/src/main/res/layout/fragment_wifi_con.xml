@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_light"
+    android:layout_height="match_parent"
+    tools:context="com.phone.moran.fragment.WifiConFragment">
+
+
+    <LinearLayout
+        android:id="@+id/input_pass_LL"
+        android:orientation="vertical"
+        android:background="@color/bg_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:text="请输入密码"
+            android:gravity="top"
+            android:layout_marginTop="25dp"
+            style="@style/text_common_moran"
+            android:textSize="14sp"
+            android:textColor="@color/run_blue_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/name_wifi"
+            android:text="wifi名字"
+            android:gravity="top"
+            android:layout_marginTop="7dp"
+            android:textSize="14sp"
+            style="@style/text_common_moran"
+            android:textColor="@color/run_blue_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/password_et"
+            android:inputType="textPassword"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <LinearLayout
+            android:gravity="right"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/join_btn"
+                android:text="加入"
+                android:background="@drawable/corner_moran_ring_little"
+                style="@style/text_common_moran"
+                android:layout_width="60dp"
+                android:layout_height="26dp" />
+
+            <TextView
+                android:id="@+id/cancel_btn"
+                android:text="取消"
+                android:background="@drawable/corner_moran_ring_little"
+                style="@style/text_common_moran"
+                android:layout_marginRight="15dp"
+                android:layout_width="60dp"
+                android:layout_marginLeft="14dp"
+                android:layout_height="26dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/res_img"
+        android:layout_gravity="center"
+        android:background="@drawable/red_tip"
+        android:layout_marginTop="60dp"
+        android:scaleType="centerCrop"
+        android:layout_width="170dp"
+        android:layout_height="170dp" />
+
+</LinearLayout>

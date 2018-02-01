@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_common"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height"
+    android:background="@color/run_main_color"
+    android:fitsSystemWindows="true"
+    app:contentInsetStart="8dp"
+    app:layout_collapseMode="pin">
+
+    <LinearLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back_title"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:paddingRight="20dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="活动详情"
+            android:textColor="#2F5B99"
+            android:textSize="@dimen/textsize5" />
+
+
+
+        <TextView
+            android:id="@+id/right_text_btn"
+            android:layout_width="45dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="删除" />
+
+        <ImageView
+            android:id="@+id/right_image_btn1"
+            android:layout_width="45dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:paddingLeft="7dp"
+            android:paddingRight="13dp"
+            android:src="@mipmap/upload" />
+
+        <ImageView
+            android:id="@+id/right_image_btn2"
+            android:layout_width="45dp"
+            android:visibility="gone"
+            android:layout_height="match_parent"
+            android:paddingLeft="7dp"
+            android:paddingRight="13dp"
+            android:src="@mipmap/upload" />
+
+        <ImageView
+            android:id="@+id/right_image_btn3"
+            android:layout_width="45dp"
+            android:visibility="invisible"
+            android:layout_height="match_parent"
+            android:paddingLeft="7dp"
+            android:paddingRight="13dp"
+            android:src="@mipmap/upload" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.Toolbar>
+

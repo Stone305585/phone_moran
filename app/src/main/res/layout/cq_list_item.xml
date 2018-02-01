@@ -1,0 +1,48 @@
+<LinearLayout android:layout_width="match_parent"
+    android:id="@+id/cq_LL"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:layout_height="160dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.phone.moran.view.roundedimageview.RoundedImageView
+        android:id="@+id/cq_image"
+        android:src="@mipmap/recyclerview_item"
+        android:scaleType="centerCrop"
+        app:riv_corner_radius="8dp"
+        android:layout_width="135dp"
+        android:layout_height="135dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="15dp"
+        android:paddingLeft="7dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/cq_title"
+            style="@style/text_common"
+            android:layout_gravity="top"
+            android:text="艺术的终结——丹托刘迪对话录"
+            android:textColor="@color/run_text_main"
+            android:textSize="13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/cq_text"
+            android:text="丹托：丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录"
+            android:lineSpacingExtra="15dp"
+            android:textSize="11sp"
+            android:textColor="@color/run_text_hint"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="170dp">
+
+    <ImageView
+        android:id="@+id/local_bg"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@mipmap/local_bg"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/item_LL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="43dp"
+        android:orientation="horizontal"
+        android:paddingLeft="54dp"
+        android:paddingRight="45dp">
+
+        <LinearLayout
+            android:id="@+id/paint_1_LL"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="87dp"
+                android:layout_height="87dp">
+                <com.phone.moran.view.roundedimageview.RoundedImageView
+                    android:layout_gravity="left|bottom"
+                    android:id="@+id/paint_1"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher"
+                    app:riv_corner_radius="7dp" />
+                <ImageView
+                    android:id="@+id/close_1"
+                    android:visibility="gone"
+                    android:layout_gravity="right|top"
+                    android:src="@mipmap/close"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
+            </FrameLayout>
+
+
+
+            <TextView
+                android:id="@+id/paint_title1"
+                style="@style/text_common_moran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="22dp"
+                android:text="我的画单" />
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/paint_2_LL"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="87dp"
+                android:layout_height="87dp">
+                <com.phone.moran.view.roundedimageview.RoundedImageView
+                    android:layout_gravity="left|bottom"
+                    android:id="@+id/paint_2"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher"
+                    app:riv_corner_radius="7dp" />
+                <ImageView
+                    android:id="@+id/close_2"
+                    android:layout_gravity="right|top"
+                    android:src="@mipmap/close"
+                    android:visibility="gone"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/paint_title2"
+                style="@style/text_common_moran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="22dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/paint_3_LL"
+            android:layout_width="94dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="87dp"
+                android:layout_height="87dp">
+                <com.phone.moran.view.roundedimageview.RoundedImageView
+                    android:layout_gravity="left|bottom"
+                    android:id="@+id/paint_3"
+                    android:layout_width="79dp"
+                    android:layout_height="79dp"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_launcher"
+                    app:riv_corner_radius="7dp" />
+                <ImageView
+                    android:id="@+id/close_3"
+                    android:layout_gravity="right|top"
+                    android:src="@mipmap/close"
+                    android:visibility="gone"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/paint_title3"
+                style="@style/text_common_moran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="22dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:bottom="@dimen/overly_border_double" android:right="@dimen/overly_border_double" android:left="6dp">
+        <shape android:shape="rectangle" >
+            <size android:height="40dp" android:width="40dp"/>
+            <stroke android:width="0.7dp" android:color="#b4b5b6"/>
+            <solid android:color="#ffffff" />
+            <corners
+                    android:radius="4dp"/>
+        </shape>
+    </item>
+    <item android:top="@dimen/overly_border" android:left="@dimen/overly_border" android:bottom="@dimen/overly_border" android:right="@dimen/overly_border">
+        <shape android:shape="rectangle">
+            <size android:height="40dp" android:width="40dp"/>
+            <stroke android:width="0.7dp" android:color="#b4b5b6"/>
+            <solid android:color="#ffffff" />
+            <corners
+                android:radius="4dp" />
+        </shape>
+    </item>
+    <item android:top="@dimen/overly_border_double">
+        <shape android:shape="rectangle">
+            <size android:height="40dp" android:width="40dp"/>
+            <stroke android:width="0.7dp" android:color="#b4b5b6"/>
+            <solid android:color="#ffffff" />
+            <corners
+                android:radius="4dp" />
+        </shape>
+    </item>
+</layer-list>
