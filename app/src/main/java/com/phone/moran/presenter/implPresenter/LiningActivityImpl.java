@@ -47,7 +47,7 @@ public class LiningActivityImpl extends BasePresenterImpl implements ILiningActi
 
             Map<String, Integer> map = new HashMap<>();
             map.put("frame_colour", frame_colour);
-            map.put("frame_size", frame_size);
+            map.put("frame_size", ++frame_size);
             final Subscription subscription = RetrofitUtils.api()
                     .addFrame(getBody(map))
                     .map(new Func1<Back, Back>() {

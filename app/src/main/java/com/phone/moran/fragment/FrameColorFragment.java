@@ -123,20 +123,34 @@ public class FrameColorFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
 
+        if(mListener == null)
+            return;
+
+        frameColor5.setBackground(null);
+        frameColor4.setBackground(null);
+        frameColor3.setBackground(null);
+        frameColor2.setBackground(null);
+        frameColor1.setBackground(null);
+
         switch (v.getId()) {
             case R.id.frame_color_1:
+                frameColor1.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentColorInteraction(1);
                 break;
             case R.id.frame_color_2:
+                frameColor2.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentColorInteraction(2);
                 break;
             case R.id.frame_color_3:
+                frameColor3.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentColorInteraction(3);
                 break;
             case R.id.frame_color_4:
+                frameColor4.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentColorInteraction(4);
                 break;
             case R.id.frame_color_5:
+                frameColor5.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentColorInteraction(5);
                 break;
         }
@@ -145,7 +159,6 @@ public class FrameColorFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     /**
@@ -161,5 +174,14 @@ public class FrameColorFragment extends BaseFragment implements View.OnClickList
     public interface OnFragmentColorListener {
         // TODO: Update argument type and name
         void onFragmentColorInteraction(int color);
+    }
+
+
+    public OnFragmentColorListener getmListener() {
+        return mListener;
+    }
+
+    public void setmListener(OnFragmentColorListener mListener) {
+        this.mListener = mListener;
     }
 }

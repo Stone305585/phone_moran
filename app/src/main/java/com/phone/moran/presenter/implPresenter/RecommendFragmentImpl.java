@@ -62,6 +62,8 @@ public class RecommendFragmentImpl extends BasePresenterImpl implements IRecomme
                     @Override
                     public void onNext(RecommendHomeBack allJourneysBack) {
 
+                        SLogger.d("<<", "--recommend-->>>" + JSON.toJSONString(allJourneysBack));
+
                         recommendFragment.hidProgressDialog();
 
                         if (allJourneysBack.getRet() == Constant.SUCCESSRESPONSE) {

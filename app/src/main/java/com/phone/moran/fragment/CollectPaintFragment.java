@@ -11,15 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSON;
 import com.phone.moran.R;
 import com.phone.moran.activity.PaintActivity;
 import com.phone.moran.adapter.LocalRecyclerAdapter;
 import com.phone.moran.config.Constant;
 import com.phone.moran.event.CollectEvent;
+import com.phone.moran.event.LogoutEvent;
 import com.phone.moran.model.LocalPaintArray;
 import com.phone.moran.model.LocalPaints;
 import com.phone.moran.model.Paint;
+import com.phone.moran.tools.PreferencesUtils;
+import com.phone.moran.tools.SLogger;
+import com.phone.moran.tools.diskCache.DiskLruCacheHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +54,7 @@ public class CollectPaintFragment extends BaseFragment {
 
     LocalRecyclerAdapter localRecyclerAdapter;
     private List<LocalPaintArray> list = new ArrayList<>();
+    private boolean needRefresh = false;
 
 
     public CollectPaintFragment() {
@@ -108,14 +115,38 @@ public class CollectPaintFragment extends BaseFragment {
         recyclerMineP.setAdapter(localRecyclerAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(needRefresh) {
+            try {
+                diskLruCacheHelper = new DiskLruCacheHelper(getActivity());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            initLocalCollect();
+            localRecyclerAdapter.notifyDataSetChanged();
+            needRefresh = false;
+        }
+    }
+
     /**
      * 填充本地的收藏的list
      */
     private void initLocalCollect() {
-        list.clear();
+
+
+        userId = PreferencesUtils.getString(getActivity(), Constant.USER_ID);
 
         if (diskLruCacheHelper.getAsSerializable(Constant.LOCAL_COLLECT + userId) != null) {
+
+            list.clear();
+
             ArrayList<Paint> localPaints = ((LocalPaints) diskLruCacheHelper.getAsSerializable(Constant.LOCAL_COLLECT + userId)).getPaints();
+
+            SLogger.d("<<", "-->>COLLECT--->>>" + JSON.toJSONString(localPaints));
 
             int size = localPaints.size();
 
@@ -125,7 +156,7 @@ public class CollectPaintFragment extends BaseFragment {
             //剩下几个不够一行
             int rest = size % 3;
 
-            if (rows > 1) {
+            if (rows > 1 && rest != 0) {
                 for (int j = 0; j < rows - 1; j++) {
                     LocalPaintArray l = new LocalPaintArray();
                     l.setPaint1(localPaints.get(3 * j));
@@ -134,6 +165,14 @@ public class CollectPaintFragment extends BaseFragment {
                     list.add(l);
                 }
 
+            } else if (rest == 0 && rows > 0) {
+                for (int k = 0; k < rows; k++) {
+                    LocalPaintArray l = new LocalPaintArray();
+                    l.setPaint1(localPaints.get(3 * k));
+                    l.setPaint2(localPaints.get(3 * k + 1));
+                    l.setPaint3(localPaints.get(3 * k + 2));
+                    list.add(l);
+                }
             }
 
             if (rest > 0) {
@@ -227,13 +266,19 @@ public class CollectPaintFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
 
     public void onEventMainThread(CollectEvent event) {
 
-        initLocalCollect();
+        needRefresh = true;
+//        initLocalCollect();
+//        localRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    public void onEventMainThread(LogoutEvent event) {
+
+        list.clear();
         localRecyclerAdapter.notifyDataSetChanged();
     }
 

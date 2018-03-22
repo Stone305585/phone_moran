@@ -133,7 +133,7 @@ public class CategoryDetailActivityImpl extends BasePresenterImpl implements ICa
 
                             try {
                                 allJourneysBack.getPaint_detail().setLast_id(allJourneysBack.getLast_id());
-                                categoryDetailActivity.updateMain(allJourneysBack.getPaint_detail().getPicture_info(), allJourneysBack.getLast_id());
+                                categoryDetailActivity.updateMain(allJourneysBack.getPaint_detail(), allJourneysBack.getPaint_detail().getPicture_info(), allJourneysBack.getLast_id());
                             } catch (ClassCastException e) {
                                 SLogger.d("<<", "异常");
                                 e.printStackTrace();
@@ -187,7 +187,7 @@ public class CategoryDetailActivityImpl extends BasePresenterImpl implements ICa
 
                             try {
                                 allJourneysBack.getPaint_detail().setLast_id(allJourneysBack.getLast_id());
-                                categoryDetailActivity.updateMain(allJourneysBack.getPaint_detail().getPicture_info(), allJourneysBack.getLast_id());
+                                categoryDetailActivity.updateMain(allJourneysBack.getPaint_detail(), allJourneysBack.getPaint_detail().getPicture_info(), allJourneysBack.getLast_id());
                             } catch (ClassCastException e) {
                                 SLogger.d("<<", "异常");
                                 e.printStackTrace();

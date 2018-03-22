@@ -53,7 +53,7 @@ public class MineCollectAdapter extends BaseRecyclerAdapter<Paint> {
         }
 
         mHolder.collectTitle.setText(paint.getPaint_title());
-        mHolder.collectNum.setText(String.valueOf(paint.getPicture_info().size()) + "张");
+        mHolder.collectNum.setText(String.valueOf(paint.getPicture_info().size()) + mContext.getResources().getString(R.string.pages));
 
         if (itemClickListener != null) {
             mHolder.collectLL.setOnClickListener(new View.OnClickListener() {

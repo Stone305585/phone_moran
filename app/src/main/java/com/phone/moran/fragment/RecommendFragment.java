@@ -282,6 +282,8 @@ public class RecommendFragment extends BaseFragment implements IRecommendFragmen
         newArray.addAll(recommendHomeArray.getNew_arry());
         hotArray.addAll(recommendHomeArray.getHot_arry());
 
+        diskLruCacheHelper.put(Constant.LAST_PAINT, newArray.get(0));
+
         initDataSource();
     }
 
@@ -324,7 +326,6 @@ public class RecommendFragment extends BaseFragment implements IRecommendFragmen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override

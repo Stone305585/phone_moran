@@ -39,6 +39,20 @@ public class TipsActivityImpl extends BasePresenterImpl implements ITipsActivity
     @Override
     public void uploadTips(String tipContent, int texture, int pos, int pushFlag) {
 
+        switch (pos) {
+            case 1:
+                pos = 1;
+                break;
+            case 2:
+                pos = 2;
+                break;
+            case 4:
+                pos = 3;
+                break;
+            case 5:
+                pos = 4;
+                break;
+        }
         Map<String, Object> map = new HashMap<>();
         map.put("tips_content", tipContent);
         map.put("tips_texture", texture);

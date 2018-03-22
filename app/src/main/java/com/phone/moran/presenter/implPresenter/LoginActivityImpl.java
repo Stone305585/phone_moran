@@ -8,10 +8,12 @@ import com.phone.moran.activity.RegisterActivity;
 import com.phone.moran.config.Constant;
 import com.phone.moran.model.Back;
 import com.phone.moran.model.RegisterBack;
+import com.phone.moran.model.ThirdLoginInfo;
 import com.phone.moran.model.UserBack;
 import com.phone.moran.presenter.ILoginActivityPresenter;
 import com.phone.moran.tools.SLogger;
 import com.phone.moran.tools.net.RetrofitUtils;
+import com.phone.moran.wxapi.WXEntryActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,7 @@ import rx.schedulers.Schedulers;
  */
 public class LoginActivityImpl extends BasePresenterImpl implements ILoginActivityPresenter{
     private LoginActivity loginActivity;
+    private WXEntryActivity wxEntryActivity;
     RegisterActivity registerActivity;
     private String token;
 
@@ -40,6 +43,13 @@ public class LoginActivityImpl extends BasePresenterImpl implements ILoginActivi
     public LoginActivityImpl(Context context, String token, RegisterActivity registerActivity) {
         super(context);
         this.registerActivity = registerActivity;
+        this.token = token;
+    }
+
+    public LoginActivityImpl(Context context,  WXEntryActivity wxEntryActivity) {
+        super(context);
+
+        this.wxEntryActivity = wxEntryActivity;
         this.token = token;
     }
 
@@ -201,5 +211,62 @@ public class LoginActivityImpl extends BasePresenterImpl implements ILoginActivi
         addSubscription(subscription);
     }
 
+
+    @Override
+    public void thirdBind(ThirdLoginInfo t) {
+        loginActivity.showProgressDialog();
+        Map<String, Object> map = new HashMap<>();
+        map.put("auth_token", t.getAuth_token());
+        map.put("register_type", t.getRegister_type());
+
+        final Subscription subscription = RetrofitUtils.api()
+                .bindThird(getBody(map))
+                .map(new Func1<RegisterBack, RegisterBack>() {
+                    @Override
+                    public RegisterBack call(RegisterBack RegisterBack) {
+                        return RegisterBack;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RegisterBack>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        SLogger.d("<<", "-->" + JSON.toJSONString(e.getMessage()));
+
+                        loginActivity.hidProgressDialog();
+                        loginActivity.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(RegisterBack allJourneysBack) {
+
+                        loginActivity.hidProgressDialog();
+                        SLogger.d("<<", "-->" + JSON.toJSONString(allJourneysBack));
+
+                        if (allJourneysBack.getRet() == Constant.SUCCESSRESPONSE) {
+
+                            try {
+                                loginActivity.loginSuccess(allJourneysBack);
+                            } catch (ClassCastException e) {
+                                SLogger.d("<<", "异常");
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            loginActivity.showError(allJourneysBack.getErr());
+                        }
+
+
+                    }
+                });
+
+        addSubscription(subscription);
+    }
 
 }

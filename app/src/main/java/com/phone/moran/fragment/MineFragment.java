@@ -14,15 +14,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.phone.moran.HHApplication;
 import com.phone.moran.MainActivity;
 import com.phone.moran.R;
-import com.phone.moran.activity.LoginActivity;
+import com.phone.moran.activity.PlayPictureActivity;
 import com.phone.moran.activity.SettingActivity;
 import com.phone.moran.activity.UserInfoActivity;
 import com.phone.moran.config.Constant;
+import com.phone.moran.event.LogoutEvent;
+import com.phone.moran.model.Paint;
 import com.phone.moran.tools.ImageLoader;
 import com.phone.moran.tools.PreferencesUtils;
+import com.phone.moran.tools.SLogger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +58,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     ImageView mineBg;
     @BindView(R.id.name_tv)
     TextView nameTv;
+    @BindView(R.id.show_btn)
+    ImageView showBtn;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -138,37 +142,46 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         editMineBtn.setOnClickListener(this);
         settingBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
+
+        showBtn.setOnClickListener(this);
+
     }
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.edit_mine_btn:
-                if (HHApplication.loginFlag) {
+                if (!goLogin()) {
                     startActivity(new Intent(getActivity(), UserInfoActivity.class));
-                } else
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
                 break;
 
             case R.id.setting_btn:
-                if (HHApplication.loginFlag) {
+                if(!goLogin()) {
                     startActivity(new Intent(getActivity(), SettingActivity.class));
-                } else
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                }
                 break;
 
             case R.id.back_btn:
+
+                SLogger.d("<<", "--->>>close");
                 String flag = mainActivity.getFlag();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.hide(mainActivity.getMineF());
-                ft.show(devicesFragment);
+//                if (mainActivity.getMineF() instanceof WifiListFragment || mainActivity.getMineF() instanceof ScanCodeFragment){
+//                    SLogger.d("<<", "++++====>>1111");
+                showFragment(devicesFragment);
+//                }
+//                else if (mainActivity.getMineF() instanceof WifiConFragment) {
+//                    SLogger.d("<<", "++++====>>22222");
+//                    showFragment(devicesFragment.getWifiListFragment());
+//                }
 //
 //                switch (flag) {
 //                    case MainActivity.DEVICE:
@@ -182,6 +195,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 //                        break;
 //                }
                 ft.commit();
+                break;
+
+            case R.id.show_btn:
+                Paint paint = diskLruCacheHelper.getAsSerializable(Constant.LAST_PAINT);
+                Intent intent = new Intent(getActivity(), PlayPictureActivity.class);
+                intent.putExtra(Constant.PAINT, paint);
+                startActivity(intent);
                 break;
 
         }
@@ -203,10 +223,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if (!fragment.isAdded())
             ft.add(R.id.mine_content, fragment);
         ft.hide(mainActivity.getMineF());
-        ft.show(fragment);
-        ft.commit();
 
         ((MainActivity) getActivity()).setMineF(fragment);
+
+        ft.show(fragment);
+        ft.commit();
 
     }
 
@@ -231,6 +252,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             nameTv.setText(username);
         else
             nameTv.setText("未设置");
+
+    }
+
+    public void onEventMainThread(LogoutEvent event) {
+
+        editMineBtn.setImageDrawable(getResources().getDrawable(R.mipmap.mine_default_head));
+        mineBg.setImageDrawable(getResources().getDrawable(R.mipmap.mine_head_bg));
+        nameTv.setText("未设置");
 
     }
 }

@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/approve"
-        android:text="拒绝"
+        android:text="@string/deny"
         style="@style/text_common_moran"
         android:background="@drawable/corner_login_ring"
         android:paddingLeft="7dp"

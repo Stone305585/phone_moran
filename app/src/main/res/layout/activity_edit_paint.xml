@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="32dp"
-                    android:text="更换封面"
+                    android:text="@string/change_cover"
                     android:textColor="@color/run_text_main"
                     android:textSize="15sp" />
 
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="32dp"
-                    android:text="名称"
+                    android:text="@string/paint_name"
                     android:textColor="@color/run_text_main"
                     android:textSize="15sp" />
 
@@ -90,7 +90,6 @@
                     android:gravity="right"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/recyclerview_item"
-                    android:text="吴冠中思乡主题"
                     android:textColor="@color/run_text_gray"
                     android:textSize="13sp" />
 
@@ -115,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="32dp"
-                    android:text="介绍"
+                    android:text="@string/person_des"
                     android:textColor="@color/run_text_main"
                     android:textSize="15sp" />
 
@@ -141,7 +140,7 @@
                     android:gravity="left"
                     android:scaleType="centerCrop"
                     android:maxLength="36"
-                    android:hint="画单介绍"
+                    android:hint="@string/person_des"
                     android:src="@mipmap/recyclerview_item"
                     android:textColorHint="@color/run_text_gray"
                     android:textColor="@color/black"
@@ -170,7 +169,7 @@
                 android:layout_height="55dp"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="确定"
+                android:text="@string/yes"
                 android:textColor="@color/run_text_main"
                 android:textSize="17sp" />
         </LinearLayout>

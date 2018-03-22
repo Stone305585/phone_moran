@@ -22,7 +22,7 @@
             android:layout_height="32dp"
             android:background="@mipmap/tab_selected_bg"
             android:gravity="center"
-            android:text="艺术"
+            android:text="@string/art"
             android:textColor="@color/run_text_main"
             android:textSize="@dimen/moran_text_1" />
 
@@ -37,7 +37,7 @@
             android:layout_height="32dp"
             android:background="@mipmap/tab_selected_bg"
             android:gravity="center"
-            android:text="心情"
+            android:text="@string/mood"
             android:textColor="@color/run_text_main"
             android:textSize="@dimen/moran_text_1" />
 
@@ -52,7 +52,7 @@
             android:layout_height="32dp"
             android:background="@mipmap/tab_selected_bg"
             android:gravity="center"
-            android:text="场景"
+            android:text="@string/scenes"
             android:textColor="@color/run_text_main"
             android:textSize="@dimen/moran_text_1" />
     </LinearLayout>

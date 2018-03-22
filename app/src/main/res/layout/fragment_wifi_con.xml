@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/cancel_btn"
-                android:text="取消"
+                android:text="@string/cancel"
                 android:background="@drawable/corner_moran_ring_little"
                 style="@style/text_common_moran"
                 android:layout_marginRight="15dp"

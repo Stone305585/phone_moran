@@ -2,6 +2,10 @@ package com.phone.moran.fragment;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -137,7 +141,6 @@ public class WifiConFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override
@@ -148,13 +151,13 @@ public class WifiConFragment extends BaseFragment implements View.OnClickListene
 
                 String password = passwordEt.getText().toString();
                 if (TextUtils.isEmpty(password)) {
-                    AppUtils.showToast(getActivity().getApplicationContext(), "请输入密码");
+                    AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.type_password));
                 } else {
                     dialog.show();
                     boolean res = wifiConnect.connect(ssid, password, cipherType);
                     if (res) {
                         //TODO 链接成功 调用回掉接口
-                        AppUtils.showToast(getActivity().getApplicationContext(), "连接成功");
+//                        AppUtils.showToast(getActivity().getApplicationContext(), "连接成功");
                         inputPassLL.setVisibility(View.GONE);
                         resImg.setVisibility(View.VISIBLE);
 
@@ -167,7 +170,7 @@ public class WifiConFragment extends BaseFragment implements View.OnClickListene
                             } else {
                                 type = 0;
                             }
-                            resImg.setImageBitmap(EncodingHandler.createQRCode(ssid + "&" + password + "&" +type, 350));
+                            resImg.setImageBitmap(convert(EncodingHandler.createQRCode(ssid + "&" + password + "&" +type, 350)));
                             dialog.dismiss();
 
                         } catch (Exception e) {
@@ -186,6 +189,25 @@ public class WifiConFragment extends BaseFragment implements View.OnClickListene
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
         }
+    }
+
+    /**
+     * 转换二维码为镜像
+     * @param a
+     * @return
+     */
+    Bitmap convert(Bitmap a)
+    {
+        int w = a.getWidth();
+        int h = a.getHeight();
+        Bitmap newb = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);// 创建一个新的和SRC长度宽度一样的位图
+        Canvas cv = new Canvas(newb);
+        Matrix m = new Matrix();
+        m.postScale(-1, 1);   //镜像水平翻转
+        m.postRotate(-90);  //旋转-90度
+        Bitmap new2 = Bitmap.createBitmap(a, 0, 0, w, h, m, true);
+        cv.drawBitmap(new2, new Rect(0, 0, new2.getWidth(), new2.getHeight()),new Rect(0, 0, w, h), null);
+        return newb;
     }
 
     public String getSsid() {

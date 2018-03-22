@@ -70,8 +70,10 @@
 
                 <TextView
                     android:id="@+id/search_btn"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="23dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="6dp"
                     android:gravity="center"
@@ -96,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="最近搜索"
+                        android:text="@string/recent_search"
                         android:textColor="@color/run_blue_main"
                         android:textSize="16sp" />
 
@@ -138,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="热门搜索"
+                        android:text="@string/hot_search"
                         android:textColor="@color/run_blue_main"
                         android:textSize="16sp" />
 

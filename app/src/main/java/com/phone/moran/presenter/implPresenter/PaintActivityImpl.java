@@ -141,11 +141,11 @@ public class PaintActivityImpl extends BasePresenterImpl implements IPaintActivi
                     @Override
                     public void onNext(PaintBack allJourneysBack) {
 
+                        SLogger.d("<<", "->>>>>>>>>>>>>" + JSON.toJSONString(allJourneysBack));
+
                         moodActivity.hidProgressDialog();
 
                         if (allJourneysBack.getRet() == Constant.SUCCESSRESPONSE) {
-
-                            SLogger.d("<<", "->>>>>>>>>>>>>" + JSON.toJSONString(allJourneysBack));
 
                             try {
                                 allJourneysBack.getPaint_detail().setLast_id(allJourneysBack.getLast_id());
@@ -275,9 +275,18 @@ public class PaintActivityImpl extends BasePresenterImpl implements IPaintActivi
 
 
     @Override
-    public void upload(List<Integer> paintId) {
-        Map<String, String> map = new HashMap<>();
-        map.put("picture_ids", JSON.toJSONString(paintId));
+    public void upload(List<Integer> pictureIds, String title, String paintId) {
+        Map<String, Object> map = new HashMap<>();
+        int[] a = new int[pictureIds.size()];
+        for(int i  = 0; i < pictureIds.size();i++) {
+
+            a[i] = pictureIds.get(i);
+        }
+
+        map.put("picture_ids", a);
+        map.put("paint_title", title);
+        map.put("paint_id", Integer.valueOf(paintId));
+        map.put("title_paint_id", pictureIds.get(0));
         final Subscription subscription = RetrofitUtils.api()
                 .play(getBody(map))
                 .map(new Func1<Back, Back>() {
@@ -303,12 +312,14 @@ public class PaintActivityImpl extends BasePresenterImpl implements IPaintActivi
                     @Override
                     public void onNext(Back allJourneysBack) {
 
+                        SLogger.d("<<", "-upload--->>>>>" + JSON.toJSONString(allJourneysBack));
+
                         paintActivity.hidProgressDialog();
 
                         if (allJourneysBack.getRet() == Constant.SUCCESSRESPONSE) {
 
                             try {
-                                paintActivity.collectSuccess();
+                                paintActivity.uploadSuccess();
                             } catch (ClassCastException e) {
                                 e.printStackTrace();
                             }

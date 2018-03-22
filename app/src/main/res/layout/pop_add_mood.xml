@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="添加心情"
+        android:text="@string/add_mood"
         android:background="#727272"
         style="@style/text_common_moran"
         android:gravity="left|center_vertical"

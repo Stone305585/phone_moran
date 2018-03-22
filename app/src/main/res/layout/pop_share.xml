@@ -76,7 +76,7 @@
 
     <TextView
         android:id="@+id/cancel_share"
-        android:text="取消"
+        android:text="@string/cancel"
         android:background="@color/white"
         style="@style/text_common_grey"
         android:textColor="@color/bg_gray_light"

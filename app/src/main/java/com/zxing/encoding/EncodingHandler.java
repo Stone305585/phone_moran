@@ -15,8 +15,8 @@ import java.util.Hashtable;
  *
  */
 public final class EncodingHandler {
-	private static final int BLACK = 0xff2f5b99;
-	private static final int WHITE = 0x00000000;
+	private static final int BLACK = 0xff000000;
+	private static final int WHITE = 0xffffffff;
 
 	public static Bitmap createQRCode(String str,int widthAndHeight) throws WriterException {
 		Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();  

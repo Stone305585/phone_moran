@@ -31,7 +31,6 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/banner_background1"
                     android:paddingLeft="6dp">
 
                     <com.phone.moran.view.ScrollerViewPager
@@ -56,14 +55,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="大咖说"
+                        android:text="@string/arts_word"
                         android:textColor="@color/run_text_main"
                         android:textSize="13sp" />
-
+<!--
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/to_more" />
+                        android:src="@mipmap/to_more" />-->
                 </LinearLayout>
 
                 <com.phone.moran.view.FoldingLayout1
@@ -91,7 +90,6 @@
                                 android:id="@+id/week_daka"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="星期四"
                                 android:textColor="@color/run_text_hint_more"
                                 android:textSize="16sp" />
 
@@ -100,7 +98,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="6dp"
-                                android:text="五月十一日"
                                 android:textColor="@color/run_text_hint_more"
                                 android:textSize="16sp" />
 
@@ -112,7 +109,6 @@
                                 android:layout_marginTop="23dp"
                                 android:lineSpacingExtra="10dp"
                                 android:gravity="center_vertical"
-                                android:text="法自画生，画自法立，无法非也，终于有法亦。\n———潘天寿"
                                 android:textColor="@color/text_gray2"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -141,7 +137,6 @@
                                     android:id="@+id/thumb_num"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1877"
                                     android:textColor="@color/run_text_hint_more"
                                     android:textSize="12sp" />
 
@@ -162,7 +157,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="立即分享"
+                                    android:text="@string/share"
                                     android:textColor="@color/run_text_hint_more"
                                     android:textSize="12sp" />
 
@@ -194,7 +189,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="@string/dujingcai"
+                            android:text="@string/read_digest"
                             android:textColor="@color/run_text_main"
                             android:textSize="13sp" />
 
@@ -235,7 +230,6 @@
                                 android:id="@+id/cq_title1"
                                 style="@style/text_common"
                                 android:layout_gravity="top"
-                                android:text="艺术的终结——丹托刘迪对话录"
                                 android:textColor="@color/run_text_main"
                                 android:textSize="13sp"
                                 android:layout_width="wrap_content"
@@ -243,7 +237,6 @@
 
                             <TextView
                                 android:id="@+id/cq_text1"
-                                android:text="丹托：丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录"
                                 android:lineSpacingExtra="15dp"
                                 android:textSize="11sp"
                                 android:textColor="@color/run_text_hint"
@@ -285,7 +278,6 @@
                                 android:id="@+id/cq_title2"
                                 style="@style/text_common"
                                 android:layout_gravity="top"
-                                android:text="艺术的终结——丹托刘迪对话录"
                                 android:textColor="@color/run_text_main"
                                 android:textSize="13sp"
                                 android:layout_width="wrap_content"
@@ -293,7 +285,6 @@
 
                             <TextView
                                 android:id="@+id/cq_text2"
-                                android:text="丹托：丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录"
                                 android:lineSpacingExtra="15dp"
                                 android:textSize="11sp"
                                 android:textColor="@color/run_text_hint"
@@ -309,6 +300,7 @@
                         android:id="@+id/cq_LL3"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:gravity="center_vertical"
+                        android:visibility="gone"
                         android:layout_height="160dp"
                         android:layout_marginLeft="32dp"
                         android:layout_marginRight="32dp"
@@ -335,7 +327,6 @@
                                 android:id="@+id/cq_title3"
                                 style="@style/text_common"
                                 android:layout_gravity="top"
-                                android:text="艺术的终结——丹托刘迪对话录"
                                 android:textColor="@color/run_text_main"
                                 android:textSize="13sp"
                                 android:layout_width="wrap_content"
@@ -343,7 +334,6 @@
 
                             <TextView
                                 android:id="@+id/cq_text3"
-                                android:text="丹托：丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录"
                                 android:lineSpacingExtra="15dp"
                                 android:textSize="11sp"
                                 android:textColor="@color/run_text_hint"

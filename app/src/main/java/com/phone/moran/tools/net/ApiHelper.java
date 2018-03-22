@@ -19,7 +19,6 @@ import com.phone.moran.model.UserInfosBack;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -95,6 +94,10 @@ public interface ApiHelper {
     @POST("painting/play")
     Observable<Back> play(@Body RequestBody body);
 
+    //播放画作
+    @POST("painting/picture_play")
+    Observable<Back> playPic(@Body RequestBody body);
+
     //添加tips
     @POST("painting/add_tips")
     Observable<Back> addTips(@Body RequestBody body);
@@ -114,7 +117,7 @@ public interface ApiHelper {
 
     //校验验证码
     @POST("user/verify_code")
-    Observable<Back> verifyCode(@Field("register_id") String register_id, @Field("verify_code") String verify_code);
+    Observable<Back> verifyCode(@Body RequestBody body);
 
     //用户注册
     @POST("user/register")
@@ -131,7 +134,7 @@ public interface ApiHelper {
 
     //重置密码
     @POST("user/reset_password")
-    Observable<RegisterBack> resetPassword(@Field("register_id") String register_id, @Field("password") String password);
+    Observable<RegisterBack> resetPassword(@Body RequestBody body);
 
     //用户退出
     @POST("user/logout")
@@ -144,6 +147,51 @@ public interface ApiHelper {
     //设置用户信息
     @POST("user/set_info ")
     Observable<UserBack> setUser(@Body RequestBody body);
+
+    //用户三方绑定
+
+    /**
+     * // 用户三方绑定
+     // route: /api/user/bind_thirdparty                 method: POST
+     // 必需字段: 全部
+     rpc BindThirdparty (BindThirdpartyReq) returns (BindThirdpartyRsp) {}
+     }
+     enum RegisterType {
+     phone = 0;
+     email = 1;
+     wechat = 2;
+     qq = 3;
+     zhifubao = 4;
+     weibo = 5;
+     }
+
+     message BindThirdpartyReq {
+     Header header = 500;         // 统一包头
+
+     string source = 1;           // 来源
+
+     RegisterType register_type = 2; // 注册类型
+
+     string state        = 3; // 三方登录标记token
+     string code         = 4; // 三方登录的auth_token
+     uint32 bind_uin     = 5; //绑定三方登录账户的uin
+     string access_token = 6; //三方登录access_token
+     string auth_token   = 7; //三方登录autho_token
+     }
+
+     message BindThirdpartyRsp {
+     Header header = 500; //统一包头
+
+     int32 ret = 1;            // 返回码
+     string err = 2;           // 错误信息
+     uint32 uin = 3;           // 用户id
+     string token = 4;         // 用户token
+     }
+     * @param body
+     * @return
+     */
+    @POST("user/bind_thirdparty ")
+    Observable<RegisterBack> bindThird(@Body RequestBody body);
 
 
     //--------------------设备绑定--------------------
@@ -171,5 +219,8 @@ public interface ApiHelper {
     //上传用户头像   /api/imgs/upload/user_head
 
 
+    //意见反馈
+    @POST("user/proposal")
+    Observable<Back> suggest(@Body RequestBody body);
 
 }

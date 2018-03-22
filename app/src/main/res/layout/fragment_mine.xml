@@ -8,14 +8,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp">
+        android:layout_height="190dp">
 
         <ImageView
             android:id="@+id/mine_bg_fl"
             android:src="@mipmap/mine_head_bg"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="220dp" />
+            android:layout_height="190dp" />
 
         <ImageView
             android:id="@+id/setting_btn"
@@ -26,6 +26,7 @@
 
 
         <ImageView
+            android:id="@+id/show_btn"
             android:src="@mipmap/show_right"
             android:padding="13dp"
             android:layout_gravity="right"
@@ -41,7 +42,7 @@
             android:layout_height="65dp" />
         <TextView
             android:id="@+id/name_tv"
-            android:text="未设置"
+            android:text="@string/not_set_up"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:textSize="15sp"
@@ -66,7 +67,7 @@
             android:id="@+id/title_mine"
             android:textColor="@color/run_blue_main"
             android:textSize="15sp"
-            android:text="设备"
+            android:text="@string/device"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/run_main_color"
+    tools:context="com.phone.moran.activity.RegisterKnowActivity">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/title_bar_common"/>
+
+        <TextView
+            android:text="@string/at_museum"
+            android:textColor="@color/run_blue_main"
+            android:layout_marginBottom="14dp"
+            android:layout_width="match_parent"
+            android:textSize="17sp"
+            android:gravity="center"
+            android:layout_height="60dp" />
+
+        <ScrollView
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <TextView
+                android:text="@string/register_msg_detail"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="15dp"
+            android:layout_height="60dp">
+
+            <Button
+                android:id="@+id/agree_btn"
+                android:text="@string/agree"
+                android:textSize="14sp"
+                android:background="@drawable/login_selector_bg"
+                android:textColor="@drawable/text_login_selector"
+                android:gravity="center"
+                android:layout_marginLeft="42dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="120dp"
+                android:layout_height="26dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:text="@string/cancel"
+                android:textSize="14sp"
+                android:layout_marginRight="42dp"
+                android:background="@drawable/login_selector_bg"
+                android:textColor="@drawable/text_login_selector"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:layout_width="120dp"
+                android:layout_height="26dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

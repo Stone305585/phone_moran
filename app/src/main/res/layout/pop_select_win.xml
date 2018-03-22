@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/friend_wechat"
-        android:text="好友"
+        android:text="@string/wechat_session"
         android:textSize="16sp"
         android:background="@drawable/corner_bg_gray_lighter"
         style="@style/text_common"
@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/circle_wechat"
-        android:text="朋友圈"
+        android:text="@string/wechat_circle"
         android:textSize="16sp"
         android:layout_marginTop="10dp"
         android:background="@drawable/corner_bg_gray_lighter"
@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/cancel_wechat"
-        android:text="取消"
+        android:text="@string/cancel"
         android:textSize="16sp"
         android:layout_marginTop="25dp"
         android:background="@drawable/corner_bg_gray_lighter"

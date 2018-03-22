@@ -144,6 +144,7 @@ public class ArtCFragment extends BaseFragment implements IArtCFragment{
                     Intent intent = new Intent(getActivity(), CategoryDetailActivity.class);
                     intent.putExtra(CategoryDetailActivity.TYPEID, categoryArtBack.getArt_home_page().get(0).getType_id());
                     intent.putExtra(Constant.PAINT_ID, paint.getPaint_id());
+                    intent.putExtra(Constant.TITLE, paint.getPaint_name());
                     startActivity(intent);
                 }
 
@@ -163,6 +164,7 @@ public class ArtCFragment extends BaseFragment implements IArtCFragment{
                 Intent intent = new Intent(getActivity(), CategoryDetailActivity.class);
                 intent.putExtra(CategoryDetailActivity.TYPEID, categoryArtBack.getArt_home_page().get(1).getType_id());
                 intent.putExtra(Constant.PAINT_ID, paint.getPaint_id());
+                intent.putExtra(Constant.TITLE, paint.getPaint_name());
                 startActivity(intent);
             }
 
@@ -179,6 +181,7 @@ public class ArtCFragment extends BaseFragment implements IArtCFragment{
                 Intent intent = new Intent(getActivity(), CategoryDetailActivity.class);
                 intent.putExtra(CategoryDetailActivity.TYPEID, categoryArtBack.getArt_home_page().get(2).getType_id());
                 intent.putExtra(Constant.PAINT_ID, paint.getPaint_id());
+                intent.putExtra(Constant.TITLE, paint.getPaint_name());
                 startActivity(intent);
             }
 
@@ -200,12 +203,7 @@ public class ArtCFragment extends BaseFragment implements IArtCFragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        try {
-            unbinder.unbind();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -237,6 +235,78 @@ public class ArtCFragment extends BaseFragment implements IArtCFragment{
         categoriesB.addAll(caBack.getArt_home_page().size() > 1 ? caBack.getArt_home_page().get(1).getPaints() : new ArrayList<Paint>());
         categoriesC.addAll(caBack.getArt_home_page().size() > 2 ? caBack.getArt_home_page().get(2).getPaints() : new ArrayList<Paint>());
 
+       /* for(int i = 0; i < categoriesA.size(); i++) {
+            Paint p = categoriesA.get(i);
+
+            switch (p.getPaint_title()) {
+                case "写实":
+                    p.setPaint_title(getResources().getString(R.string.realism_paint));
+                    break;
+                case "抽象":
+                    p.setPaint_title(getResources().getString(R.string.abstract_paint));
+                    break;
+                case "现代":
+                    p.setPaint_title(getResources().getString(R.string.modern_new));
+                    break;
+                case "人物":
+                    p.setPaint_title(getResources().getString(R.string.figure_paint));
+                    break;
+                case "山水":
+                    p.setPaint_title(getResources().getString(R.string.water_paint));
+                    break;
+                case "花鸟":
+                    p.setPaint_title(getResources().getString(R.string.bird_paint));
+                    break;
+
+
+            }
+        }
+
+        for(int i = 0; i < categoriesB.size(); i++) {
+            Paint p = categoriesB.get(i);
+
+            switch (p.getPaint_title()) {
+                case "国画":
+                    p.setPaint_title(getResources().getString(R.string.tradition_paint));
+                    break;
+                case "书法":
+                    p.setPaint_title(getResources().getString(R.string.calligraphy));
+                    break;
+                case "油画":
+                    p.setPaint_title(getResources().getString(R.string.oil_paint));
+                    break;
+                case "版画":
+                    p.setPaint_title(getResources().getString(R.string.wood_paint));
+                    break;
+                case "素描":
+                    p.setPaint_title(getResources().getString(R.string.sketch));
+                    break;
+                case "雕塑":
+                    p.setPaint_title(getResources().getString(R.string.sculpture));
+                    break;
+
+                case "新媒体艺术":
+                    p.setPaint_title(getResources().getString(R.string.new_media));
+                    break;
+            }
+        }
+
+        for(int i = 0; i < categoriesC.size(); i++) {
+            Paint p = categoriesC.get(i);
+
+            switch (p.getPaint_title()) {
+                case "近代":
+                    p.setPaint_title(getResources().getString(R.string.modern));
+                    break;
+                case "当代":
+                    p.setPaint_title(getResources().getString(R.string.contemporary));
+                    break;
+                case "古代":
+                    p.setPaint_title(getResources().getString(R.string.ancient));
+                    break;
+
+            }
+        }*/
         artRoundGridAdapterC.notifyDataSetChanged();
         artRoundGridAdapterB.notifyDataSetChanged();
         artRoundGridAdapterA.notifyDataSetChanged();

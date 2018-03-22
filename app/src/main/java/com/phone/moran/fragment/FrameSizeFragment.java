@@ -9,7 +9,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.phone.moran.R;
-import com.phone.moran.tools.SLogger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -117,30 +116,41 @@ public class FrameSizeFragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override
     public void onClick(View v) {
         if(mListener == null)
             return;
+
+        frameSize0.setBackgroundColor(0xffe4e4e4);
+        frameSize2.setBackground(null);
+        frameSize5.setBackground(null);
+        frameSize7.setBackground(null);
+        frameSize10.setBackground(null);
         switch (v.getId()) {
             case R.id.frame_size_0:
+                frameSize0.setBackgroundColor(0xffb6b6b6);
                 mListener.onFragmentSizeInteraction(0);
                 break;
             case R.id.frame_size_2:
 
+                frameSize2.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentSizeInteraction(1);
                 break;
             case R.id.frame_size_5:
 
+                frameSize5.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentSizeInteraction(2);
                 break;
             case R.id.frame_size_7:
 
+                frameSize7.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentSizeInteraction(3);
                 break;
             case R.id.frame_size_10:
+
+                frameSize10.setBackground(getResources().getDrawable(R.mipmap.frame_selected));
                 mListener.onFragmentSizeInteraction(4);
                 break;
         }

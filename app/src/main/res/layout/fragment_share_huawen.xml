@@ -17,7 +17,7 @@
 
         <TextView
             android:layout_gravity="center"
-            android:text="无花纹"
+            android:text="@string/no_pattern"
             style="@style/text_common_moran"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

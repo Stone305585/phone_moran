@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface ICategoryDetailActivity extends IBaseFragment{
 
-    void updateMain(List<Picture> pics, int last_id);
+    void updateMain(Paint paint, List<Picture> pics, int last_id);
 
     void updateFilter(List<Paint> paints);
 

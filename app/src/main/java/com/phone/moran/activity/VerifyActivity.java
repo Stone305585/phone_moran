@@ -70,6 +70,8 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
     private int defaultTime = 60;//s
     private Timer timer;
 
+    private int flag = 0;//0: 注册   1：找回密码的校验
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,21 +82,30 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
         initView();
         setListener();
 
+        flag = getIntent().getIntExtra(Constant.PLAY_FLAG, 0);
+
         registerActivityImpl = new RegisterActivityImpl(this, token, this);
         phone = getIntent().getStringExtra(PHONE);
         password = getIntent().getStringExtra(PASSWORD);
+
+        if (flag != 0)
+            registerActivityImpl.getCode(phone);
     }
 
     @Override
     protected void initView() {
         super.initView();
 
+        title.setText(flag == 0 ? getResources().getString(R.string.sign_up) : getResources().getString(R.string.change_password));
         startTimer();
     }
 
     private void startTimer() {
         defaultTime = 60;
         timeResend.setEnabled(false);
+        if (timer == null) {
+            timer = new Timer();
+        }
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -104,8 +115,9 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
                         @Override
                         public void run() {
                             timeResend.setEnabled(true);
-                            timeResend.setText("重新发送");
+                            timeResend.setText(getResources().getString(R.string.resend));
                             timer.cancel();
+                            timer = null;
                         }
                     });
                 } else {
@@ -127,19 +139,48 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = codeEt.getText().toString();
-                if (TextUtils.isEmpty(code)) {
-                    AppUtils.showToast(getApplicationContext(), "请输入验证码");
-                } else {
-                    registerActivityImpl.register(phone, password, code);
+
+                try {
+                    if (flag == 0) {
+                        String code = codeEt.getText().toString();
+                        if (TextUtils.isEmpty(code)) {
+                            AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.verify_code));
+                        } else {
+                            if (phone.contains("@")) {
+                                registerActivityImpl.register(phone, password, code);
+                            } else {
+                                registerActivityImpl.registerMobile(phone, password, code);
+                            }
+                        }
+                    } else {
+                        String code = codeEt.getText().toString();
+                        if (TextUtils.isEmpty(code)) {
+                            AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.verify_code));
+
+                        } else {
+                            registerActivityImpl.verifyCode(phone, code);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
+
             }
         });
 
         timeResend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                registerActivityImpl.getCode(phone);
                 startTimer();
+            }
+        });
+
+        backTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
@@ -169,14 +210,14 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
         userId = String.valueOf(registerBack.getUin());
 
         LocalPaints l = diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MINE + userId);
-        if(l == null)
+        if (l == null)
             l = new LocalPaints();
         //获取本地的 local collect  为空则放入默认的画单  我的收藏
-        if(l.getPaints() == null || l.getPaints().size() == 0) {
+        if (l.getPaints() == null || l.getPaints().size() == 0) {
             ArrayList<Paint> paints = new ArrayList<>();
             Paint p = new Paint();
             p.setPaint_id(-1);
-            p.setPaint_title("我的收藏");
+            p.setPaint_title(getResources().getString(R.string.mine_collect));
             paints.add(p);
             l.setPaints(paints);
             diskLruCacheHelper.put(Constant.LOCAL_MINE + userId, l);
@@ -185,55 +226,55 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
         //存放本地心情初始化
         LocalMoods lm = diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MOOD + userId);
 
-        if(lm == null) {
+        if (lm == null) {
             lm = new LocalMoods();
             ArrayList<Mood> moodList = new ArrayList<>();
 
             Mood moodNu = new Mood();
             moodNu.setMood_id(Constant.MOOD_NU);
-            moodNu.setMood_name("怒");
+            moodNu.setMood_name(getResources().getString(R.string.anger));
             moodNu.setRes_id(R.mipmap.mood_nu);
             moodList.add(moodNu);
 
             Mood moodSi = new Mood();
-            moodSi.setMood_name("思");
+            moodSi.setMood_name(getResources().getString(R.string.think));
             moodNu.setMood_id(Constant.MOOD_SI);
             moodSi.setRes_id(R.mipmap.mood_si);
             moodList.add(moodSi);
 
             Mood moodKong = new Mood();
             moodKong.setMood_id(Constant.MOOD_KONG);
-            moodKong.setMood_name("恐");
+            moodKong.setMood_name(getResources().getString(R.string.fear));
             moodKong.setRes_id(R.mipmap.mood_kong);
             moodList.add(moodKong);
 
             Mood moodJing = new Mood();
             moodJing.setMood_id(Constant.MOOD_JING);
-            moodJing.setMood_name("惊");
+            moodJing.setMood_name(getResources().getString(R.string.boggle));
             moodJing.setRes_id(R.mipmap.mood_jing);
             moodList.add(moodJing);
 
             Mood moodYou = new Mood();
             moodYou.setMood_id(Constant.MOOD_YOU);
-            moodYou.setMood_name("忧");
+            moodYou.setMood_name(getResources().getString(R.string.melancholy));
             moodYou.setRes_id(R.mipmap.mood_you);
             moodList.add(moodYou);
 
             Mood moodXi = new Mood();
             moodXi.setMood_id(Constant.MOOD_XI);
-            moodXi.setMood_name("喜");
+            moodXi.setMood_name(getResources().getString(R.string.happiness));
             moodXi.setRes_id(R.mipmap.mood_xi);
             moodList.add(moodXi);
 
             Mood moodBei = new Mood();
             moodBei.setMood_id(Constant.MOOD_BEI);
-            moodBei.setMood_name("悲");
+            moodBei.setMood_name(getResources().getString(R.string.sadness));
             moodBei.setRes_id(R.mipmap.mood_bei);
             moodList.add(moodBei);
 
             Mood moodWu = new Mood();
             moodWu.setMood_id(Constant.MOOD_WU);
-            moodWu.setMood_name("空");
+            moodWu.setMood_name(getResources().getString(R.string.emptiness));
             moodWu.setRes_id(R.mipmap.mood_wu);
             moodList.add(moodWu);
 
@@ -243,15 +284,30 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
 
         }
 
+        AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.sign_in_success));
+
         startActivity(new Intent(this, MainActivity.class));
 
         finish();
     }
 
     @Override
+    public void verifySuccess() {
+        Intent intent = new Intent(this, ResetPasswordActivity.class);
+        intent.putExtra(Constant.PHONE, phone);
+        startActivity(intent);
+    }
+
+    @Override
+    public void code() {
+
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(timer != null) {
+        if (timer != null) {
             timer.cancel();
             timer = null;
         }

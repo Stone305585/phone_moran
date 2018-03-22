@@ -29,7 +29,8 @@ public class RetrofitUtils {
     private static final String TAG = "net";
 
     //测试环境
-    public static final String BASE_URL = "http://dev.xiangshuispace.com:9988/api/";
+//    public static final String BASE_URL = "http://dev.xiangshuispace.com:9988/api/";
+    public static final String BASE_URL = "http://app.atmoran.com/api/";
 //    public static final String BASE_URL = "http://10.0.2.2/runaway/api/";
 
     boolean isDebug = true;

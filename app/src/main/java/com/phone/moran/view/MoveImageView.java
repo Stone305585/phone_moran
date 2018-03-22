@@ -4,8 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.FrameLayout;
-import android.widget.TextView;
+import android.widget.EditText;
 
 /**
  * Created by zhaohe on 2017/11/22.
@@ -17,7 +16,7 @@ public class MoveImageView extends android.support.v7.widget.AppCompatImageView 
     int lastY;
     int offsetX;
     int offsetY;
-    private TextView tipTv;
+    private EditText tipTv;
     private Context context;
     private int rawW;
     private int rawH;
@@ -76,17 +75,18 @@ public class MoveImageView extends android.support.v7.widget.AppCompatImageView 
                 if(tipTv != null) {
                     tipTv.setVisibility(VISIBLE);
                 }
-                int x1 = getLeft();
-                int y1 = getTop();
-                FrameLayout.LayoutParams ll = new FrameLayout.LayoutParams(rawW, rawH);
-                ll.leftMargin = x1;
-                ll.topMargin = y1;
-                setLayoutParams(ll);
+
 
                 if(locationListener != null) {
                     locationListener.location();
                 }
 
+                /*int x1 = getLeft();
+                int y1 = getTop();
+                FrameLayout.LayoutParams ll = new FrameLayout.LayoutParams(rawW, rawH);
+                ll.leftMargin = x1;
+                ll.topMargin = y1;
+                setLayoutParams(ll);*/
                 break;
         }
         return true;
@@ -109,11 +109,11 @@ public class MoveImageView extends android.support.v7.widget.AppCompatImageView 
     }
 
 
-    public TextView getTipTv() {
+    public EditText getTipTv() {
         return tipTv;
     }
 
-    public void setTipTv(TextView tipTv) {
+    public void setTipTv(EditText tipTv) {
         this.tipTv = tipTv;
     }
 

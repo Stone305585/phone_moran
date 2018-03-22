@@ -79,7 +79,7 @@ public class EditPaintActivity extends BaseActivity {
     protected void initView() {
         super.initView();
 
-        title.setText("编辑画单信息");
+        title.setText(getResources().getString(R.string.edit_paint_msg));
         titlePaintEt.setText(paintTitle);
 
         textNum = Integer.valueOf(numInputTv.getText().toString());
@@ -135,6 +135,13 @@ public class EditPaintActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+                finish();
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 String title = titlePaintEt.getText().toString();
 
                 p.setPaint_title(title);
@@ -145,7 +152,9 @@ public class EditPaintActivity extends BaseActivity {
 
                 diskLruCacheHelper.put(Constant.LOCAL_MINE + userId, lp);
 
-                setResult(RESULT_OK);
+                Intent intent = new Intent();
+                intent.putExtra(Constant.PAINT_TITLE, title);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });

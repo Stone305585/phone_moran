@@ -133,6 +133,8 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
     LocalMoods localMoods;
     private PlayPictureActivityImpl playPicImpl;
 
+    private int last_id = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,19 +143,25 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 
         pageFlag = getIntent().getIntExtra(Constant.PLAY_FLAG, PAINT);
         //TODO 这里应该只有PAINT这一种类型
-        if (pageFlag == PAINT) {
-            paint = (Paint) getIntent().getSerializableExtra(Constant.PAINT);
-            images = paint.getPicture_info();
-        } else {
-            picture = (Picture) getIntent().getSerializableExtra(Constant.PICTURE);
-            images.add(picture);
-        }
+//        if (pageFlag == PAINT) {
+        paint = (Paint) getIntent().getSerializableExtra(Constant.PAINT);
+        images = paint.getPicture_info();
+//        } else {
+//            picture = (Picture) getIntent().getSerializableExtra(Constant.PICTURE);
+//            images.add(picture);
+//        }
 
         SLogger.d("<<", "-->>>" + images.toString());
 
         localMoods = diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MOOD + userId);
-        playPicImpl = new PlayPictureActivityImpl(this, token,this);
+        playPicImpl = new PlayPictureActivityImpl(this, token, this);
         testTimer = new Timer();
+
+        if(images.size() == 0) {
+            playPicImpl.getPaintDetail(paint.getPaint_id(), last_id);
+        } else {
+            last_id = images.get(images.size() - 1).getPicture_id();
+        }
 
         initView();
         initPopWin();
@@ -167,10 +175,6 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
         popupWindow = new PopupWindow(popView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setContentView(popView);
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
-
-        // 实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(getResources().getColor(R.color.text_red));
-        popupWindow.setBackgroundDrawable(dw);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -281,28 +285,32 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 
 //        int leftMargin = (ScreenUtils.getScreenWidth(this) - (int) (DensityUtils.dip2px(mCardWidth))) / 2;
 //        setViewMargin(recyclerPicture, leftMargin, 0, 0, 0);
+            imagePagerAdapter = new MainRecyclerAdaper(this, images);
+            recyclerPicture.setItemAnimator(new DefaultItemAnimator());
+            recyclerPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            recyclerPicture.setAdapter(imagePagerAdapter);
 
-        imagePagerAdapter = new MainRecyclerAdaper(this, images);
-        recyclerPicture.setItemAnimator(new DefaultItemAnimator());
-        recyclerPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerPicture.setAdapter(imagePagerAdapter);
+        if (images.size() != 0 && mCardScaleHelper == null){
 
-        mCardScaleHelper = new CardScaleHelper();
-        mCardScaleHelper.setCurrentItemPos(0);
-        mCardScaleHelper.attachToRecyclerView(recyclerPicture, imagePagerAdapter, images);
+            mCardScaleHelper = new CardScaleHelper();
+            mCardScaleHelper.setCurrentItemPos(0);
+            mCardScaleHelper.attachToRecyclerView(recyclerPicture, imagePagerAdapter, images);
+        }
 
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                curI = ((LinearLayoutManager) recyclerPicture.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mCardScaleHelper.setCurrentItemPos(++curI);
-                    }
-                });
-            }
-        };
+            /*timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    curI = ((LinearLayoutManager) recyclerPicture.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mCardScaleHelper.setCurrentItemPos(++curI);
+                        }
+                    });
+                }
+            };*/
+
+
 
 //        testTimer.schedule(timerTask, 3000, recycleTime);
     }
@@ -330,6 +338,26 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
             }
         });
 
+        recyclerPaints.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerPaints.getLayoutManager();
+
+                int index = manager.findLastVisibleItemPosition();
+
+                if (index >= manager.getItemCount() - 3 && last_id != 0) {
+                    playPicImpl.getPaintDetail(paint.getPaint_id(), last_id);
+                }
+            }
+        });
+
         mineCollectAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
@@ -345,22 +373,22 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
                     LocalPaints l = diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MINE + userId);
                     List<Picture> pics = l.getPaintByTitle(paint1.getPaint_title()).getPicture_info();
                     boolean has = false;
-                    for(Picture p : pics) {
-                        if(p.getPicture_id() == paint.getPicture_info().get(getCurPos()).getPicture_id()) {
+                    for (Picture p : pics) {
+                        if (p.getPicture_id() == paint.getPicture_info().get(getCurPos()).getPicture_id()) {
                             has = true;
                             break;
                         }
                     }
-                    if(has) {
+                    if (has) {
                         dialog.dismiss();
-                        AppUtils.showMoranToast(getApplicationContext(), "已收藏");
+                        AppUtils.showMoranToast(getApplicationContext(), getResources().getString(R.string.collect_success));
                     } else {
-                        l.getPaints().get(position - 1).getPicture_info().add(0, paint.getPicture_info().get(getCurPos()));
+                        l.getPaintByTitle(paint1.getPaint_title()).getPicture_info().add(0, paint.getPicture_info().get(getCurPos()));
                         diskLruCacheHelper.put(Constant.LOCAL_MINE + userId, l);
                         paint.getPicture_info().get(getCurPos()).setFlag(Picture.COLLECT);
                         initCollectPop();
                         dialog.dismiss();
-                        AppUtils.showMoranToast(getApplicationContext(), "收藏成功");
+                        AppUtils.showMoranToast(getApplicationContext(), getResources().getString(R.string.collect_success));
 
                         EventBus.getDefault().post(new AddMineEvent());
 
@@ -425,14 +453,18 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 
                 break;
             case R.id.play_tip_btn:
-                startActivity(new Intent(this, TipActivity.class));
+                Intent intentTip = new Intent(this, TipActivity.class);
+                intentTip.putExtra(Constant.IMAGE, images.get(getCurPos()).getPicture_url());
+                startActivity(intentTip);
                 break;
             case R.id.play_lining_btn:
                 Intent intent = new Intent(this, LiningActivity.class);
-                intent.putExtra(Constant.IMAGE, images.get(getCurPos()));
+                intent.putExtra(Constant.IMAGE, images.get(getCurPos()).getPicture_url());
                 startActivity(intent);
                 break;
             case R.id.play_upload_btn:
+
+                playPicImpl.playPicture(images.get(getCurPos()).getPicture_id());
                 break;
             case R.id.play_more_btn:
                 SLogger.d("<<", "-collect->>>>>1");
@@ -452,6 +484,9 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
                 break;
 
             case R.id.to_detail_LL:
+                Intent intentDetail = new Intent(PlayPictureActivity.this, PictureActivity.class);
+                intentDetail.putExtra(Constant.PICTURE_ID, (images.get(getCurPos())).getPicture_id());
+                startActivity(intentDetail);
                 break;
 
             case R.id.to_collect_LL:
@@ -479,7 +514,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 
                     dialog.dismiss();
 
-                    AppUtils.showMoranToast(getApplicationContext(), "取消收藏");
+                    AppUtils.showMoranToast(getApplicationContext(), getResources().getString(R.string.uncollect_success));
 
                     EventBus.getDefault().post(new AddMineEvent());
 
@@ -524,23 +559,17 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
             //TODO 推送到硬件
             case R.id.normal_iv:
             case R.id.normal_node:
-                initSelectCircle();
-                normalNode.setImageDrawable(getResources().getDrawable(R.mipmap.bar_node_selected));
-                lightMode = NORMAL;
+
                 playPicImpl.addPlayLight(lightMode);
                 break;
             case R.id.night_iv:
             case R.id.night_node:
-                initSelectCircle();
-                nightNode.setImageDrawable(getResources().getDrawable(R.mipmap.bar_node_selected));
-                lightMode = NIGHT;
+
                 playPicImpl.addPlayLight(lightMode);
                 break;
             case R.id.sleep_iv:
             case R.id.sleep_node:
-                initSelectCircle();
-                sleepNode.setImageDrawable(getResources().getDrawable(R.mipmap.bar_node_selected));
-                lightMode = SLEEP;
+
                 playPicImpl.addPlayLight(SLEEP);
                 break;
 
@@ -639,6 +668,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 
         moodRecycler = (RecyclerView) moodPopView.findViewById(R.id.recycler_mood);
 
+        moodList.clear();
         moodList.addAll(localMoods.getMoods());
 
         moodRoundGridAdapter = new MoodRoundGridAdapter(this, moodList, 1);
@@ -661,14 +691,14 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 
                 for (int k = 0; k < item.getPictures().size(); k++) {
                     if (item.getPictures().get(k).getPicture_id() == picture.getPicture_id()) {
-                        AppUtils.showMoranToast(getApplicationContext(), "已经存在");
+                        AppUtils.showMoranToast(getApplicationContext(), getResources().getString(R.string.add_mood_success));
                         has = true;
                         break;
                     }
                 }
                 if (!has) {
                     item.getPictures().add(0, picture);
-                    AppUtils.showMoranToast(getApplicationContext(), "添加成功");
+                    AppUtils.showMoranToast(getApplicationContext(), getResources().getString(R.string.add_mood_success));
                     moodPopWin.dismiss();
                 }
                 diskLruCacheHelper.put(Constant.LOCAL_MOOD + userId, localMoods);
@@ -703,6 +733,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void uploadSuccess() {
 
+        AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.push_success));
     }
 
     @Override
@@ -712,17 +743,17 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
             case PlayPictureActivity.RAND:
                 playMode = RAND;
                 playModeBtn.setImageDrawable(getResources().getDrawable(R.mipmap.play_mode_rand));
-                msg = "随机播放";
+                msg = getResources().getString(R.string.shuffle_play);
                 break;
             case PlayPictureActivity.SINGLE:
                 playMode = SINGLE;
                 playModeBtn.setImageDrawable(getResources().getDrawable(R.mipmap.play_mode_single));
-                msg = "单张播放";
+                msg = getResources().getString(R.string.single_play);
                 break;
             case PlayPictureActivity.ALL:
                 playMode = ALL;
                 playModeBtn.setImageDrawable(getResources().getDrawable(R.mipmap.play_mode_all));
-                msg = "循环播放";
+                msg = getResources().getString(R.string.order_play);
                 break;
         }
         AppUtils.showMoranToast(getApplicationContext(), msg);
@@ -735,21 +766,50 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
     public void addLightModeSuccess() {
 
         String msg = "";
+        initSelectCircle();
+
         switch (lightMode) {
             case NORMAL:
+                normalNode.setImageDrawable(getResources().getDrawable(R.mipmap.bar_node_selected));
+
                 lightMode = NORMAL;
-                msg = "标准模式";
+                msg = getResources().getString(R.string.normal);
                 break;
             case NIGHT:
+                nightNode.setImageDrawable(getResources().getDrawable(R.mipmap.bar_node_selected));
+
                 lightMode = NIGHT;
-                msg = "夜间模式";
+                msg = getResources().getString(R.string.night);
                 break;
             case SLEEP:
+                sleepNode.setImageDrawable(getResources().getDrawable(R.mipmap.bar_node_selected));
                 lightMode = SLEEP;
-                msg = "睡眠模式";
+
+                lightMode = SLEEP;
+                msg = getResources().getString(R.string.sleep);
                 break;
         }
         AppUtils.showMoranToast(getApplicationContext(), msg);
 
+    }
+
+    @Override
+    public void getMainData(Paint p) {
+        paint = p;
+
+        last_id = paint.getLast_id();
+
+        images.addAll(p.getPicture_info());
+
+        paint.setPicture_info(images);
+
+        imagePagerAdapter.notifyDataSetChanged();
+
+        if (images.size() != 0 && mCardScaleHelper == null){
+
+            mCardScaleHelper = new CardScaleHelper();
+            mCardScaleHelper.setCurrentItemPos(0);
+            mCardScaleHelper.attachToRecyclerView(recyclerPicture, imagePagerAdapter, images);
+        }
     }
 }

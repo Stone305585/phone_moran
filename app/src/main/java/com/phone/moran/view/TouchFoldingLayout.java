@@ -125,35 +125,43 @@ public class TouchFoldingLayout extends ScrollView {
             return mScrollGestureDetector.onTouchEvent(event);
         } else {
             curPoint.y = event.getY();
+//
+//            SLogger.d("fffo", "11111111111cY-->>" + curPoint.y);
+//            SLogger.d("fffo", "11111111111dY-->>" + downPoint.y);
 
-            if (downPoint.y == 0) {
-                downPoint.y = curPoint.y;
-            }
             switch (event.getAction()) {
 
                 case MotionEvent.ACTION_DOWN:
                     downPoint.y = event.getY();
 
-                    return true;
+//                    return true;
+                    break;
 
                 case MotionEvent.ACTION_MOVE:
+                    if (downPoint.y == 0) {
+                        downPoint.y = curPoint.y;
+//                        SLogger.d("fffo", "22222222cY-->>" + curPoint.y);
+//                        SLogger.d("fffo", "22222222dY-->>" + downPoint.y);
+                    }
+
                     float y = curPoint.y - downPoint.y;
 
-                    SLogger.d("fffo", "cY-->>" + curPoint.y);
-                    SLogger.d("fffo", "dY-->>" + downPoint.y);
+//                    SLogger.d("fffo", "cY-->>" + curPoint.y);
+//                    SLogger.d("fffo", "dY-->>" + downPoint.y);
 
-                    SLogger.d("fffo", "-------------------->>" + scrollY);
+//                    SLogger.d("fffo", "-------------------->>" + scrollY);
 
 //                    if (scrollY == 0)
 //                        scrollY = (downPoint.y - curPoint.y);
-                    setScrollY((int)Math.abs((scrollY - (curPoint.y - downPoint.y))));
+//                    setScrollY((int)Math.abs((scrollY - (curPoint.y - downPoint.y))));
 
                     //向下滑动并且scrollview没滑动x
                     if (y > 0 && getScrollY() == 0) {
-                        SLogger.d("fffo", "-->>" + y);
+//                        SLogger.d("fffo", "-->>" + y);
                         return mScrollGestureDetector.onTouchEvent(event);
                     }
-                    return true;
+//                    return true;
+                    break;
 //
 //                case MotionEvent.ACTION_UP:
 //                    downPoint.y = 0;
@@ -183,6 +191,10 @@ public class TouchFoldingLayout extends ScrollView {
         public boolean onScroll(MotionEvent e1, MotionEvent e2,
                                 float distanceX, float distanceY) {
 
+
+            SLogger.d("fffo", "curY--->" + curY);
+            SLogger.d("fffo", "mTranslation--->" + mTranslation);
+            SLogger.d("fffo", "distanceY--->" + distanceY);
             if (foldingLayout1 != null) {
                 if (curY == -1) {
                     distanceY = 0;

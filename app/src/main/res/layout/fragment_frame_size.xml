@@ -10,7 +10,7 @@
         android:background="#b6b6b6"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:text="无内衬"
+        android:text="@string/no_lining"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="12sp"

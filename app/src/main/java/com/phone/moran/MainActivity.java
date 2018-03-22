@@ -23,9 +23,13 @@ import android.widget.RadioButton;
 import com.phone.moran.activity.BaseActivity;
 import com.phone.moran.event.NewPush;
 import com.phone.moran.fragment.CategoryFragment;
+import com.phone.moran.fragment.DevicesFragment;
 import com.phone.moran.fragment.DiscoverFragment;
 import com.phone.moran.fragment.EaselFragment;
 import com.phone.moran.fragment.MineFragment;
+import com.phone.moran.fragment.ScanCodeFragment;
+import com.phone.moran.fragment.WifiConFragment;
+import com.phone.moran.fragment.WifiListFragment;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.MyActivityManager;
 import com.phone.moran.tools.SLogger;
@@ -82,6 +86,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     public void setMineF(Fragment mineF) {
         this.mineF = mineF;
+
+        if(mineF instanceof WifiListFragment) {
+            SLogger.d("<<", "-->>111");
+        } else if(mineF instanceof WifiConFragment) {
+            SLogger.d("<<", "-->>222");
+        } else if(mineF instanceof ScanCodeFragment) {
+            SLogger.d("<<", "-->>333");
+        } else if(mineF instanceof DevicesFragment) {
+            SLogger.d("<<", "-->>444");
+        }
     }
 
     public String getFlag() {
@@ -127,6 +141,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         initDataSource();
 
+        //TODO 测试diskcache
+        diskLruCacheHelper.put("test", "test");
+        diskLruCacheHelper.get("test");
+        diskLruCacheHelper.put("test", "test");
+        diskLruCacheHelper.get("test");
     }
 
 
@@ -265,14 +284,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) ||
                         !ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
                     AlertDialog dialog = new AlertDialog.Builder(this)
-                            .setMessage("需要手机权限，不开启将无法正常工作！")
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            .setMessage(getResources().getString(R.string.need_permission))
+                            .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                 }
                             })
-                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
@@ -298,6 +317,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             Manifest.permission.SET_DEBUG_APP,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.WRITE_APN_SETTINGS,
+            Manifest.permission.CHANGE_WIFI_STATE,
+            Manifest.permission.CHANGE_NETWORK_STATE,
             Manifest.permission.SYSTEM_ALERT_WINDOW,
             Manifest.permission.GET_ACCOUNTS};
 

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.phone.moran.HHApplication;
 import com.phone.moran.R;
 import com.phone.moran.adapter.BaseRecyclerAdapter;
@@ -129,6 +130,8 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
     protected void initDataSource() {
         super.initDataSource();
 
+        SLogger.d("<<", "title is -->>" + paintTitle);
+
         if (paintTitle == null) {
             if (connected) {
                 paintActivityImpl.getPaintDetail(paintId, last_id);
@@ -137,6 +140,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
             LocalPaints lp = diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MINE + userId);
             paint = lp.getPaintByTitle(paintTitle);
 
+            paintId = paint.getPaint_id();
             updatePaint(paint);
         }
 
@@ -236,7 +240,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         switch (v.getId()) {
             //横
             case R.id.left_btn_gallery:
-                if (picturesSList.size() == 0) {
+                if (picturesHList.size() == 0) {
                     defaultText.setVisibility(VISIBLE);
                     paintRecycler.setVisibility(View.GONE);
                 } else {
@@ -248,6 +252,8 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
                 leftBtnGallery.setChecked(true);
                 centerBtnGallery.setChecked(false);
                 rightBtnGallery.setChecked(false);
+
+                numBottomGallery.setText(String.valueOf(picturesHList.size()));
                 break;
             //横竖
             case R.id.center_btn_gallery:
@@ -264,6 +270,8 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
                 centerBtnGallery.setChecked(true);
                 leftBtnGallery.setChecked(false);
                 rightBtnGallery.setChecked(false);
+
+                numBottomGallery.setText(String.valueOf(picturesHSList.size()));
                 break;
             //竖
             case R.id.right_btn_gallery:
@@ -280,6 +288,8 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
                 rightBtnGallery.setChecked(true);
                 leftBtnGallery.setChecked(false);
                 centerBtnGallery.setChecked(false);
+
+                numBottomGallery.setText(String.valueOf(picturesSList.size()));
                 break;
 
             case R.id.share_gallery:
@@ -296,7 +306,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
                     for (Picture item : paint.getPicture_info()) {
                         list.add(item.getPicture_id());
                     }
-                    paintActivityImpl.upload(list);
+                    paintActivityImpl.upload(list, paint.getPaint_title(), String.valueOf(paint.getPaint_id()));
                 }
 
                 break;
@@ -305,7 +315,8 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
                 if (!goLogin()) {
 
                     if (paintTitle != null) {
-                        AppUtils.showToast(getApplicationContext(), "个人画单无法取消收藏");
+                        //TODO 修改了 可以删除本地画单
+//                        collectSuccess();
                     } else
                         paintActivityImpl.collect(paintId);
                 }
@@ -347,7 +358,11 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == EDITPAINT) {
-                initDataSource();
+                if(data != null) {
+                    paintTitle = data.getStringExtra(Constant.PAINT_TITLE);
+                    initDataSource();
+                }
+
             }
         }
     }
@@ -369,7 +384,11 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
                     break;
                 }
             }
+            if (localPaints != null)
+                diskLruCacheHelper.put(Constant.LOCAL_COLLECT + userId, localPaints);
+
         } else {
+
             collectGallery.setImageResource(R.mipmap.collected);
             collectGallery.setTag(COLLECT);
 
@@ -384,118 +403,131 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
 
         diskLruCacheHelper.put(Constant.LOCAL_COLLECT + userId, localPaints);
 
+
+        SLogger.d("<<", "collect-->>" + userId + "--->>>" + Constant.LOCAL_COLLECT + userId);
+
+
         EventBus.getDefault().post(new CollectEvent());
     }
 
     @Override
     public void uploadSuccess() {
-        AppUtils.showToast(this, "上传成功");
+        AppUtils.showToast(this, getResources().getString(R.string.push_success));
     }
 
     @Override
     public void updatePaint(Paint paint1) {
         this.paint = paint1;
 
-        if (last_id == 0) {
-            try {
+//        if (paintTitle == null) {
+        try {
 
-                title.setText("艺术先锋");
-                ImageLoader.displayImg(this, paint.getTitle_url() == null ? paint.getPicture_info().get(0).getPicture_url() : paint.getTitle_url(), imageCover);
-                ImageLoader.getInstance().setBlurImage(this, paint.getTitle_url() == null ? paint.getPicture_info().get(0).getPicture_url() : paint.getTitle_url(), blurBgYishu, imageCoverGone);
-                titleGallery.setText(paint.getPaint_title());
+            title.setText(paintTitle == null ? "艺术先锋" : paintTitle);
+            ImageLoader.displayImg(this, paint.getTitle_url() == null ? paint.getPicture_info().get(0).getPicture_url() : paint.getTitle_url(), imageCover);
+            ImageLoader.getInstance().setBlurImage(this, paint.getTitle_url() == null ? paint.getPicture_info().get(0).getPicture_url() : paint.getTitle_url(), blurBgYishu, imageCoverGone);
+            titleGallery.setText(paint.getPaint_title());
 
-                SLogger.d("<<", "paint detail ----->" + paint.getPaint_detail());
-                if (paint.getPaint_detail() != null) {
-                    detailGallery.setVisibility(VISIBLE);
-                    detailGallery.setText(paint.getPaint_detail());
-                } else {
-                    detailGallery.setVisibility(View.GONE);
-                }
-                numPieces.setText(String.valueOf(paint.getPicture_info().size()));
-                numLook.setText(String.valueOf(paintTitle == null ? paint.getRead_num() : 0));
-                numBottomGallery.setText(String.valueOf(paint.getPicture_info().size()));
-                if (paintTitle == null) {
-                    if (paint.getFlag() == 1) {
-                        collectGallery.setImageResource(R.mipmap.collected);
-                        collectGallery.setTag(COLLECT);
-                    } else {
-                        collectGallery.setImageResource(R.mipmap.collect);
-                        collectGallery.setTag(UNCOLLECT);
-                    }
-                } else {
+            SLogger.d("<<", "paint detail ----->" + paint.getPaint_detail());
+            if (paint.getPaint_detail() != null) {
+                detailGallery.setVisibility(VISIBLE);
+                detailGallery.setText(paint.getPaint_detail());
+            } else {
+                detailGallery.setVisibility(View.GONE);
+            }
+            numPieces.setText(String.valueOf(paint.getPicture_info().size()));
+            numLook.setText(String.valueOf(paintTitle == null ? paint.getRead_num() : 0));
+            if (paintTitle == null) {
+                if (paint.getFlag() == 1) {
                     collectGallery.setImageResource(R.mipmap.collected);
                     collectGallery.setTag(COLLECT);
-                }
-
-
-                for (int i = 0; i < paint.getPicture_num(); i++) {
-                    Picture item = paint.getPicture_info().get(i);
-                    //横
-                    if (item.getPicture_type() == 1) {
-                        picturesHList.add(item);
-                        //横竖
-                    } else if (item.getPicture_type() == 2) {
-                        picturesHSList.add(item);
-                        //竖
-                    } else {
-                        picturesSList.add(item);
-                    }
-                }
-
-                if (picturesHList.size() == 0) {
-                    paintRecycler.setVisibility(View.GONE);
-                    defaultText.setVisibility(VISIBLE);
                 } else {
-                    paintRecycler.setVisibility(VISIBLE);
-                    defaultText.setVisibility(View.GONE);
-                    imageGridRecyclerAdapter.notifyDataSetChanged();
+                    collectGallery.setImageResource(R.mipmap.collect);
+                    collectGallery.setTag(UNCOLLECT);
                 }
-                leftBtnGallery.setChecked(true);
-
-
-                if (HHApplication.loginFlag && paint.getPaint_id() != 0) {
-
-                    LocalPaints recentPaints = (LocalPaints) diskLruCacheHelper.getAsSerializable(Constant.LOCAL_RECENT + userId);
-                    if (recentPaints != null) {
-
-                        ArrayList<Paint> localPaints = recentPaints.getPaints();
-                        for (int i = 0; i < localPaints.size(); i++) {
-                            if (localPaints.get(i).getPaint_id() == paintId) {
-                                localPaints.remove(i);
-                                break;
-                            }
-                        }
-                    } else {
-                        recentPaints = new LocalPaints();
-                    }
-
-                    recentPaints.getPaints().add(0, paint);
-
-                    diskLruCacheHelper.put(Constant.LOCAL_RECENT + userId, recentPaints);
-
-                    EventBus.getDefault().post(new AddRecentEvent());
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                collectGallery.setImageResource(R.mipmap.collected);
+                collectGallery.setTag(COLLECT);
             }
-        } else {
-            for (int i = 0; i < paint.getPicture_num(); i++) {
+
+
+            int size = paint.getPicture_info().size();
+            for (int i = 0; i < size; i++) {
                 Picture item = paint.getPicture_info().get(i);
                 //横
                 if (item.getPicture_type() == 1) {
                     picturesHList.add(item);
-                    //横竖
-                } else if (item.getPicture_type() == 2) {
-                    picturesHSList.add(item);
                     //竖
                 } else {
                     picturesSList.add(item);
                 }
+
+                picturesHSList.add(item);
             }
 
-            imageGridRecyclerAdapter.notifyDataSetChanged();
+            numBottomGallery.setText(String.valueOf(picturesHList.size()));
+
+            if (picturesHList.size() == 0) {
+                paintRecycler.setVisibility(View.GONE);
+                defaultText.setVisibility(VISIBLE);
+            } else {
+                paintRecycler.setVisibility(VISIBLE);
+                defaultText.setVisibility(View.GONE);
+                imageGridRecyclerAdapter.notifyDataSetChanged();
+            }
+            leftBtnGallery.setChecked(true);
+
+
+            if (HHApplication.loginFlag && paint.getPaint_id() != 0) {
+
+                LocalPaints recentPaints = (LocalPaints) diskLruCacheHelper.getAsSerializable(Constant.LOCAL_RECENT + userId);
+                if (recentPaints != null) {
+
+                    ArrayList<Paint> localPaints = recentPaints.getPaints();
+                    for (int i = 0; i < localPaints.size(); i++) {
+                        if (localPaints.get(i).getPaint_id() == paintId) {
+                            localPaints.remove(i);
+                            break;
+                        }
+                    }
+                } else {
+                    recentPaints = new LocalPaints();
+                }
+
+                recentPaints.getPaints().add(0, paint);
+
+                diskLruCacheHelper.put(Constant.LOCAL_RECENT + userId, recentPaints);
+
+                SLogger.d("<<", "--recent--------------->>>" + JSON.toJSONString(recentPaints));
+
+                EventBus.getDefault().post(new AddRecentEvent());
+            }
+
+            //设置点击各个地方的  调转到播放
+            diskLruCacheHelper.put(Constant.LAST_PAINT, paint);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+//        } else {
+//            for (int i = 0; i < paint.getPicture_num(); i++) {
+//                Picture item = paint.getPicture_info().get(i);
+//                //横
+//                if (item.getPicture_type() == 1) {
+//                    picturesHList.add(item);
+//                    //竖
+//                } else {
+//                    picturesSList.add(item);
+//                }
+//
+//                picturesHSList.add(item);
+//            }
+//
+//            //设置点击各个地方的  调转到播放
+//            diskLruCacheHelper.put(Constant.LAST_PAINT, paint);
+//
+//            imageGridRecyclerAdapter.notifyDataSetChanged();
+//        }
 
         last_id = paint.getLast_id();
 

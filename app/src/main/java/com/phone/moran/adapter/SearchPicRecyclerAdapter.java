@@ -3,6 +3,7 @@ package com.phone.moran.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phone.moran.R;
@@ -31,13 +32,22 @@ public class SearchPicRecyclerAdapter extends BaseRecyclerAdapter<Picture> {
     }
 
     @Override
-    public void showViewHolder(BaseRecyclerHolder holder, int position) {
+    public void showViewHolder(BaseRecyclerHolder holder, final int position) {
 
         final PictureViewHolder mHolder = (PictureViewHolder) holder;
         final Picture picture = mData.get(position);
 
         try {
             mHolder.namePic.setText(picture.getTitle());
+
+            if(itemClickListener != null) {
+                mHolder.picLL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemClickListener.onItemClick(v, position, picture);
+                    }
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,6 +56,8 @@ public class SearchPicRecyclerAdapter extends BaseRecyclerAdapter<Picture> {
     public class PictureViewHolder extends BaseRecyclerHolder {
         @BindView(R.id.name_picture)
         TextView namePic;
+        @BindView(R.id.pic_LL)
+        LinearLayout picLL;
         View v;
 
         public PictureViewHolder(View itemView) {

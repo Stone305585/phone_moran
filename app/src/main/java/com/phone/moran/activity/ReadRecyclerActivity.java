@@ -79,7 +79,7 @@ public class ReadRecyclerActivity extends BaseActivity implements IRecyclerActiv
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         srl = (RefreshLayout) findViewById(R.id.srl);
-        title.setText("都精彩");
+        title.setText(getResources().getString(R.string.read_digest));
         srl.setColorSchemeColors(ContextCompat.getColor(this, R.color.purple),
                 ContextCompat.getColor(this, R.color.yellow),
                 ContextCompat.getColor(this, R.color.blue),
@@ -105,10 +105,9 @@ public class ReadRecyclerActivity extends BaseActivity implements IRecyclerActiv
         cqAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
-                ClassicQuote paint = (ClassicQuote) model;
-                Intent intent = new Intent(ReadRecyclerActivity.this, PaintActivity.class);
-                intent.putExtra(Constant.PAINT_ID, paint.getCq_id());
-                startActivity(intent);
+                Intent intent2 = new Intent(ReadRecyclerActivity.this, MyWebActivity.class);
+                intent2.putExtra(Constant.CQ_ID, (ClassicQuote)model);
+                startActivity(intent2);
             }
 
             @Override

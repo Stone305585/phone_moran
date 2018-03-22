@@ -9,4 +9,7 @@ public interface IRegisterActivity extends IBaseFragment{
 
     void registerSuccess(RegisterBack registerBack);
 
+    void verifySuccess();
+
+    void code();
 }

@@ -127,11 +127,6 @@ public class ShareShareFragment extends BaseFragment implements View.OnClickList
         mListener = null;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
     @Override
     public void onClick(View v) {

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.phone.moran.R;
+import com.phone.moran.event.BindSuccess;
 import com.phone.moran.presenter.implPresenter.ScanCodeActivityImpl;
 import com.phone.moran.presenter.implView.IScanCodeActivity;
 import com.phone.moran.tools.AppUtils;
@@ -31,6 +32,8 @@ import com.zxing.view.ViewfinderView;
 
 import java.io.IOException;
 import java.util.Vector;
+
+import de.greenrobot.event.EventBus;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.content.Context.VIBRATOR_SERVICE;
@@ -310,8 +313,9 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
 
     @Override
     public void bandFinish() {
+        EventBus.getDefault().post(new BindSuccess());
 
-        AppUtils.showToast(getActivity().getApplicationContext(), "已通知管理员");
+        AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.bind_success));
     }
 
     public int getDisplayRotation(Activity activity) {

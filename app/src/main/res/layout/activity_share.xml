@@ -31,11 +31,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:background="@color/transparent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:orientation="vertical"
+                    android:background="@color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
                     <TextView
@@ -62,6 +64,7 @@
                     android:id="@+id/content_daka"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/transparent"
                     android:layout_marginRight="18dp"
                     android:layout_marginTop="23dp"
                     android:lineSpacingExtra="10dp"
@@ -96,6 +99,7 @@
             android:scrollbars="none"
             app:tabIndicatorColor="@color/run_blue_main"
             app:tabIndicatorHeight="2dp"
+            android:background="@color/white"
             app:tabMode="fixed"
             app:tabPaddingBottom="0dp"
             app:tabPaddingStart="2dp"

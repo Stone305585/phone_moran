@@ -104,6 +104,9 @@ public class XinqingActivity extends BaseActivity implements IPaintActivity, Vie
 
         myMood = localMoods.getMoodById(moodId);
 
+        title.setText(myMood.getMood_name());
+
+
         List<Picture> list = myMood.getPictures();
         if (list.size() > 12) {
             for (int i = 0; i < 12; i++) {
@@ -112,10 +115,19 @@ public class XinqingActivity extends BaseActivity implements IPaintActivity, Vie
         } else
             customPics.addAll(myMood.getPictures());
 
+        xinqingCoverImage.setImageDrawable(getResources().getDrawable(myMood.getRes_id()));
+        xinqingCoverText.setText(myMood.getMood_name());
+
         customAdapter = new ImageGridRecyclerAdapter(this, customPics);
         customRecycler.setItemAnimator(new DefaultItemAnimator());
         customRecycler.setLayoutManager(new GridLayoutManager(this, 3));
         customRecycler.setAdapter(customAdapter);
+
+        if(customPics.size() == 0) {
+            customBtn.setVisibility(View.GONE);
+        } else {
+            customBtn.setVisibility(View.VISIBLE);
+        }
 
         defaultAdapter = new ImageGridRecyclerAdapter(this, defaultPics);
         initRecycler.setItemAnimator(new DefaultItemAnimator());
@@ -137,9 +149,19 @@ public class XinqingActivity extends BaseActivity implements IPaintActivity, Vie
             public void onItemClick(View view, int position, Object model) {
                 Picture picture = (Picture) model;
 
-                Intent intent = new Intent(XinqingActivity.this, PictureActivity.class);
-                intent.putExtra(Constant.PICTURE_ID, picture.getPicture_id());
+                Paint paint = new Paint();
+                paint.setPicture_info(defaultPics);
+                paint.setPaint_title(myMood.getMood_name());
+
+                Intent intent = new Intent(XinqingActivity.this, PlayPictureActivity.class);
+                intent.putExtra(Constant.PLAY_FLAG, PlayPictureActivity.PAINT);
+                intent.putExtra(Constant.PAINT, paint);
                 startActivity(intent);
+
+                /*Intent intent = new Intent(XinqingActivity.this, PictureActivity.class);
+                intent.putExtra(Constant.PICTURE_ID, picture.getPicture_id());
+                intent.putExtra(Constant.TITLE, 1);
+                startActivity(intent);*/
             }
 
             @Override
@@ -151,11 +173,22 @@ public class XinqingActivity extends BaseActivity implements IPaintActivity, Vie
         customAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
-                Picture picture = (Picture) model;
+
+                Paint paint = new Paint();
+                paint.setPicture_info(customPics);
+                paint.setPaint_title(myMood.getMood_name());
+
+                Intent intent = new Intent(XinqingActivity.this, PlayPictureActivity.class);
+                intent.putExtra(Constant.PLAY_FLAG, PlayPictureActivity.PAINT);
+                intent.putExtra(Constant.PAINT, paint);
+                startActivity(intent);
+
+                /*Picture picture = (Picture) model;
 
                 Intent intent = new Intent(XinqingActivity.this, PictureActivity.class);
                 intent.putExtra(Constant.PICTURE_ID, picture.getPicture_id());
-                startActivity(intent);
+                intent.putExtra(Constant.TITLE, 0);
+                startActivity(intent);*/
             }
 
             @Override

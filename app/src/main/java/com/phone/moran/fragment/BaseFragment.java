@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.phone.moran.HHApplication;
 import com.phone.moran.R;
+import com.phone.moran.activity.AnimActivity;
 import com.phone.moran.activity.LoginActivity;
 import com.phone.moran.config.Constant;
 import com.phone.moran.presenter.implPresenter.BasePresenterImpl;
@@ -48,7 +49,7 @@ public class BaseFragment extends Fragment {
     private ViewStub viewStub;
 
     protected Dialog dialog;
-    protected String token="";
+    protected String token = "";
     protected String userId;
 
     protected Unbinder unbinder;
@@ -64,7 +65,7 @@ public class BaseFragment extends Fragment {
         connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         //屏幕方向只准竖屏
-        if (!connected){
+        if (!connected) {
             AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.net_dissconncted));
         }
 
@@ -144,29 +145,39 @@ public class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
+        try {
+            if (unbinder != null) {
+                unbinder.unbind();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        if(basePresenter != null) {
+        if (basePresenter != null) {
             basePresenter.unsubcrible();
         }
     }
 
     /**
      * 验证是否已经登陆
+     *
      * @return
      */
-    public boolean goLogin(){
-        if(!HHApplication.loginFlag){
-            startActivity(new Intent(getActivity(), LoginActivity.class));
+    public boolean goLogin() {
+        if (!HHApplication.loginFlag) {
+            if (PreferencesUtils.getString(getActivity(), Constant.FIRST) == null) {
+                startActivity(new Intent(getActivity(), AnimActivity.class));
+                PreferencesUtils.putString(getActivity(), Constant.FIRST, Constant.FIRST);
+            } else
+                startActivity(new Intent(getActivity(), LoginActivity.class));
             return true;
-        }else
+        } else
             return false;
     }
 
@@ -180,7 +191,7 @@ public class BaseFragment extends Fragment {
 
     protected void setListener() {
 
-        if(viewStub != null && !connected) {
+        if (viewStub != null && !connected) {
 
             final View view = viewStub.inflate();
 
@@ -206,8 +217,9 @@ public class BaseFragment extends Fragment {
 
     /**
      * 自定义dialog
+     *
      * @param message
-     * @param disable  0：两个按钮都显示 1：只显示 确认
+     * @param disable 0：两个按钮都显示 1：只显示 确认
      * @return
      */
     protected AlertDialog showMyDialog(String message, int disable) {
@@ -223,7 +235,7 @@ public class BaseFragment extends Fragment {
         pt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(alterListener != null) {
+                if (alterListener != null) {
                     alterListener.positiveGo();
                 }
             }
@@ -232,12 +244,12 @@ public class BaseFragment extends Fragment {
         nt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(alterListener != null) {
+                if (alterListener != null) {
                     alterListener.negativeGo();
                 }
             }
         });
-        if(disable == 1) {
+        if (disable == 1) {
             nt.setVisibility(View.GONE);
             dt.setVisibility(View.GONE);
         }
@@ -264,12 +276,12 @@ public class BaseFragment extends Fragment {
         this.alterListener = alterListener;
     }
 
-    interface AlterDialogInterface{
+    interface AlterDialogInterface {
 
         void positiveGo();
+
         void negativeGo();
     }
-
 
 
     //popwindow view

@@ -24,11 +24,11 @@ import com.phone.moran.R;
 import com.phone.moran.adapter.DeviceListAdapter;
 import com.phone.moran.event.BindSuccess;
 import com.phone.moran.event.LoginEvent;
+import com.phone.moran.event.LogoutEvent;
 import com.phone.moran.model.DeviceInfo;
 import com.phone.moran.model.User;
 import com.phone.moran.presenter.implPresenter.UserBandActivityImpl;
 import com.phone.moran.presenter.implView.IUserBandActivity;
-import com.phone.moran.tools.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +149,7 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
 
         // 实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(getResources().getColor(R.color.text_red));
+        ColorDrawable dw = new ColorDrawable(getResources().getColor(R.color.white));
         popupWindow.setBackgroundDrawable(dw);
         numTv = (TextView) popView.findViewById(R.id.num_bands);
         recyclerView = (RecyclerView) popView.findViewById(R.id.recycler_devices);
@@ -192,7 +192,7 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
             @Override
             public void check(int pos, final CheckBox v1, boolean isCheck, final DeviceInfo device) {
                 if(isCheck) {
-                    showMyDialog("推送到该绑定设备？", 0);
+                    showMyDialog(getResources().getString(R.string.push_to_device), 0);
 
                     setAlterListener(new AlterDialogInterface() {
                         @Override
@@ -215,23 +215,23 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
                         }
                     });
                 } else {
-                    if(deviceIds.size() == 1) {
-                        showMyDialog("还是保留一个推送设备吧", 1);
-                        setAlterListener(new AlterDialogInterface() {
-                            @Override
-                            public void positiveGo() {
-                                ad.dismiss();
-
-                                v1.setChecked(true);
-                            }
-
-                            @Override
-                            public void negativeGo() {
-
-                            }
-                        });
-                    } else {
-                        showMyDialog("取消绑定该设备？", 0);
+//                    if(deviceIds.size() == 1) {
+//                        showMyDialog("还是保留一个推送设备吧", 1);
+//                        setAlterListener(new AlterDialogInterface() {
+//                            @Override
+//                            public void positiveGo() {
+//                                ad.dismiss();
+//
+//                                v1.setChecked(true);
+//                            }
+//
+//                            @Override
+//                            public void negativeGo() {
+//
+//                            }
+//                        });
+//                    } else {
+                        showMyDialog(getResources().getString(R.string.discon_device), 0);
 
                         setAlterListener(new AlterDialogInterface() {
                             @Override
@@ -253,7 +253,7 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
                             }
                         });
 
-                    }
+//                    }
 
                 }
             }
@@ -290,7 +290,6 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override
@@ -310,6 +309,7 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
 
 //                ft.show(wifiListFragment);
 //                ft.commit();
+                wifiListFragment.setMineFragment(mineFragment);
 
                 mineFragment.showFragment(wifiListFragment);
 
@@ -387,15 +387,20 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void showError(String error) {
         dialog.hide();
-        AppUtils.showToast(getActivity().getApplicationContext(), error);
+//        AppUtils.showToast(getActivity().getApplicationContext(), error);
     }
 
     @Override
     public void remove() {
-        AppUtils.showToast(getActivity().getApplicationContext(), "解除绑定成功！");
+//        AppUtils.showToast(getActivity().getApplicationContext(), "解除绑定成功！");
         if(deviceInfo != null && pos != -1) {
             deviceListAdapter.remove(pos);
             deviceListAdapter.notifyDataSetChanged();
+            numTv.setText(getResources().getString(R.string.has_bind_num_device_msg) + deviceListAdapter.getItemCount());
+        }
+
+        if(deviceListAdapter.getItemCount() == 0) {
+            devicesDesTv.setText(getResources().getString(R.string.no_device));
         }
     }
 
@@ -417,9 +422,25 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
             deviceInfos.clear();
             deviceInfos.addAll(list);
 
-            devicesDesTv.setText("管理绑定设备");
+            devicesDesTv.setText(getResources().getString(R.string.device_manage));
 //            deviceListAdapter.notifyDataSetChanged();
+            numTv.setText(getResources().getString(R.string.has_bind_num_device_msg) + list.size());
         }
 
     }
+
+    public WifiListFragment getWifiListFragment() {
+        return wifiListFragment;
+    }
+
+    public void setWifiListFragment(WifiListFragment wifiListFragment) {
+        this.wifiListFragment = wifiListFragment;
+    }
+    public void onEventMainThread(LogoutEvent event) {
+
+        devicesDesTv.setText(getResources().getString(R.string.no_device));
+        deviceInfos.clear();
+
+    }
+
 }

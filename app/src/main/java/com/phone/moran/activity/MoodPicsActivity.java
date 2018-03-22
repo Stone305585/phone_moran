@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoodPicsActivity extends BaseActivity implements View.OnClickListener, IPaintActivity{
+public class MoodPicsActivity extends BaseActivity implements View.OnClickListener, IPaintActivity {
 
     @BindView(R.id.back_title)
     ImageView backTitle;
@@ -82,9 +82,9 @@ public class MoodPicsActivity extends BaseActivity implements View.OnClickListen
 
         title.setText(mood.getMood_name());
 
-        titleMood.setText(flag == 0 ? "用户自定义" : "初始分类");
+        titleMood.setText(flag == 0 ? getResources().getString(R.string.user_custom): getResources().getString(R.string.default_category));
 
-        if(flag == 0) {
+        if (flag == 0) {
             LocalMoods localMoods = diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MOOD + userId);
 
             mood = localMoods.getMoodById(mood.getMood_id());
@@ -112,10 +112,19 @@ public class MoodPicsActivity extends BaseActivity implements View.OnClickListen
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
-                Picture pic = (Picture) model;
+                /*Picture pic = (Picture) model;
 
                 Intent intent = new Intent(MoodPicsActivity.this, PictureActivity.class);
                 intent.putExtra(Constant.PICTURE_ID, pic.getPicture_id());
+                startActivity(intent);*/
+
+                Paint paint = new Paint();
+                paint.setPicture_info(mood.getPictures());
+                paint.setPaint_title(mood.getMood_name());
+
+                Intent intent = new Intent(MoodPicsActivity.this, PlayPictureActivity.class);
+                intent.putExtra(Constant.PLAY_FLAG, PlayPictureActivity.PAINT);
+                intent.putExtra(Constant.PAINT, paint);
                 startActivity(intent);
 
             }
@@ -126,25 +135,26 @@ public class MoodPicsActivity extends BaseActivity implements View.OnClickListen
             }
         });
 
-        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                GridLayoutManager manager = (GridLayoutManager) recyclerView.getLayoutManager();
-
-                int index = manager.findLastVisibleItemPosition();
-
-                if (index >= manager.getItemCount() - 1) {
-                    paintImpl.getPaintDetail(mood.getMood_id(), last_id);
+        if (flag == 1)
+            recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
                 }
-            }
-        });
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+                    GridLayoutManager manager = (GridLayoutManager) recyclerView.getLayoutManager();
+
+                    int index = manager.findLastVisibleItemPosition();
+
+                    if (index >= manager.getItemCount() - 1 && last_id != 0) {
+                        paintImpl.getPaintDetail(mood.getMood_id(), last_id);
+                    }
+                }
+            });
     }
 
     @Override

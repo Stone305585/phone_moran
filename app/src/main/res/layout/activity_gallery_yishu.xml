@@ -79,9 +79,10 @@
 
                     <ImageView
                         android:id="@+id/image_cover"
-                        android:layout_width="160dp"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_gravity="bottom"
+                        android:layout_marginLeft="13dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/gradient_grey_paint" />
 
@@ -100,22 +101,22 @@
                         android:layout_gravity="bottom"
                         android:gravity="center_vertical"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="7dp"
+                        android:layout_marginLeft="17dp"
                         android:drawableLeft="@mipmap/eye"
                         android:text="2453"
                         android:textColor="@color/white"
-                        android:textSize="8sp" />
+                        android:textSize="10sp" />
 
                     <TextView
                         android:id="@+id/num_pieces"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:layout_marginRight="7dp"
+                        android:layout_marginRight="50dp"
                         android:layout_marginTop="5dp"
                         android:text="2453张"
                         android:textColor="@color/white"
-                        android:textSize="8sp" />
+                        android:textSize="10sp" />
                 </FrameLayout>
 
                 <LinearLayout
@@ -129,7 +130,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
-                        android:layout_marginLeft="54dp"
+                        android:layout_marginLeft="48dp"
+                        android:layout_marginRight="24dp"
                         android:text="丢失日志的故事"
                         android:textSize="15sp" />
 
@@ -221,7 +223,7 @@
                     android:background="@drawable/gallery_bg_selector_left"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="横"
+                    android:text="@string/horizontal"
                     android:textColor="@drawable/paint_text_selector"
                     android:textSize="10sp" />
 
@@ -236,7 +238,7 @@
                     android:background="@drawable/gallery_bg_selector_center"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="横竖"
+                    android:text="@string/all_ori"
                     android:textColor="@drawable/paint_text_selector"
                     android:textSize="10sp" />
 
@@ -251,7 +253,7 @@
                     android:background="@drawable/gallery_bg_selector_right"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="竖"
+                    android:text="@string/veritical"
                     android:textColor="@drawable/paint_text_selector"
                     android:textSize="10sp" />
 
@@ -274,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"
-                android:text="暂无"
+                android:text="@string/no_result"
                 android:textColor="@color/run_text_hint_more"
                 android:textSize="18sp"
                 android:visibility="gone" />

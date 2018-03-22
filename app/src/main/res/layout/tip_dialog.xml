@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tip_dialog_LL"
+    android:layout_width="330dp"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    android:background="@drawable/corner_bg_white_pop"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tip_msg"
+        style="@style/text_common"
+        android:textColor="@color/run_blue_main"
+        android:layout_width="330dp"
+        android:layout_marginTop="40dp"
+        android:textSize="16sp"
+        android:singleLine="false"
+        android:layout_height="wrap_content"
+        android:text="是否删除该画作？" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="58dp"
+        android:layout_marginBottom="38dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/yes_btn"
+            android:layout_width="120dp"
+            android:background="@mipmap/login_btn_checked"
+            android:layout_height="36dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/yes_msg"
+                style="@style/text_common_moran"
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:text="是" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/no_btn"
+            android:layout_width="120dp"
+            android:background="@drawable/corner_login_ring"
+            android:layout_height="36dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/no_msg"
+                style="@style/text_common_moran"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="否" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -107,8 +107,8 @@ public class LiningActivity extends BaseActivity implements View.OnClickListener
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(fm, fragmentList);
         frameContent.setAdapter(mainPagerAdapter);
 
-        tabLayout.addTab(tabLayout.newTab().setText("内衬材质"));
-        tabLayout.addTab(tabLayout.newTab().setText("内衬大小"));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.texture)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.size)));
         frameContent.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
 
@@ -140,6 +140,7 @@ public class LiningActivity extends BaseActivity implements View.OnClickListener
         });
         //TODO 直接不用setListener 应该也行，在fragment中 的onattach直接就设置了listener
         frameSizeFragment.setmListener(this);
+        frameColorFragment.setmListener(this);
 
         tipTip.setOnClickListener(this);
         clickGone.setOnClickListener(this);
@@ -187,7 +188,7 @@ public class LiningActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void uploadLining() {
-        AppUtils.showToast(this, "推送成功");
+        AppUtils.showToast(this, getResources().getString(R.string.push_success));
     }
 
     @Override
@@ -197,6 +198,10 @@ public class LiningActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    /**
+     * frame size 正好比  硬件的 小1；上传的时候加1
+     * @param size
+     */
     @Override
     public void onFragmentSizeInteraction(int size) {
         frame_size = size;
@@ -204,6 +209,7 @@ public class LiningActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void setFrame() {
+        frameColorIv.setVisibility(View.VISIBLE);
         switch (frame_color) {
             case 1:
                 switch (frame_size) {

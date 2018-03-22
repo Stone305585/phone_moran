@@ -53,7 +53,7 @@ public class ScrollerViewPager extends ViewPager {
             case MotionEvent.ACTION_MOVE:
                 float x = Math.abs(curPoint.x - downPoint.x);
                 float y = Math.abs(curPoint.y - downPoint.y);
-                intercepted = (y > 1 || x > 1) && y / x > 1;
+                intercepted = (y > 10 || x > 1) && y / x > 1;
                 if (intercepted)
                     return false;
                 break;

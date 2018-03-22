@@ -9,7 +9,7 @@
     tools:context="com.phone.moran.fragment.ConnectDevicesFragment">
 
     <TextView
-        android:text="添加到画单"
+        android:text="@string/add_to_list"
         style="@style/text_common_moran"
         android:textSize="18sp"
         android:gravity="center_vertical"

@@ -9,8 +9,8 @@
     <ImageView
         android:id="@+id/image_xinqing"
         android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
         android:src="@mipmap/recyclerview_item_circle"
-        android:scaleType="centerCrop"
         android:layout_width="80dp"
         android:layout_height="80dp" />
 

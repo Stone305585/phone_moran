@@ -164,7 +164,7 @@ public class ImageLoader {
      */
     public static void displayHeadImg(Activity act, String url, ImageView imageView) {
         //DiskCacheStrategy.ALL 硬盘缓存策略为缓存原图，用于显示不同的大小的ImageView上会更快
-        Glide.with(act).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.mipmap.default_head).into(imageView);
+        Glide.with(act).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.mipmap.recyclerview_item).into(imageView);
     }
 
     /**
@@ -176,7 +176,7 @@ public class ImageLoader {
      */
     public static void displayMapImg(Activity act, String url, ImageView imageView) {
         //DiskCacheStrategy.ALL 硬盘缓存策略为缓存原图，用于显示不同的大小的ImageView上会更快
-        Glide.with(act).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.mipmap.default_head).placeholder(R.mipmap.recyclerview_item).into(imageView);
+        Glide.with(act).load(url).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.mipmap.recyclerview_item).placeholder(R.mipmap.recyclerview_item).into(imageView);
     }
 
     public static void displayImg(Context context, String url, ImageView imageView) {
@@ -197,7 +197,7 @@ public class ImageLoader {
      * @param imageView
      */
     public static void displayImg(Activity act, File file, ImageView imageView) {
-        Glide.with(act).load(file).error(R.mipmap.default_head).placeholder(R.mipmap.default_head).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        Glide.with(act).load(file).error(R.mipmap.recyclerview_item).placeholder(R.mipmap.recyclerview_item).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
     }
 
     /**
@@ -207,12 +207,12 @@ public class ImageLoader {
      * @param imageView
      */
     public static void displayCircleImg(Activity act, File file, final ImageView imageView) {
-        /*Glide.with(act).load(file).error(R.mipmap.default_head).placeholder(R.mipmap.default_house_bg).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);*/
+        /*Glide.with(act).load(file).error(R.mipmap.recyclerview_item).placeholder(R.mipmap.default_house_bg).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);*/
         Glide.with(act)
                 .load(file)
                 .asBitmap()
-                .error(R.mipmap.default_head)
-                .placeholder(R.mipmap.default_head)
+                .error(R.mipmap.recyclerview_item)
+                .placeholder(R.mipmap.recyclerview_item)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(new BitmapImageViewTarget(imageView) {
                     @Override
@@ -231,7 +231,7 @@ public class ImageLoader {
      * @param imageView
      */
     public static void displayRoundImg(Context context, String url, final ImageView imageView) {
-        /*Glide.with(act).load(file).error(R.mipmap.default_head).placeholder(R.mipmap.default_house_bg).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);*/
+        /*Glide.with(act).load(file).error(R.mipmap.recyclerview_item).placeholder(R.mipmap.default_house_bg).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);*/
         Glide.with(context)
                 .load(url).error(R.mipmap.recyclerview_item).placeholder(R.mipmap.recyclerview_item).into(imageView);
     }
@@ -243,7 +243,7 @@ public class ImageLoader {
      * @param imageView
      */
     public static void displayImg(Activity act, Uri uri, ImageView imageView) {
-        Glide.with(act).load(uri).error(R.mipmap.default_head).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        Glide.with(act).load(uri).error(R.mipmap.recyclerview_item).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
     }
 
     /**
@@ -252,7 +252,7 @@ public class ImageLoader {
      * @param url
      */
     public static void displayImg(Fragment fragment, String url, ImageView imageView) {
-        Glide.with(fragment).load(url).error(R.mipmap.default_head).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
+        Glide.with(fragment).load(url).error(R.mipmap.recyclerview_item).diskCacheStrategy(DiskCacheStrategy.ALL).into(imageView);
     }
 
     /**
@@ -280,8 +280,8 @@ public class ImageLoader {
         Glide.with(context)
                 .load(url)
                 .asBitmap()
-                .error(R.mipmap.default_head)
-                .placeholder(R.mipmap.default_head)
+                .error(R.mipmap.recyclerview_item)
+                .placeholder(R.mipmap.recyclerview_item)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(new BitmapImageViewTarget(img) {
                     @Override
@@ -341,7 +341,7 @@ public class ImageLoader {
         Glide.with(context)
                 .load(file)
                 .asBitmap()
-                .error(R.mipmap.default_head)
+                .error(R.mipmap.recyclerview_item)
                 .placeholder(R.mipmap.recyclerview_item)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(new BitmapImageViewTarget(imageView) {

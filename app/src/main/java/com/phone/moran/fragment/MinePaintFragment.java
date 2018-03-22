@@ -16,9 +16,11 @@ import com.phone.moran.activity.PaintActivity;
 import com.phone.moran.adapter.LocalRecyclerAdapter;
 import com.phone.moran.config.Constant;
 import com.phone.moran.event.AddMineEvent;
+import com.phone.moran.event.LogoutEvent;
 import com.phone.moran.model.LocalPaintArray;
 import com.phone.moran.model.LocalPaints;
 import com.phone.moran.model.Paint;
+import com.phone.moran.tools.PreferencesUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,9 +161,10 @@ public class MinePaintFragment extends BaseFragment {
      */
     private void initLocalMine() {
 
-        list.clear();
-
+        userId = PreferencesUtils.getString(getActivity(), Constant.USER_ID);
         if (diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MINE + userId) != null) {
+            list.clear();
+
             ArrayList<Paint> localPaints = ((LocalPaints) diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MINE + userId)).getPaints();
 
             int size = localPaints.size();
@@ -215,7 +218,7 @@ public class MinePaintFragment extends BaseFragment {
             LocalPaintArray localPaintArray = new LocalPaintArray();
             Paint paint = new Paint();
             paint.setPaint_id(-1);
-            paint.setTitle_detail_url("我的收藏");
+            paint.setTitle_detail_url(getResources().getString(R.string.mine_collect));
             localPaintArray.setPaint1(paint);
             list.clear();
             list.add(localPaintArray);
@@ -239,12 +242,17 @@ public class MinePaintFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     public void onEventMainThread(AddMineEvent event) {
 
         initLocalMine();
+        localRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    public void onEventMainThread(LogoutEvent event) {
+
+        list.clear();
         localRecyclerAdapter.notifyDataSetChanged();
     }
 }

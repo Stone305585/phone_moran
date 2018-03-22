@@ -143,7 +143,6 @@ public class ShareMaterialFragment extends BaseFragment implements View.OnClickL
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     /**

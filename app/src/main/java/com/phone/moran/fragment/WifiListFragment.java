@@ -19,11 +19,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.phone.moran.MainActivity;
 import com.phone.moran.R;
 import com.phone.moran.adapter.BaseRecyclerAdapter;
 import com.phone.moran.adapter.WifiRecyclerAdapter;
 import com.phone.moran.tools.AppUtils;
+import com.phone.moran.tools.ThreadPoolManager;
 import com.phone.moran.tools.wifi.WifiConnect;
 
 import java.util.ArrayList;
@@ -62,6 +62,7 @@ public class WifiListFragment extends BaseFragment {
 
     private FragmentManager fm;
     private WifiConFragment wifiConFragment;
+    private MineFragment mineFragment;
 
 
     public WifiListFragment() {
@@ -120,7 +121,7 @@ public class WifiListFragment extends BaseFragment {
         wifiRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         wifiRecycler.setAdapter(stringRecyclerAdapter);
 
-        getAllNetWorkList();
+//        getAllNetWorkList();
 
     }
 
@@ -150,7 +151,6 @@ public class WifiListFragment extends BaseFragment {
 
                 ScanResult sr = (ScanResult) model;
                 WifiConfiguration wifiConfiguration = wifiConnect.isExsits(sr.SSID);
-                AppUtils.showToast(getActivity().getApplicationContext(), sr.BSSID);
 //                if (wifiConfiguration == null) {
                 FragmentTransaction ft = fm.beginTransaction();
                 if (wifiConFragment == null) {
@@ -168,11 +168,13 @@ public class WifiListFragment extends BaseFragment {
                 } else {
                     wifiConFragment.setCipherType(WifiConnect.WifiCipherType.WIFICIPHER_NOPASS);
                 }
-                ((MainActivity)getActivity()).setMineF(wifiConFragment);
+
+                mineFragment.showFragment(wifiConFragment);
+                /*((MainActivity)getActivity()).setMineF(wifiConFragment);
 
                 ft.show(wifiConFragment);
 //                    ft.addToBackStack(null);
-                ft.commit();
+                ft.commit();*/
 
 
 //                } else {
@@ -195,39 +197,82 @@ public class WifiListFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     public void getAllNetWorkList() {
         if (AppUtils.checkGPSIsOpen(getActivity())) {
             wifiConnect.startScan();
-            //TODO 这里获取的list size == 0  看看是不是需要权限才行，试试S3上， 打开WiFi试试
-            List<ScanResult> list = wifiConnect.getmWifiList();
-            if (list != null) {
+
+            final List<ScanResult> list = wifiConnect.getmWifiList();
+            if (list.size() != 0) {
                 wifiArray.clear();
                 wifiArray.addAll(wifiConnect.getmWifiList());
                 stringRecyclerAdapter.notifyDataSetChanged();
+            } else {
+                dialog.show();
+                ThreadPoolManager.getinstance().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (list.size() == 0 && isVisible()) {
+                            try {
+                                wifiConnect.startScan();
+                                list.addAll(wifiConnect.getmWifiList());
+                                Thread.sleep(100);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        if(list.size() != 0 && isVisible()) {
+
+                            try {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        dialog.dismiss();
+                                        wifiArray.clear();
+                                        wifiArray.addAll(wifiConnect.getmWifiList());
+                                        stringRecyclerAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    }
+                });
+
             }
+
         } else {
             AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
             final AlertDialog ad = b.create();
-            b.setMessage("需要打开定位");
-            b.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            b.setMessage(getResources().getString(R.string.need_location));
+            b.setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     ad.dismiss();
                 }
             });
-            b.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            b.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ad.dismiss();
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivityForResult(intent, GPS_REQUEST_CODE);
+
+                    try {
+                        ad.dismiss();
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivityForResult(intent, GPS_REQUEST_CODE);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             });
 
             b.show();
+
         }
 
     }
@@ -236,72 +281,17 @@ public class WifiListFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        if(wifiArray.size() == 0) {
+        if (wifiArray.size() == 0) {
             getAllNetWorkList();
         }
 
     }
 
-    /* private void sss() {
-        wifiInfoAdapter = new WiFiInfoAdapter(getApplicationContext(),
-                wifiArray);
-        listWifi.setAdapter(wifiInfoAdapter);
-        //
-        wiFiAdmin.getConfiguration();
-        listWifi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            String wifiItemSSID = null;
-            public void onItemClick(android.widget.AdapterView<?> parent,
-                                    android.view.View view, int position, long id) {
-                SLogger.d("<<", "BSSID:" + list.get(position).BSSID);
-                // 连接WiFi
-                wifiItemSSID = list.get(position).SSID;
-                int wifiItemId = wiFiAdmin.IsConfiguration("\""
-                        + list.get(position).SSID + "\"");
-                if (wifiItemId != -1) {
-                    if (wiFiAdmin.ConnectWifi(wifiItemId)) {
-                        // 连接已保存密码的WiFi
-                        Toast.makeText(getApplicationContext(), "正在连接",
-                                Toast.LENGTH_SHORT).show();
-                        updateButton.setVisibility(View.INVISIBLE);
-                        updateProgress.setVisibility(View.VISIBLE);
-                        new Thread(new refreshWifiThread()).start();
-                    }
-                } else {
-                    // 没有配置好信息，配置
-                    WifiPswDialog pswDialog = new WifiPswDialog(
-                            WifiListActivity.this,
-                            new OnCustomDialogListener() {
-                                @Override
-                                public void back(String str) {
-                                    wifiPassword = str;
-                                    if (wifiPassword != null) {
-                                        int netId = wiFiAdmin
-                                                .AddWifiConfig(list,
-                                                        wifiItemSSID,
-                                                        wifiPassword);
-                                        if (netId != -1) {
-                                            wiFiAdmin.getConfiguration();// 添加了配置信息，要重新得到配置信息
-                                            if (wiFiAdmin
-                                                    .ConnectWifi(netId)) {
-                                                // 连接成功，刷新UI
-                                                updateProgress
-                                                        .setVisibility(View.VISIBLE);
-                                                updateButton
-                                                        .setVisibility(View.INVISIBLE);
-                                                new Thread(
-                                                        new refreshWifiThread())
-                                                        .start();
-                                            }
-                                        } else {
-                                            // 网络连接错误
-                                        }
-                                    } else {
-                                    }
-                                }
-                            });
-                    pswDialog.show();
-                }
-            }
-        });
-    }*/
+    public MineFragment getMineFragment() {
+        return mineFragment;
+    }
+
+    public void setMineFragment(MineFragment mineFragment) {
+        this.mineFragment = mineFragment;
+    }
 }

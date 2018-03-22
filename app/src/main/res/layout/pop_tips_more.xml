@@ -20,7 +20,7 @@
             android:textSize="14sp"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="更多功能" />
+            android:text="@string/more_func" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
-                    android:text="详细信息" />
+                    android:text="@string/detail" />
             </LinearLayout>
 
             <LinearLayout
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
-                    android:text="收藏" />
+                    android:text="@string/collect" />
             </LinearLayout>
 
             <LinearLayout
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
-                    android:text="添加心情" />
+                    android:text="@string/add_mood" />
             </LinearLayout>
 
         </LinearLayout>
@@ -249,7 +249,7 @@
             android:textSize="14sp"
             android:layout_marginTop="7dp"
             android:gravity="center"
-            android:text="画框端显示模式选择" />
+            android:text="@string/mode" />
 
 
         <LinearLayout
@@ -328,7 +328,7 @@
                         android:layout_weight="1" />
 
                     <ImageView
-                        android:id="@+id/sleep_node"
+                        android:id="@+id/night_node"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:padding="5dp"
@@ -340,7 +340,7 @@
                         android:layout_weight="1" />
 
                     <ImageView
-                        android:id="@+id/night_node"
+                        android:id="@+id/sleep_node"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:padding="5dp"
@@ -357,7 +357,7 @@
                     style="@style/text_common_moran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="正常模式"/>
+                    android:text="@string/normal"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -368,7 +368,7 @@
                     style="@style/text_common_moran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="夜间模式"/>
+                    android:text="@string/night"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -379,7 +379,7 @@
                     style="@style/text_common_moran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="睡眠模式"/>
+                    android:text="@string/sleep"/>
             </LinearLayout>
 
 

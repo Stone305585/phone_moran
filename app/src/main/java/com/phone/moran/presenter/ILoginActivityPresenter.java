@@ -1,5 +1,7 @@
 package com.phone.moran.presenter;
 
+import com.phone.moran.model.ThirdLoginInfo;
+
 /**
  * Created by ASUS on 2017/11/8.
  *
@@ -13,4 +15,6 @@ public interface ILoginActivityPresenter {
     void getCode(String register_id);
 
     void getUserInfo();
+
+    void thirdBind(ThirdLoginInfo t);
 }

@@ -79,7 +79,7 @@
                     android:layout_marginLeft="30dp"
                     android:background="@mipmap/tab_selected_bg"
                     android:gravity="center"
-                    android:text="@string/search_jinrituijian_tab"
+                    android:text="@string/art_today"
                     android:textColor="@color/run_text_main"
                     android:textSize="15sp" />
 
@@ -95,7 +95,7 @@
                     android:layout_marginRight="30dp"
                     android:background="@mipmap/tab_selected_bg"
                     android:gravity="center"
-                    android:text="@string/search_yishuxianfeng_tab"
+                    android:text="@string/recommend"
                     android:textColor="@color/run_text_main"
                     android:textSize="15sp" />
             </LinearLayout>

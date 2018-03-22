@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 
+import com.phone.moran.R;
+
 
 /**
  * Created by zhaohZhaoHee on 15/10/23.
@@ -17,8 +19,8 @@ public class DialogUtils {
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setMessage(msg)
-                .setPositiveButton("确定", null)
-                .setNegativeButton("取消", null)
+                .setPositiveButton(context.getResources().getString(R.string.yes), null)
+                .setNegativeButton(context.getResources().getString(R.string.no), null)
                 .create()
                 .show();
     }

@@ -32,7 +32,7 @@
                     android:layout_height="50dp"
                     android:background="@color/white"
                     android:gravity="left|top"
-                    android:hint="画单名称"
+                    android:hint="@string/paint_name"
                     android:padding="12dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/run_text_hint"
@@ -57,7 +57,7 @@
                 android:layout_marginTop="26dp"
                 android:background="@mipmap/login_btn_checked"
                 android:gravity="center"
-                android:text="提交"
+                android:text="@string/submit"
                 android:textColor="@color/white"
                 android:textSize="13sp" />
         </LinearLayout>

@@ -403,7 +403,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 
     private void initAlertDialog() {
         sexChooseView = LayoutInflater.from(this).inflate(R.layout.sex_choose_dialog, null);
-        sexDialogBuilder = new AlertDialog.Builder(this).setView(sexChooseView).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        sexDialogBuilder = new AlertDialog.Builder(this).setView(sexChooseView).setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -423,12 +423,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 if (isChecked) {
                     sexFlag = 1;
                     femaleBtn.setChecked(false);
-                    genderEt.setText("男");
+                    genderEt.setText(getResources().getString(R.string.gentle_man));
                     user.setGender(1);
                 } else {
                     sexFlag = 2;
                     femaleBtn.setChecked(true);
-                    genderEt.setText("女");
+                    genderEt.setText(getResources().getString(R.string.lady));
                     user.setGender(2);
                 }
             }
@@ -439,12 +439,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 if (isChecked) {
                     sexFlag = 2;
                     maleBtn.setChecked(false);
-                    genderEt.setText("女");
+                    genderEt.setText(getResources().getString(R.string.lady));
                     user.setGender(2);
                 } else {
                     sexFlag = 1;
                     maleBtn.setChecked(true);
-                    genderEt.setText("男");
+                    genderEt.setText(getResources().getString(R.string.gentle_man));
                     user.setGender(1);
                 }
             }
@@ -477,9 +477,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             ImageLoader.displayImg(this, user.getHead_url(), imageHead);
             ImageLoader.displayImg(this, user.getBackground(), imageMineBg);
             if (user.getGender() == 1) {
-                genderEt.setText("男");
+                genderEt.setText(getResources().getString(R.string.gentle_man));
             } else
-                genderEt.setText("女");
+                genderEt.setText(getResources().getString(R.string.lady));
 
             nameEt.setText(user.getNick_name());
             cityEt.setText(user.getRegion());

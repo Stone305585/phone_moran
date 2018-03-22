@@ -13,4 +13,8 @@ public interface IPlayPictureActivityPresenter {
     void addPlayTime(int playTime);
 
     void addPlayLight(int playLight);
+
+    void playPicture(int pictureId);
+
+    public void getPaintDetail(int paint_id, int last_id);
 }

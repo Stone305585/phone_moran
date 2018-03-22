@@ -90,7 +90,6 @@ public class CardScaleHelper {
 //                    lp.width = width;
 //                    child.setLayoutParams(lp);
                     child.setScaleY(scaleFactor);
-//                    child.setScaleX(scaleFactor);
                 }
             }
         });

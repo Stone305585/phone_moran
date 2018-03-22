@@ -3,6 +3,7 @@ package com.phone.moran.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phone.moran.R;
@@ -34,7 +35,7 @@ public class SearchPaintRecyclerAdapter extends BaseRecyclerAdapter<Paint> {
     }
 
     @Override
-    public void showViewHolder(BaseRecyclerHolder holder, int position) {
+    public void showViewHolder(BaseRecyclerHolder holder, final int position) {
 
         final PictureViewHolder mHolder = (PictureViewHolder) holder;
         final Paint paint = mData.get(position);
@@ -42,7 +43,16 @@ public class SearchPaintRecyclerAdapter extends BaseRecyclerAdapter<Paint> {
         try {
             ImageLoader.displayImg(mContext, paint.getTitle_url(), mHolder.imageAuthor);
             mHolder.nameAuthor.setText(paint.getPaint_title());
-            mHolder.detailAuthor.setText(paint.getPicture_num() + "张作品，播放" + paint.getRead_num() + "次");
+            mHolder.detailAuthor.setText(paint.getPicture_num() + mContext.getResources().getString(R.string.pages) + mContext.getResources().getString(R.string.play) + paint.getRead_num() + mContext.getResources().getString(R.string.times));
+
+            if(itemClickListener != null) {
+                mHolder.paintLL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemClickListener.onItemClick(v, position, paint);
+                    }
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,6 +67,8 @@ public class SearchPaintRecyclerAdapter extends BaseRecyclerAdapter<Paint> {
         TextView nameAuthor;
         @BindView(R.id.detail_author)
         TextView detailAuthor;
+        @BindView(R.id.paint_LL)
+        LinearLayout paintLL;
         View v;
 
         public PictureViewHolder(View itemView) {

@@ -9,6 +9,12 @@ public interface IRegisterActivityPresenter {
 
     void register(String register_id, String password, String code);
 
+    void verifyCode(String register_id, String code);
+
     void registerMobile(String phone, String password, String code);
+
+    public void resetPassword(String register_id, String password);
+
+    public void getCode(String register_id);
 
 }

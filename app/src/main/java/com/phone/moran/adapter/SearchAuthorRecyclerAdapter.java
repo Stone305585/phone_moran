@@ -3,6 +3,7 @@ package com.phone.moran.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phone.moran.R;
@@ -32,7 +33,7 @@ public class SearchAuthorRecyclerAdapter extends BaseRecyclerAdapter<Author> {
     }
 
     @Override
-    public void showViewHolder(BaseRecyclerHolder holder, int position) {
+    public void showViewHolder(BaseRecyclerHolder holder, final int position) {
 
         final PictureViewHolder mHolder = (PictureViewHolder) holder;
         final Author author = mData.get(position);
@@ -40,6 +41,16 @@ public class SearchAuthorRecyclerAdapter extends BaseRecyclerAdapter<Author> {
         try {
             ImageLoader.displayImg(mContext, author.getImg_url(), mHolder.imageGrid);
             mHolder.nameAuthor.setText(author.getAuthro_name());
+
+            if(itemClickListener != null) {
+                mHolder.author_LL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemClickListener.onItemClick(v, position, author);
+                    }
+                });
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,6 +62,8 @@ public class SearchAuthorRecyclerAdapter extends BaseRecyclerAdapter<Author> {
         RoundedImageView imageGrid;
         @BindView(R.id.name_author)
         TextView nameAuthor;
+        @BindView(R.id.author_LL)
+        LinearLayout author_LL;
         View v;
 
         public PictureViewHolder(View itemView) {

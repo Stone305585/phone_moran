@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_gravity="bottom"
-            android:scaleType="centerCrop"
-            android:src="@drawable/gradient_grey_book" />
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -32,7 +31,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/title_paint"
+                android:textColor="@color/white"
+                style="@style/text_common_moran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text="作者/吴冠中" />
+
+            <TextView
                 android:id="@+id/author_paint"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
                 style="@style/text_common_moran"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,17 +54,19 @@
                 style="@style/text_common_moran"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:layout_gravity="left"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="10dp"
                 android:text="作者/吴冠中" />
 
             <TextView
                 android:id="@+id/other_paint"
                 style="@style/text_common_moran"
                 android:layout_width="wrap_content"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="10dp"
                 android:text="水墨、设色、宣纸、70 x 140厘米" />
         </LinearLayout>
 

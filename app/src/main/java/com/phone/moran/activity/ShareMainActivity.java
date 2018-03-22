@@ -1,5 +1,7 @@
 package com.phone.moran.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.phone.moran.HHApplication;
 import com.phone.moran.R;
 import com.phone.moran.adapter.MainPagerAdapter;
 import com.phone.moran.config.Constant;
@@ -21,9 +24,16 @@ import com.phone.moran.fragment.ShareHuawenFragment;
 import com.phone.moran.fragment.ShareMoodFragment;
 import com.phone.moran.fragment.ShareShareFragment;
 import com.phone.moran.model.Paint;
+import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.DensityUtils;
 import com.phone.moran.tools.ImageLoader;
+import com.phone.moran.tools.PreferencesUtils;
+import com.phone.moran.tools.Util;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.zxing.encoding.EncodingHandler;
@@ -71,6 +81,8 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
 
     private Paint paint;
 
+    private UMShareAPI mShareAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +90,8 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
         ButterKnife.bind(this);
 
         paint = (Paint) getIntent().getSerializableExtra(Constant.PAINT);
+
+        mShareAPI = UMShareAPI.get(this);
 
         fm = getSupportFragmentManager();
 
@@ -106,15 +120,20 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
         MainPagerAdapter mainPagerAdapter = new MainPagerAdapter(fm, fragmentList);
         viewPager.setAdapter(mainPagerAdapter);
 
-        tabLayout.addTab(tabLayout.newTab().setText("花纹"));
-        tabLayout.addTab(tabLayout.newTab().setText("心情"));
-        tabLayout.addTab(tabLayout.newTab().setText("分享"));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.pattern)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.mood)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.share)));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+        moodImage.setImageDrawable(getResources().getDrawable(R.mipmap.mood_xi));
+        moodText.setText(getResources().getString(R.string.happiness));
+        picTitle.setText(paint.getPaint_title());
 
         ImageLoader.displayImg(this, paint.getTitle_detail_url(), picImage);
 
-        try{
-            barcode.setImageBitmap(EncodingHandler.createQRCode("www.baidu.com", DensityUtils.dip2px(120)));
+        try {
+            barcode.setImageBitmap(EncodingHandler.createQRCode("www.atmoran.com", DensityUtils.dip2px(120)));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,24 +142,68 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
 
     }
 
+    public final static int FRIEND = 0;
+    public final static int CIRCLE = 1;
+    public final static int INVITE = 2;
+    public final static int MAIN = 3;
 
-    public void setShareListener(){
+    private WXMediaMessage msg;
+
+    public void setShareListener() {
 
         wxShareWechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ShareAction(ShareMainActivity.this).setPlatform(SHARE_MEDIA.WEIXIN).setCallback(umShareListener)
+                /*new ShareAction(ShareMainActivity.this).setPlatform(SHARE_MEDIA.WEIXIN).setCallback(umShareListener)
                         .withMedia(new UMImage(ShareMainActivity.this, getCacheBitmapFromView(shareBgFL)))
-                        .share();
+                        .share();*/
+                dialog.show();
+                msg = new WXMediaMessage();
+                Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                msg.setThumbImage(thumb);
+                Bitmap mBp = getCacheBitmapFromView(shareBgFL);
+                WXImageObject wxImage = new WXImageObject(mBp);
+                msg.mediaObject = wxImage;
+
+                Bitmap p = Bitmap.createScaledBitmap(mBp, 68, 68 * mBp.getHeight() / mBp.getWidth(), true);
+
+                mBp.recycle();
+
+                msg.thumbData = Util.bmpToByteArray(p, true);
+
+                SendMessageToWX.Req req = new SendMessageToWX.Req();
+                req.transaction = String.valueOf(System.currentTimeMillis());
+                req.message = msg;
+                req.scene = SendMessageToWX.Req.WXSceneSession;
+                HHApplication.api.sendReq(req);
+                dialog.dismiss();
             }
         });
 
         circleShareWechat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ShareAction(ShareMainActivity.this).setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE).setCallback(umShareListener)
-                        .withMedia(new UMImage(ShareMainActivity.this, getCacheBitmapFromView(shareBgFL)))
-                        .share();
+
+                dialog.dismiss();
+                msg = new WXMediaMessage();
+                Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                msg.setThumbImage(thumb);
+                Bitmap mBp = getCacheBitmapFromView(shareBgFL);
+                WXImageObject wxImage = new WXImageObject(mBp);
+                msg.mediaObject = wxImage;
+
+                Bitmap p = Bitmap.createScaledBitmap(mBp, 68, 68 * mBp.getHeight() / mBp.getWidth(), true);
+
+                mBp.recycle();
+
+                msg.thumbData = Util.bmpToByteArray(p, true);
+                SendMessageToWX.Req req = new SendMessageToWX.Req();
+                req.transaction = String.valueOf(System.currentTimeMillis());
+                req.message = msg;
+                req.scene = SendMessageToWX.Req.WXSceneTimeline;
+                HHApplication.api.sendReq(req);
+
+                dialog.dismiss();
             }
         });
 
@@ -154,6 +217,17 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        String code = PreferencesUtils.getString(getApplicationContext(), Constant.WX_SHARE_CODE);
+
+        if (code != null && code.length() != 0 && !code.equals("-1")) {
+            AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.share_success));
+            PreferencesUtils.putString(getApplicationContext(), Constant.WX_SHARE_CODE, "-1");
+        }
+    }
+
+    @Override
     protected void setListener() {
         super.setListener();
 
@@ -164,7 +238,7 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
                 //切换到制定的item
                 viewPager.setCurrentItem(tab.getPosition());
 
-                if(tab.getPosition() == 1) {
+                if (tab.getPosition() == 1) {
                     FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtils.dip2px(260));
                     lp.gravity = Gravity.BOTTOM;
                     lp.bottomMargin = DensityUtils.dip2px(45);
@@ -217,7 +291,8 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
                 picKuang.setVisibility(View.VISIBLE);
                 picKuang.setImageDrawable(getResources().getDrawable(R.mipmap.huawen3kuang));
                 break;
-            case 0:picKuang.setVisibility(View.GONE);
+            case 0:
+                picKuang.setVisibility(View.GONE);
                 break;
 
         }
@@ -231,36 +306,64 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
         switch (shareApp) {
             //微信
             case 0:
-                popupWindowWechat.showAtLocation(moodImage, Gravity.BOTTOM, 0, 0);
-                // 设置popWindow弹出窗体可点击
-                popupWindowWechat.setFocusable(true);
-                WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.alpha = 0.7f;
-                getWindow().setAttributes(params);
+                if(mShareAPI.isInstall(this, SHARE_MEDIA.WEIXIN)) {
+
+                    popupWindowWechat.showAtLocation(moodImage, Gravity.BOTTOM, 0, 0);
+                    // 设置popWindow弹出窗体可点击
+                    popupWindowWechat.setFocusable(true);
+                    WindowManager.LayoutParams params = getWindow().getAttributes();
+                    params.alpha = 0.7f;
+                    getWindow().setAttributes(params);
+                } else {
+                    AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.not_install_wechat));
+
+                }
                 break;
             //微博
             case 1:
-                new ShareAction(this).setPlatform(SHARE_MEDIA.SINA).setCallback(umShareListener)
-                        .withMedia(new UMImage(this, getCacheBitmapFromView(shareBgFL)))
-                        .share();
+                if(mShareAPI.isInstall(this, SHARE_MEDIA.SINA)) {
+
+                    new ShareAction(this).setPlatform(SHARE_MEDIA.SINA).setCallback(umShareListener)
+                            .withMedia(new UMImage(this, getCacheBitmapFromView(shareBgFL)))
+                            .share();
+                } else {
+                    AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.not_install_weibo));
+
+                }
                 break;
             //ins
             case 2:
-                new ShareAction(this).setPlatform(SHARE_MEDIA.INSTAGRAM).setCallback(umShareListener)
-                        .withMedia(new UMImage(this, getCacheBitmapFromView(shareBgFL)))
-                        .share();
+                if(mShareAPI.isInstall(this, SHARE_MEDIA.INSTAGRAM)) {
+                    new ShareAction(this).setPlatform(SHARE_MEDIA.INSTAGRAM).setCallback(umShareListener)
+                            .withMedia(new UMImage(this, getCacheBitmapFromView(shareBgFL)))
+                            .share();
+                } else {
+                    AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.not_install_instagram));
+                }
+
                 break;
             //twitter
             case 3:
-                new ShareAction(this).setPlatform(SHARE_MEDIA.TWITTER).setCallback(umShareListener)
-                        .withMedia(new UMImage(this, getCacheBitmapFromView(shareBgFL)))
-                        .share();
+                if(mShareAPI.isInstall(this, SHARE_MEDIA.TWITTER)) {
+
+                    new ShareAction(this).setPlatform(SHARE_MEDIA.TWITTER).setCallback(umShareListener)
+                            .withMedia(new UMImage(this, getCacheBitmapFromView(shareBgFL)))
+                            .share();
+                } else {
+                    AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.not_install_twitter));
+                }
                 break;
             //facebook
             case 4:
-                new ShareAction(this).setPlatform(SHARE_MEDIA.FACEBOOK).setCallback(umShareListener)
-                        .withMedia(new UMImage(this, getCacheBitmapFromView(shareBgFL)))
-                        .share();
+                if(mShareAPI.isInstall(this, SHARE_MEDIA.FACEBOOK)) {
+
+                    new ShareAction(this).setPlatform(SHARE_MEDIA.FACEBOOK).setCallback(umShareListener)
+                            .withMedia(new UMImage(this, getCacheBitmapFromView(shareBgFL)))
+                            .share();
+                }else {
+                    AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.not_install_facebook));
+
+                }
                 break;
         }
 
@@ -310,8 +413,14 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
                 moodText.setText("无常");
                 break;
 
-
-
         }
+
+        viewPager.setCurrentItem(2);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UMShareAPI.get(this).release();
     }
 }

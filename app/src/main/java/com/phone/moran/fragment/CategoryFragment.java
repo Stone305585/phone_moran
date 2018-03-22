@@ -14,8 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phone.moran.R;
+import com.phone.moran.activity.PlayPictureActivity;
 import com.phone.moran.activity.SearchActivity;
 import com.phone.moran.adapter.MainPagerAdapter;
+import com.phone.moran.config.Constant;
+import com.phone.moran.model.Paint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +132,8 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
         backTitle.setImageDrawable(getResources().getDrawable(R.mipmap.search_moran));
 
         rightImageBtn3.setVisibility(View.VISIBLE);
-        title.setText("分类");
+        rightImageBtn3.setImageDrawable(getResources().getDrawable(R.mipmap.show_right));
+        title.setText(getResources().getString(R.string.category));
 
         yishuBtn.setBackground(getResources().getDrawable(R.mipmap.tab_selected_bg));
         xinqingBtn.setBackgroundColor(getResources().getColor(R.color.transparent));
@@ -143,6 +147,8 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
         yishuBtn.setOnClickListener(this);
         xinqingBtn.setOnClickListener(this);
         changjingBtn.setOnClickListener(this);
+
+        rightImageBtn3.setOnClickListener(this);
 
         backTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,12 +166,6 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        try {
-            unbinder.unbind();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -189,6 +189,13 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
                 changjingBtn.setBackground(getResources().getDrawable(R.mipmap.tab_selected_bg));
                 xinqingBtn.setBackgroundColor(getResources().getColor(R.color.transparent));
                 yishuBtn.setBackgroundColor(getResources().getColor(R.color.transparent));
+                break;
+
+            case R.id.right_image_btn3:
+                Paint paint = diskLruCacheHelper.getAsSerializable(Constant.LAST_PAINT);
+                Intent intent = new Intent(getActivity(), PlayPictureActivity.class);
+                intent.putExtra(Constant.PAINT, paint);
+                startActivity(intent);
                 break;
         }
     }

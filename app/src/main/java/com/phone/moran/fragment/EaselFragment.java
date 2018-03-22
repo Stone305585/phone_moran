@@ -109,9 +109,9 @@ public class EaselFragment extends BaseFragment {
 
         viewpager.setAdapter(mainPagerAdapter);
 
-        tabLayout.addTab(tabLayout.newTab().setText("我的画单"));
-        tabLayout.addTab(tabLayout.newTab().setText("最近浏览"));
-        tabLayout.addTab(tabLayout.newTab().setText("收藏画单"));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.my_art_list)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.recent_art)));
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.mine_collect)));
 
 
         //给ViewPager添加监听(这里我们直接使用TabLayout里面提供的TabLayoutOnPageChangeListener无需自己再编写
@@ -144,6 +144,5 @@ public class EaselFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 }

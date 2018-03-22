@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--   
+    根标签为animation-list，其中oneshot代表着是否只展示一遍，设置为false会不停的循环播放动画  
+    根标签下，通过item标签对动画中的每一个图片进行声明  
+    android:duration 表示展示所用的该图片的时间长度  
+ -->
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true"
+    >
+    <item android:drawable="@drawable/xf_004" android:duration="85"></item>
+    <item android:drawable="@drawable/xf_006" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_011" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_013" android:duration="85"></item>
+    <item android:drawable="@drawable/xf_014" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_016" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_018" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_021" android:duration="85"></item>-->
+    <!--<item android:drawable="@drawable/xf_023" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_026" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_028" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_030" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_033" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_035" android:duration="85"></item>
+    <item android:drawable="@drawable/xf_037" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_039" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_040" android:duration="85"></item>
+    <item android:drawable="@drawable/xf_044" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_048" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_051" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_053" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_058" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_067" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_069" android:duration="85"></item>
+    <item android:drawable="@drawable/xf_071" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_073" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_077" android:duration="85"></item>
+    <item android:drawable="@drawable/xf_079" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_085" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_084" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_086" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_088" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_090" android:duration="85"></item>-->
+    <!--<item android:drawable="@drawable/xf_092" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_094" android:duration="85"></item>
+    <!--<item android:drawable="@drawable/xf_099" android:duration="85"></item>-->
+    <item android:drawable="@drawable/xf_101" android:duration="85"></item>
+    <item android:drawable="@drawable/xf_105" android:duration="85"></item>
+
+
+</animation-list>

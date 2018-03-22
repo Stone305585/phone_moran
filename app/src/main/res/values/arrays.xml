@@ -13,9 +13,9 @@
 
     <string-array name="search_result_arrays">
 
-        <item>作品</item>
-        <item>作者</item>
-        <item>画单</item>
+        <item>@string/paint</item>
+        <item>@string/artist</item>
+        <item>@string/gallery</item>
 
     </string-array>
 

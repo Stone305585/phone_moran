@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phone.moran.R;
+import com.phone.moran.activity.MyWebActivity;
 import com.phone.moran.activity.PaintActivity;
 import com.phone.moran.activity.ReadRecyclerActivity;
 import com.phone.moran.activity.ShareActivity;
@@ -229,7 +230,7 @@ public class TodayNewFragment extends BaseFragment implements View.OnClickListen
             public void currentPixel(float pix) {
                 SLogger.d("fffo", "pix-->>" + pix);
 
-                if(pix > 565)
+                if(pix > 559)
                     return;
 
 //                if (foldingView.getState() == FoldingLayout1.STATE.FOLDING && foldingView.getTop() < (mainLL.getTop() + mainLL.getTranslationY())) {
@@ -297,8 +298,15 @@ public class TodayNewFragment extends BaseFragment implements View.OnClickListen
                 break;
 
             case R.id.cq_LL1:
+
+                Intent intent1 = new Intent(getActivity(), MyWebActivity.class);
+                intent1.putExtra(Constant.CQ_ID, cqList.get(0));
+                startActivity(intent1);
                 break;
             case R.id.cq_LL2:
+                Intent intent2 = new Intent(getActivity(), MyWebActivity.class);
+                intent2.putExtra(Constant.CQ_ID, cqList.get(1));
+                startActivity(intent2);
                 break;
 //            case R.id.cq_LL3:
 //                break;
@@ -318,7 +326,6 @@ public class TodayNewFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     @Override

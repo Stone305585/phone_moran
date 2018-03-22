@@ -25,7 +25,7 @@
         android:layout_height="45dp">
         <TextView
             android:id="@+id/ok_btn"
-            android:text="确定"
+            android:text="@string/yes"
             android:gravity="center"
             android:layout_gravity="center"
             style="@style/text_common_moran"
@@ -41,7 +41,7 @@
             android:layout_height="match_parent" />
         <TextView
             android:id="@+id/cancel_btn"
-            android:text="取消"
+            android:text="@string/no"
             android:gravity="center"
             style="@style/text_common_moran"
             android:layout_width="110dp"

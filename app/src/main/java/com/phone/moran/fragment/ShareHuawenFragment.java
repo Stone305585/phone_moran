@@ -125,11 +125,6 @@ public class ShareHuawenFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        try{
-            unbinder.unbind();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

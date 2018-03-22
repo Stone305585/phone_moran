@@ -13,7 +13,7 @@
         android:layout_height="43dp">
         <TextView
             android:id="@+id/cancel_btn"
-            android:text="取消"
+            android:text="@string/cancel"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:gravity="center"

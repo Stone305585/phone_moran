@@ -16,5 +16,5 @@ public interface IPaintActivityPresenter {
     //collect
     void collect(int paintId);
 
-    void upload(List<Integer> pics);
+    void upload(List<Integer> pics, String title, String paintId);
 }

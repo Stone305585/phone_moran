@@ -1,6 +1,7 @@
 package com.phone.moran.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,11 +13,14 @@ import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSONArray;
 import com.phone.moran.R;
+import com.phone.moran.activity.PaintActivity;
+import com.phone.moran.activity.PictureActivity;
 import com.phone.moran.activity.SearchActivity;
 import com.phone.moran.adapter.BaseRecyclerAdapter;
 import com.phone.moran.adapter.SearchAuthorRecyclerAdapter;
 import com.phone.moran.adapter.SearchPaintRecyclerAdapter;
 import com.phone.moran.adapter.SearchPicRecyclerAdapter;
+import com.phone.moran.config.Constant;
 import com.phone.moran.model.Author;
 import com.phone.moran.model.Paint;
 import com.phone.moran.model.Picture;
@@ -121,16 +125,19 @@ public class SearchResultFragment extends BaseFragment {
             if (mParam2 != null) {
                 switch (mParam1) {
                     case SearchActivity.AUTHOR:
+                        authorList.clear();
                         List<Author> authors = JSONArray.parseArray(mParam2, Author.class);
                         authorList.addAll(authors);
                         resultRecycler.setAdapter(authorAdapter);
                         break;
                     case SearchActivity.PAINT:
+                        paintList.clear();
                         List<Paint> paints = JSONArray.parseArray(mParam2, Paint.class);
                         paintList.addAll(paints);
                         resultRecycler.setAdapter(paintAdapter);
                         break;
                     case SearchActivity.PICTURE:
+                        pictureList.clear();
                         List<Picture> pictures = JSONArray.parseArray(mParam2, Picture.class);
                         pictureList.addAll(pictures);
                         resultRecycler.setAdapter(picAdapter);
@@ -147,10 +154,12 @@ public class SearchResultFragment extends BaseFragment {
     protected void setListener() {
         super.setListener();
 
-        authorAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+        paintAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
-
+                Intent intent = new Intent(getActivity(), PaintActivity.class);
+                intent.putExtra(Constant.PAINT_ID, ((Paint)model).getPaint_id());
+                startActivity(intent);
             }
 
             @Override
@@ -162,7 +171,9 @@ public class SearchResultFragment extends BaseFragment {
         picAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
-
+                Intent intent = new Intent(getActivity(), PictureActivity.class);
+                intent.putExtra(Constant.PICTURE_ID, ((Picture) model).getPicture_id());
+                startActivity(intent);
             }
 
             @Override
@@ -174,7 +185,9 @@ public class SearchResultFragment extends BaseFragment {
         authorAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
-
+                Intent intent = new Intent(getActivity(), PaintActivity.class);
+                intent.putExtra(Constant.PAINT_ID, ((Author)model).getPaint_id());
+                startActivity(intent);
             }
 
             @Override
@@ -193,7 +206,6 @@ public class SearchResultFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     public String getmParam1() {

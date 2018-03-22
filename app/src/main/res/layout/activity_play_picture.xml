@@ -18,7 +18,6 @@
             <include layout="@layout/title_bar_common"/>
 
             <FrameLayout
-                android:paddingBottom="40dp"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
@@ -27,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"></com.phone.moran.view.gallery.SpeedRecyclerView>
 
-                <TextView
+<!--                <TextView
                     android:layout_gravity="left"
                     android:foreground="#ccffffff"
                     android:layout_width="35dp"
@@ -36,7 +35,7 @@
                     android:layout_gravity="right"
                     android:foreground="#ccffffff"
                     android:layout_width="35dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent" />-->
             </FrameLayout>
 
             <LinearLayout

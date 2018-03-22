@@ -14,7 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.phone.moran.R;
+import com.phone.moran.activity.PlayPictureActivity;
 import com.phone.moran.activity.SearchActivity;
+import com.phone.moran.config.Constant;
+import com.phone.moran.model.Paint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,17 +132,13 @@ public class DiscoverFragment extends BaseFragment implements View.OnClickListen
         recommendBtn.setOnClickListener(this);
         todayNewBtn.setOnClickListener(this);
         searchBar.setOnClickListener(this);
+
+        showBtn.setOnClickListener(this);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        try {
-            unbinder.unbind();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -164,6 +163,13 @@ public class DiscoverFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.search_bar:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
+                break;
+
+            case R.id.show_btn:
+                Paint paint = diskLruCacheHelper.getAsSerializable(Constant.LAST_PAINT);
+                Intent intent = new Intent(getActivity(), PlayPictureActivity.class);
+                intent.putExtra(Constant.PAINT, paint);
+                startActivity(intent);
                 break;
             default:
                 break;

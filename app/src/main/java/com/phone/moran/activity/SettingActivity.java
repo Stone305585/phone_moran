@@ -1,5 +1,6 @@
 package com.phone.moran.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -8,15 +9,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phone.moran.HHApplication;
+import com.phone.moran.MainActivity;
 import com.phone.moran.R;
 import com.phone.moran.config.Constant;
+import com.phone.moran.event.LogoutEvent;
 import com.phone.moran.tools.AppUtils;
+import com.phone.moran.tools.FileUtils;
+import com.phone.moran.tools.MyActivityManager;
 import com.phone.moran.tools.PreferencesUtils;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
+
+import static com.phone.moran.config.Constant.CHINESE;
+import static com.phone.moran.config.Constant.ENGLISH;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
+
+    private static final int uintM = 1024 * 1024;
 
     @BindView(R.id.back_title)
     ImageView backTitle;
@@ -46,6 +59,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     LinearLayout clearLL;
     @BindView(R.id.security_LL)
     LinearLayout securityLL;
+    @BindView(R.id.cache_size)
+    TextView cacheSize;
+    @BindView(R.id.version_text)
+    TextView verText;
 
     @BindView(R.id.quit_btn)
     TextView quitBtn;
@@ -64,6 +81,14 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initView() {
         super.initView();
+
+        title.setText(getResources().getString(R.string.mine_setting));
+
+        File cacheDir = getExternalCacheDir();
+        long size = FileUtils.getFolderSize(cacheDir);
+        cacheSize.setText(String.valueOf(size/uintM) + "M");
+
+        verText.setText(AppUtils.getAppVersionName(getApplication()));
     }
 
     @Override
@@ -72,13 +97,19 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
         backTitle.setOnClickListener(this);
         quitBtn.setOnClickListener(this);
-
+        aboutLL.setOnClickListener(this);
+        clearLL.setOnClickListener(this);
+        suggestLL.setOnClickListener(this);
+        languageLL.setOnClickListener(this);
+        securityLL.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.quit_btn:
+                EventBus.getDefault().post(new LogoutEvent());
+
                 PreferencesUtils.putString(this, Constant.ACCESS_TOKEN, "");
                 PreferencesUtils.putString(this, Constant.AVATAR, "");
                 PreferencesUtils.putString(this, Constant.USER_NAME, "");
@@ -96,13 +127,96 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             diskLruCacheHelper.put(Constant.LOCAL_MINE + userId, l);*/
 
                 HHApplication.checkLogin();
-
-                AppUtils.showToast(getApplicationContext(), "已退出");
+                finish();
                 break;
 
             case R.id.back_title:
                 finish();
                 break;
+
+            case R.id.suggest_LL:
+                startActivity(new Intent(this, SuggestActivity.class));
+                break;
+
+            case R.id.language_LL:
+                showMyDialog(getResources().getString(R.string.choose_your_language));
+
+                getYesMsg().setText("中文");
+                getNoMsg().setText("English");
+
+                setAlterListener(new AlterDialogInterface() {
+                    @Override
+                    public void positiveGo() {
+
+                        if(PreferencesUtils.getString(getApplicationContext(), Constant.LANGUAGE) != null && PreferencesUtils.getString(getApplicationContext(), Constant.LANGUAGE).equals(CHINESE)) {
+                            AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.change_language_msg_c));
+                            ad.dismiss();
+                            return;
+                        }
+                        setLanguage(false);
+                        PreferencesUtils.putString(getApplicationContext(), Constant.LANGUAGE, CHINESE);
+
+                        MyActivityManager.getInstance().finishAllActivity();
+                        startActivity(new Intent(SettingActivity.this, MainActivity.class));
+
+                    }
+
+                    @Override
+                    public void negativeGo() {
+
+                        if(PreferencesUtils.getString(getApplicationContext(), Constant.LANGUAGE) != null && PreferencesUtils.getString(getApplicationContext(), Constant.LANGUAGE).equals(Constant.ENGLISH)) {
+                            AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.change_language_msg_e));
+                            ad.dismiss();
+                            return;
+                        }
+                        setLanguage(true);
+                        PreferencesUtils.putString(getApplicationContext(), Constant.LANGUAGE, ENGLISH);
+
+                        MyActivityManager.getInstance().finishAllActivity();
+                        startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                    }
+                });
+                break;
+
+            case R.id.clear_LL:
+                showMyDialog(getResources().getString(R.string.delete_all_cache));
+
+                getYesMsg().setText(getResources().getString(R.string.yes));
+                getNoMsg().setText(getResources().getString(R.string.no));
+
+                setAlterListener(new AlterDialogInterface() {
+                    @Override
+                    public void positiveGo() {
+
+                        dialog.show();
+                        FileUtils.cleanExternalCache(getApplicationContext());
+                        dialog.dismiss();
+
+                        File cacheDir = getExternalCacheDir();
+                        long size = FileUtils.getFolderSize(cacheDir);
+                        cacheSize.setText(String.valueOf(size/uintM) + "M");
+
+                        ad.dismiss();
+
+                    }
+
+                    @Override
+                    public void negativeGo() {
+
+                        ad.dismiss();
+                    }
+                });
+                break;
+
+            case R.id.about_LL:
+                startActivity(new Intent(SettingActivity.this, AboutUsActivity.class));
+                break;
+
+            case R.id.security_LL:
+                startActivity(new Intent(SettingActivity.this, AccountSecurityActivity.class));
+                break;
+
         }
     }
+
 }

@@ -17,9 +17,14 @@ import com.phone.moran.adapter.BaseRecyclerAdapter;
 import com.phone.moran.adapter.RecentGridRecyclerAdapter;
 import com.phone.moran.config.Constant;
 import com.phone.moran.event.AddRecentEvent;
+import com.phone.moran.event.LogoutEvent;
 import com.phone.moran.model.LocalPaints;
 import com.phone.moran.model.Paint;
+import com.phone.moran.tools.PreferencesUtils;
+import com.phone.moran.tools.SLogger;
+import com.phone.moran.tools.diskCache.DiskLruCacheHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +53,8 @@ public class RecentPaintFragment extends BaseFragment {
 
     RecentGridRecyclerAdapter localRecyclerAdapter;
     private List<Paint> list = new ArrayList<>();
+
+    private boolean needRefresh = false;
 
 
     public RecentPaintFragment() {
@@ -114,8 +121,12 @@ public class RecentPaintFragment extends BaseFragment {
         localRecyclerAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
+                Paint p = (Paint) model;
                 Intent intent = new Intent(getActivity(), PaintActivity.class);
-                intent.putExtra(Constant.PAINT_ID, ((Paint)model).getPaint_id());
+                if (p.getPaint_id() == -1) {
+                    intent.putExtra(Constant.PAINT_TITLE, p.getPaint_title());
+                } else
+                    intent.putExtra(Constant.PAINT_ID, ((Paint) model).getPaint_id());
                 startActivity(intent);
             }
 
@@ -126,16 +137,44 @@ public class RecentPaintFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(needRefresh) {
+
+            SLogger.d("<<", "--->> need refresh recent");
+
+            try {
+                diskLruCacheHelper = new DiskLruCacheHelper(getActivity());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            initRecentCollect();
+
+            localRecyclerAdapter.notifyDataSetChanged();
+
+            needRefresh = false;
+        }
+    }
+
     /**
      * 填充本地的最近的list
      */
     private void initRecentCollect() {
 
-        list.clear();
+        userId = PreferencesUtils.getString(getActivity(), Constant.USER_ID);
+
+        SLogger.d("<<", "recent paint activity----》" + (Constant.LOCAL_RECENT + userId));
 
         if (diskLruCacheHelper.getAsSerializable(Constant.LOCAL_RECENT + userId) != null) {
+            list.clear();
+
             ArrayList<Paint> localPaints = ((LocalPaints) diskLruCacheHelper.getAsSerializable(Constant.LOCAL_RECENT + userId)).getPaints();
             list.addAll(localPaints);
+
+            localRecyclerAdapter.notifyDataSetChanged();
         }
     }
 
@@ -147,12 +186,21 @@ public class RecentPaintFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     public void onEventMainThread(AddRecentEvent event) {
 
-        initRecentCollect();
+        SLogger.d("<<", "--recent event--->>>>");
+
+//        initRecentCollect();
+//        localRecyclerAdapter.notifyDataSetChanged();
+
+        needRefresh = true;
+    }
+
+    public void onEventMainThread(LogoutEvent event) {
+
+        list.clear();
         localRecyclerAdapter.notifyDataSetChanged();
     }
 }

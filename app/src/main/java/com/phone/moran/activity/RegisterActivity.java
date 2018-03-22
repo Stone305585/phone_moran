@@ -77,7 +77,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     protected void initView() {
         super.initView();
 
-        title.setText("注册账号");
+        title.setText(getResources().getString(R.string.register_account));
         mobileRegisterFragment = MobileRegisterFragment.newInstance("", "");
         emailRegisterFragment = EmailRegisterFragment.newInstance("", "");
         fm = getSupportFragmentManager();

@@ -130,6 +130,7 @@ public class SceneCFragment extends BaseFragment implements ISceneCFragment {
                 Intent intent = new Intent(getActivity(), CategoryDetailActivity.class);
                 intent.putExtra(CategoryDetailActivity.TYPEID, categoryArtBack.getScene_home_page().get(0).getType_id());
                 intent.putExtra(Constant.PAINT_ID, paint.getPaint_id());
+                intent.putExtra(Constant.TITLE, paint.getPaint_name());
                 startActivity(intent);
             }
 
@@ -146,6 +147,7 @@ public class SceneCFragment extends BaseFragment implements ISceneCFragment {
                 Intent intent = new Intent(getActivity(), CategoryDetailActivity.class);
                 intent.putExtra(CategoryDetailActivity.TYPEID, categoryArtBack.getScene_home_page().get(1).getType_id());
                 intent.putExtra(Constant.PAINT_ID, paint.getPaint_id());
+                intent.putExtra(Constant.TITLE, paint.getPaint_name());
                 startActivity(intent);
             }
 
@@ -168,15 +170,6 @@ public class SceneCFragment extends BaseFragment implements ISceneCFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        try {
-            if (unbinder != null) {
-                unbinder.unbind();
-                unbinder = null;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

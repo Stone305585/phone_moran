@@ -66,10 +66,8 @@ public class WifiConnect {
         //状态变成WIFI_STATE_ENABLED 的时候才能执行下面的语句
         //WifiManager.WIFI_STATE_ENABLING 2
         //WifiManager.WIFI_STATE_ENABLED 3
-        System.out.println("wifiManager.getWifiState()" + wifiManager.getWifiState());
-        while(wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLING )
+        while(wifiManager.getWifiState() != WifiManager.WIFI_STATE_ENABLED )
         {
-            System.out.println("wifiManager.getWifiState" + wifiManager.getWifiState());
             try{
                 //为了避免程序一直while循环，让它睡个100毫秒在检测……
                 Thread.currentThread();
@@ -90,6 +88,7 @@ public class WifiConnect {
         WifiConfiguration tempConfig = this.isExsits(SSID);
 
         if(tempConfig != null)
+
         {
             wifiManager.removeNetwork(tempConfig.networkId);
         }

@@ -92,11 +92,8 @@ public class InputInfoActivity extends BaseActivity {
                     Intent data = new Intent();
                     data.putExtra(INFOS, des);
                     setResult(RESULT_OK, data);
-                    AppUtils.showToast(getApplicationContext(), "提交成功");
+                    AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.save_success));
                     finish();
-                } else {
-                    AppUtils.showToast(getApplicationContext(), "请填写内容后提交");
-
                 }
             }
         });

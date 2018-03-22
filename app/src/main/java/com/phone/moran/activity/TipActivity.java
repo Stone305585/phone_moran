@@ -3,7 +3,10 @@ package com.phone.moran.activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,10 +15,12 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.Switch;
 import com.phone.moran.R;
+import com.phone.moran.config.Constant;
 import com.phone.moran.presenter.implPresenter.TipsActivityImpl;
 import com.phone.moran.presenter.implView.ITipsActivity;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.DensityUtils;
+import com.phone.moran.tools.ImageLoader;
 import com.phone.moran.tools.SLogger;
 import com.phone.moran.tools.ScreenUtils;
 import com.phone.moran.view.MoveImageView;
@@ -25,8 +30,11 @@ import butterknife.ButterKnife;
 
 public class TipActivity extends BaseActivity implements View.OnClickListener, ITipsActivity {
 
-    private static final String TAB1 = "材质";
-    private static final String TAB2 = "位置";
+     String TAB1 = "材质";
+     String TAB2 = "位置";
+
+     public static int TV_W = 240;
+     public static int TV_H = 185;
 
     @BindView(R.id.back_title)
     ImageView backTitle;
@@ -49,7 +57,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
     @BindView(R.id.nine_position)
     ImageView ninePosition;
     @BindView(R.id.tip_tv)
-    TextView tipTv;
+    EditText tipTv;
     @BindView(R.id.position_tip)
     MoveImageView positionTip;
     @BindView(R.id.tabLayout)
@@ -70,7 +78,8 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
     ImageView pos4;
     @BindView(R.id.pos5)
     ImageView pos5;
-
+    @BindView(R.id.rest_word_tv)
+    TextView tipRest;
     @BindView(R.id.tip_switch)
     Switch tipSwitch;
     @BindView(R.id.tip_tip)
@@ -79,6 +88,8 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
     FrameLayout tipBgFl;
     @BindView(R.id.click_gone_iv)
     ImageView clickGone;
+    @BindView(R.id.tab_LL)
+    LinearLayout tabLL;
 
     private String flag = TAB1;//当前页面标志
     private int position = 1;
@@ -86,13 +97,19 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
     private int pushFlag = 1;//1:添加   2：删除
     private TipsActivityImpl tipsActivityImpl;
 
+    String picUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tip);
         ButterKnife.bind(this);
 
+        TAB1 = getResources().getString(R.string.texture);
+        TAB2 = getResources().getString(R.string.position);
+
         tipsActivityImpl = new TipsActivityImpl(this, token, this);
+        picUrl = getIntent().getStringExtra(Constant.IMAGE);
 
         initView();
         setListener();
@@ -103,7 +120,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
     protected void initView() {
         super.initView();
 
-        title.setText("便签");
+        title.setText(getResources().getString(R.string.tips));
         rightImageBtn3.setVisibility(View.VISIBLE);
         tabLayout.addTab(tabLayout.newTab().setText(TAB1));
         tabLayout.addTab(tabLayout.newTab().setText(TAB2));
@@ -111,7 +128,28 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
         material1.setChecked(true);
         positionTip.setTipTv(tipTv);
 
+        ImageLoader.displayImg(this, picUrl, materialBackground);
+
         tipSwitch.setChecked(true);
+
+        pos1.setVisibility(View.VISIBLE);
+        pos2.setVisibility(View.INVISIBLE);
+        pos4.setVisibility(View.INVISIBLE);
+        pos5.setVisibility(View.INVISIBLE);
+
+        //动态设置tip 玉的位置
+        float tipTextX = ScreenUtils.getScreenWidth(this) / 2 - DensityUtils.dip2px(TV_W / 2);
+        float tipTextY = ScreenUtils.getScrrenHeight(this) / 2 - DensityUtils.dip2px(TV_H / 2);
+
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(DensityUtils.dip2px(48), DensityUtils.dip2px(50));
+
+        int leftMargin = (int)(tipTextX - DensityUtils.dip2px(48)/2);
+        int topMargin = (int)(tipTextY - DensityUtils.dip2px(150)/2);
+
+        lp.setMargins(leftMargin, topMargin, 0, 0);
+
+        positionTip.setLayoutParams(lp);
+
     }
 
     @Override
@@ -123,6 +161,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
         material3.setOnClickListener(this);
 
         backTitle.setOnClickListener(this);
+        tabLL.setOnClickListener(this);
 
         tipTip.setOnClickListener(this);
 
@@ -145,17 +184,17 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
             public void onTabSelected(TabLayout.Tab tab) {
 
                 if (tab.getText() == TAB1) {
-                    materialLL.setVisibility(View.VISIBLE);
                     tipTip.setVisibility(View.VISIBLE);
                     ninePosition.setVisibility(View.GONE);
                     pos1.setVisibility(View.INVISIBLE);
                     pos2.setVisibility(View.INVISIBLE);
                     pos4.setVisibility(View.INVISIBLE);
                     pos5.setVisibility(View.INVISIBLE);
+                    tabLL.setVisibility(View.VISIBLE);
                     flag = TAB1;
                 } else {
                     tipTip.setVisibility(View.GONE);
-                    materialLL.setVisibility(View.GONE);
+                    tabLL.setVisibility(View.GONE);
                     ninePosition.setVisibility(View.VISIBLE);
                     flag = TAB2;
                 }
@@ -208,6 +247,25 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
             }
         });
 
+        tipTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                int length = s.toString().length();
+                tipRest.setText(String.valueOf((100 - length)) + "字");
+
+            }
+        });
     }
 
     @Override
@@ -219,21 +277,21 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.material_1:
-                materialBackground.setImageResource(R.mipmap.material_tip1);
+                tipTv.setBackground(getResources().getDrawable(R.mipmap.material_tip1));
                 material1.setChecked(true);
                 material2.setChecked(false);
                 material3.setChecked(false);
                 texture = 1;
                 break;
             case R.id.material_2:
-                materialBackground.setImageResource(R.mipmap.material_tip2);
+                tipTv.setBackground(getResources().getDrawable(R.mipmap.material_tip2));
                 material1.setChecked(false);
                 material2.setChecked(true);
                 material3.setChecked(false);
                 texture = 2;
                 break;
             case R.id.material_3:
-                materialBackground.setImageResource(R.mipmap.material_tip3);
+                tipTv.setBackground(getResources().getDrawable(R.mipmap.material_tip3));
                 material1.setChecked(false);
                 material2.setChecked(false);
                 material3.setChecked(true);
@@ -289,13 +347,13 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
             if (curY < y1) {
                 position = 1;
             } else {
-                position = 2;
+                position = 4;
             }
         } else {
             if (curY < y1) {
-                position = 3;
+                position = 2;
             } else {
-                position = 4;
+                position = 5;
             }
         }
 
@@ -323,6 +381,6 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
 
     @Override
     public void uploadTips() {
-        AppUtils.showToast(getApplicationContext(), "推送成功");
+        AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.push_success));
     }
 }

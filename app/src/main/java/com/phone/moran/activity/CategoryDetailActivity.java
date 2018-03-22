@@ -58,6 +58,8 @@ public class CategoryDetailActivity extends BaseActivity implements View.OnClick
     LinearLayout filterBtn;
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.category_tv)
+    TextView categoryTv;
 
     private int typeId = 11;
     private ImageGridRecyclerAdapter picAdapter;
@@ -72,6 +74,8 @@ public class CategoryDetailActivity extends BaseActivity implements View.OnClick
     private int paintId;
 
     private int last_id;
+
+    private Paint paint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +103,7 @@ public class CategoryDetailActivity extends BaseActivity implements View.OnClick
         super.initView();
 
         title.setText("分类");
+        categoryTv.setText(getIntent().getStringExtra(Constant.TITLE));
         picAdapter = new ImageGridRecyclerAdapter(this, pictureList);
         recycler.setItemAnimator(new DefaultItemAnimator());
         recycler.setLayoutManager(new GridLayoutManager(this, 3));
@@ -147,11 +152,15 @@ public class CategoryDetailActivity extends BaseActivity implements View.OnClick
                 Paint paint = (Paint) model;
                 paint.setSelected(true);
 
+                last_id = 0;
+
                 filterRecyclerAdapter.notifyDataSetChanged();
 
                 pictureList.clear();
 
                 caImpl.updateMain(paint.getPaint_id(), last_id);
+
+                categoryTv.setText(paint.getPaint_name());
 
                 popupWindow.dismiss();
             }
@@ -165,9 +174,14 @@ public class CategoryDetailActivity extends BaseActivity implements View.OnClick
         picAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
-                Picture picture = (Picture) model;
+                /*Picture picture = (Picture) model;
                 Intent intent = new Intent(CategoryDetailActivity.this, PictureActivity.class);
                 intent.putExtra(Constant.PICTURE_ID, picture.getPicture_id());
+                startActivity(intent);*/
+
+                Intent intent = new Intent(CategoryDetailActivity.this, PlayPictureActivity.class);
+                intent.putExtra(Constant.PLAY_FLAG, PlayPictureActivity.PAINT);
+                intent.putExtra(Constant.PAINT, paint);
                 startActivity(intent);
 
             }
@@ -229,8 +243,9 @@ public class CategoryDetailActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
-    public void updateMain(List<Picture> paints, int last_id) {
+    public void updateMain(Paint paint, List<Picture> paints, int last_id) {
         this.last_id = last_id;
+        this.paint = paint;
 
         pictureList.addAll(paints);
         picAdapter.notifyDataSetChanged();

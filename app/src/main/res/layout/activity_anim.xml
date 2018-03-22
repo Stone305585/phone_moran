@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.phone.moran.activity.AnimActivity">
+<!--
+    <FrameLayout
+        android:id="@+id/animFL"
+        android:background="@drawable/xf_105"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:scaleType="fitCenter"
+            android:src="@drawable/xf_105"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />-->
+    <FrameLayout
+        android:id="@+id/animFL"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_gravity="center"
+            android:layout_marginRight="56dp"
+            android:layout_marginTop="135dp"
+            android:layout_width="100dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/later_btn"
+            android:layout_gravity="center"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="135dp"
+            android:layout_width="100dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/back_btn"
+            android:layout_gravity="center"
+            android:layout_marginTop="265dp"
+            android:layout_width="120dp"
+            android:layout_height="45dp" />
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

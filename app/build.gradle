@@ -16,6 +16,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 
     buildTypes {
@@ -60,12 +65,9 @@ dependencies {
     repositories { maven { url "https://jitpack.io" } }
     compile project(':PhotoPicker')
     testCompile 'junit:junit:4.12'
-    compile files('libs/SocialSDK_QQ_Simplify.jar')
-    compile files('libs/SocialSDK_WeiXin_Full.jar')
     compile files('libs/umeng_social_api.jar')
     compile files('libs/umeng_social_net.jar')
     compile files('libs/umeng_social_tool.jar')
-    compile files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.jakewharton:butterknife:8.4.0'
@@ -88,4 +90,10 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation files('libs/zxing.jar')
+    implementation files('libs/SocialSDK_facebook.jar')
+    implementation files('libs/SocialSDK_instagram.jar')
+    implementation files('libs/SocialSDK_Sina_Simplify.jar')
+    implementation files('libs/SocialSDK_twitter.jar')
+    implementation files('libs/SocialSDK_WeChat_Simplify.jar')
+    implementation files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/run_main_color"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    tools:context="com.phone.moran.activity.AccountSecurityActivity">
+
+    <FrameLayout
+        android:background="@color/run_main_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/title_bar_common"/>
+            <TextView
+                android:id="@+id/changeBtn"
+                android:text="@string/change_password"
+                style="@style/text_common_moran"
+                android:textSize="15sp"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <TextView
+                android:background="@color/run_main_color"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

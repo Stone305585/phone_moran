@@ -109,16 +109,17 @@ public class MobileRegisterFragment extends BaseFragment {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = mobileEt.getText().toString();
+
+                phone = mobileEt.getText().toString();
                 String password = passwordEt.getText().toString();
                 String password1 = passwordRepeatEt.getText().toString();
                 if (!password.equals(password1)) {
-                    AppUtils.showToast(getActivity().getApplicationContext(), "两次输入密码不一致");
+                    AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.password_not_identify));
                 } else {
                     if (!TextUtils.isEmpty(password) && !TextUtils.isEmpty(phone)) {
                         loginActivityImpl.getCode(phone);
                     } else {
-                        AppUtils.showToast(getActivity().getApplicationContext(), "请输入密码/手机号");
+                        AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.user_name_email));
 
                     }
                 }
@@ -137,12 +138,6 @@ public class MobileRegisterFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        try{
-            unbinder.unbind();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public String getPhone() {

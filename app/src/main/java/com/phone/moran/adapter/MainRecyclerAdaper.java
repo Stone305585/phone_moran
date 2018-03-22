@@ -11,6 +11,7 @@ import com.phone.moran.R;
 import com.phone.moran.model.Picture;
 import com.phone.moran.tools.DensityUtils;
 import com.phone.moran.tools.ImageLoader;
+import com.phone.moran.tools.SLogger;
 import com.phone.moran.tools.ScreenUtils;
 import com.phone.moran.view.gallery.CardAdapterHelper;
 
@@ -35,12 +36,14 @@ public class MainRecyclerAdaper extends RecyclerView.Adapter<BaseRecyclerHolder>
     public LayoutInflater mInflater;
     private CardAdapterHelper mCardAdapterHelper = new CardAdapterHelper();
     private int mPagePadding = 30;
-    private int mCardWidth = 340;//单个画
+    private int mCardWidth = 300;//单个画
 
     public MainRecyclerAdaper(Context context, List<Picture> datas) {
         this.mContext = context;
         this.mData = datas;
         mInflater = LayoutInflater.from(context);
+
+        SLogger.d("<<", "--分辨率->>>" + DensityUtils.dip2px(1));
     }
 
     @Override
@@ -55,12 +58,21 @@ public class MainRecyclerAdaper extends RecyclerView.Adapter<BaseRecyclerHolder>
         final MainHolder mainHolder = (MainHolder) holder;
         if (position == 0) {
             int leftMargin = (ScreenUtils.getScreenWidth(mContext) - (int) (DensityUtils.dip2px(mCardWidth))) / 2;
-            setViewMargin(mainHolder.itemView, leftMargin, 0, 0, 0);
+            setViewMargin(mainHolder.itemView, leftMargin, 0, DensityUtils.dip2px(8), 0);
         }
 //        else if (position == mData.size() - 1) {
 //            int rightMargin = (ScreenUtils.getScreenWidth(mContext) - (int) (DensityUtils.dip2px(mCardWidth))) / 2;
 //            setViewMargin(mainHolder.itemView, 0, 0, rightMargin, 0);
 //        }
+
+        if(itemClickListener != null) {
+            mainHolder.imageRecycler.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemClickListener.onItemClick(v, position, painting);
+                }
+            });
+        }
 
         ImageLoader.displayImg(mContext, painting.getDetail_url(), mainHolder.imageRecycler);
     }

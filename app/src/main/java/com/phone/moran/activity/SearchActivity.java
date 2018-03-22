@@ -16,11 +16,13 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONArray;
 import com.phone.moran.R;
 import com.phone.moran.adapter.MainPagerAdapter;
+import com.phone.moran.config.Constant;
 import com.phone.moran.fragment.SearchResultFragment;
 import com.phone.moran.model.SearchBack;
 import com.phone.moran.presenter.implPresenter.SearchActivityImpl;
 import com.phone.moran.presenter.implView.ISearchActivity;
 import com.phone.moran.tools.AppUtils;
+import com.phone.moran.tools.PreferencesUtils;
 import com.phone.moran.tools.SLogger;
 import com.phone.moran.view.ScrollerViewPager;
 import com.phone.moran.view.TagGroup;
@@ -96,21 +98,22 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     protected void initView() {
         super.initView();
 
+        String recent = PreferencesUtils.getString(getApplicationContext(), Constant.RECENT_SEARCH);
+
+        if (!TextUtils.isEmpty(recent)) {
+
+            String[] res = recent.split(",");
+
+            for (int i = 0; i < res.length; i++) {
+                if (!TextUtils.isEmpty(res[i]))
+                    recentTagList.add(res[i]);
+            }
+        }
+
         tabLayout.setVisibility(View.GONE);
         viewpagerSearch.setVisibility(View.GONE);
 
-        searchBtn.setText("取消");
-
-        recentTagList.add("人物");
-        recentTagList.add("风景");
-
-        hotTagList.add("现代");
-        hotTagList.add("写实");
-        hotTagList.add("抽象");
-        hotTagList.add("国画");
-        hotTagList.add("人物");
-        hotTagList.add("风景");
-        hotTagList.add("水墨画");
+        searchBtn.setText(getResources().getString(R.string.cancel));
 
         recentTagGroup.setTags(recentTagList);
         hotTagGroup.setTags(hotTagList);
@@ -176,10 +179,10 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             public void afterTextChanged(Editable s) {
 
                 String key = s.toString();
-                if(!TextUtils.isEmpty(key)) {
-                    searchBtn.setText("搜索");
+                if (!TextUtils.isEmpty(key)) {
+                    searchBtn.setText(getResources().getString(R.string.search));
                 } else {
-                    searchBtn.setText("取消");
+                    searchBtn.setText(getResources().getString(R.string.cancel));
                 }
             }
         });
@@ -255,14 +258,41 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         switch (v.getId()) {
             case R.id.search_btn:
-                if(searchBtn.getText().equals("取消")){
+                if (searchBtn.getText().equals(getResources().getString(R.string.cancel))) {
                     finish();
                 } else {
                     String kw = searchBar.getText().toString();
                     searchActivityImpl.getSearchResult(kw);
+
+                    String recent = PreferencesUtils.getString(getApplicationContext(), Constant.RECENT_SEARCH);
+
+                    if (TextUtils.isEmpty(recent)) {
+                        recent = "";
+                    }
+
+                    recent = recent + ("," + kw);
+
+                    PreferencesUtils.putString(getApplicationContext(), Constant.RECENT_SEARCH, recent);
+
+                    if (!TextUtils.isEmpty(recent)) {
+
+                        String[] res = recent.split(",");
+
+                        for (int i = 0; i < res.length; i++) {
+
+                            if (!TextUtils.isEmpty(res[i]))
+                                recentTagList.add(res[i]);
+                        }
+                    }
+
+                    recentTagGroup.setTags(recentTagList);
+
                 }
                 break;
             case R.id.close_group:
+                recentTagList.clear();
+                recentTagGroup.setTags(recentTagList);
+                PreferencesUtils.putString(getApplicationContext(), Constant.RECENT_SEARCH, "");
                 break;
             case R.id.clear_btn:
                 searchBar.setText("");

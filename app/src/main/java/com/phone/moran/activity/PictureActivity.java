@@ -50,6 +50,8 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
     TextView timePaint;
     @BindView(R.id.other_paint)
     TextView otherPaint;
+    @BindView(R.id.title_paint)
+    TextView paintTitle;
 
 
     private int picture_id;
@@ -100,6 +102,14 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
     protected void setListener() {
         super.setListener();
         backTitle.setOnClickListener(this);
+
+
+        imagePaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -116,6 +126,7 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
                         imagePaint.setBackground(new BitmapDrawable(resource));
                     }
                 });
+
 
         if(picture.getAuthor() != null) {
             authorPaint.setText(picture.getAuthor());
@@ -137,6 +148,8 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
 
         if(picture.getTitle() != null) {
             title.setText(picture.getTitle());
+            title.setTextColor(getResources().getColor(R.color.run_text_main));
+            paintTitle.setText(picture.getTitle());
         }
     }
 

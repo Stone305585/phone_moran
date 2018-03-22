@@ -69,7 +69,7 @@ public class NewPaintActivity extends BaseActivity implements View.OnClickListen
     protected void initView() {
         super.initView();
 
-        title.setText("新建画单");
+        title.setText(getResources().getString(R.string.new_art_list));
         msgEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -106,7 +106,7 @@ public class NewPaintActivity extends BaseActivity implements View.OnClickListen
             case R.id.submit_btn:
 
                 if(TextUtils.isEmpty(des)) {
-                    AppUtils.showToast(getApplicationContext(), "请输入文字后再提交");
+//                    AppUtils.showToast(getApplicationContext(), "请输入文字后再提交");
                     return;
                 }
 
@@ -115,7 +115,7 @@ public class NewPaintActivity extends BaseActivity implements View.OnClickListen
 
                 for( int i = 0; i < paints.size(); i++) {
                     if(paints.get(i).getPaint_title().equals(des)) {
-                        AppUtils.showToast(getApplicationContext(), "已存在改画单");
+                        AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.type_different_name));
                         return;
                     }
                 }
@@ -123,7 +123,7 @@ public class NewPaintActivity extends BaseActivity implements View.OnClickListen
                 Intent data = new Intent();
                 data.putExtra(INFOS, des);
                 setResult(RESULT_OK, data);
-                AppUtils.showToast(getApplicationContext(), "提交成功");
+                AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.save_success));
                 finish();
                 break;
             case R.id.close_btn:
