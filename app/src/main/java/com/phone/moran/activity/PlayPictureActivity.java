@@ -317,7 +317,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
         playTipBtn.setOnClickListener(this);
         playUploadBtn.setOnClickListener(this);
         collectPopFL.setOnClickListener(this);
-        rightImageBtn1.setOnClickListener(this);
+        rightImageBtn3.setOnClickListener(this);
 
 
         imagePagerAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
