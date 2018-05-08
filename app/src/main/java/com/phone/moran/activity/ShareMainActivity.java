@@ -2,6 +2,7 @@ package com.phone.moran.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import com.phone.moran.fragment.ShareHuawenFragment;
 import com.phone.moran.fragment.ShareMoodFragment;
 import com.phone.moran.fragment.ShareShareFragment;
 import com.phone.moran.model.Paint;
+import com.phone.moran.tools.AppTypeface;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.DensityUtils;
 import com.phone.moran.tools.ImageLoader;
@@ -139,6 +141,7 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
+        changeViewGroupFonts(this, (ViewGroup)tabLayout, AppTypeface.REPLACE_FONT, 15, Color.BLACK);
 
     }
 

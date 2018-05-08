@@ -117,7 +117,7 @@ public class ReadRecyclerActivity extends BaseActivity implements IRecyclerActiv
         });
 
         srl.setOnRefreshListener(this);
-        srl.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+/*        srl.setOnLoadListener(new RefreshLayout.OnLoadListener() {
                                   @Override
                                   public void onLoad() {
                                       AppUtils.showFooter(doingfooterView);
@@ -126,7 +126,7 @@ public class ReadRecyclerActivity extends BaseActivity implements IRecyclerActiv
                                   }
 
                               }
-        );
+        );*/
 
         backTitle.setOnClickListener(new View.OnClickListener() {
             @Override

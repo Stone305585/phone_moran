@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.phone.moran.R;
+import com.phone.moran.tools.SLogger;
 
 public class TestActivity extends BaseActivity {
 
@@ -13,6 +14,9 @@ public class TestActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        SLogger.d("<<", "user_id-->>>1231231231231231231231231");
+
 
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();

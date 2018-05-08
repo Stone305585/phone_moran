@@ -18,7 +18,10 @@ import com.phone.moran.activity.PlayPictureActivity;
 import com.phone.moran.activity.SearchActivity;
 import com.phone.moran.config.Constant;
 import com.phone.moran.model.Paint;
+import com.phone.moran.tools.AppUtils;
+import com.phone.moran.tools.diskCache.DiskLruCacheHelper;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,7 +169,22 @@ public class DiscoverFragment extends BaseFragment implements View.OnClickListen
                 break;
 
             case R.id.show_btn:
+
                 Paint paint = diskLruCacheHelper.getAsSerializable(Constant.LAST_PAINT);
+                if(paint == null) {
+                    try {
+                        diskLruCacheHelper = new DiskLruCacheHelper(getActivity().getApplicationContext());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    paint = diskLruCacheHelper.getAsSerializable(Constant.LAST_PAINT);
+
+                    if(paint == null) {
+                        AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.net_dissconncted));
+                        return;
+                    }
+                }
                 Intent intent = new Intent(getActivity(), PlayPictureActivity.class);
                 intent.putExtra(Constant.PAINT, paint);
                 startActivity(intent);

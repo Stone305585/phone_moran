@@ -132,12 +132,8 @@
         </activity>
         <activity android:name=".activity.XinqingActivity" />
         <activity android:name=".activity.FoldingActivity" />
-        <activity android:name=".activity.SearchActivity">
-
-        </activity>
-        <activity android:name=".activity.LoginActivity">
-
-        </activity>
+        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.LoginActivity"></activity>
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.VerifyActivity" />
         <activity android:name=".activity.SettingActivity" />
@@ -146,8 +142,8 @@
         <activity android:name=".activity.TipActivity" />
         <activity
             android:name=".activity.UserInfoActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".activity.ReadRecyclerActivity" />
         <activity android:name=".activity.LiningActivity" />
         <activity android:name=".activity.CategoryDetailActivity" />
@@ -235,12 +231,15 @@
         <activity android:name=".activity.ResetPasswordActivity" />
         <activity android:name=".activity.RegisterKnowActivity" />
         <activity android:name=".activity.AnimActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".activity.NoNetActivity"></activity>
     </application>
 
 </manifest>

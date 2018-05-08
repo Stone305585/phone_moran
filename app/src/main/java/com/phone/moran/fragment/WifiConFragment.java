@@ -110,12 +110,22 @@ public class WifiConFragment extends BaseFragment implements View.OnClickListene
         return v;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        if (!hidden) {
+            inputPassLL.setVisibility(View.VISIBLE);
+            resImg.setVisibility(View.GONE);
+            passwordEt.setText("");
+        }
+    }
 
     @Override
     protected void initView(View view) {
         super.initView(view);
 
-        if(cipherType == WifiConnect.WifiCipherType.WIFICIPHER_NOPASS) {
+        if (cipherType == WifiConnect.WifiCipherType.WIFICIPHER_NOPASS) {
             resImg.setVisibility(View.VISIBLE);
             inputPassLL.setVisibility(View.GONE);
             try {
@@ -148,56 +158,62 @@ public class WifiConFragment extends BaseFragment implements View.OnClickListene
 
         switch (v.getId()) {
             case R.id.join_btn:
-
-                String password = passwordEt.getText().toString();
-                if (TextUtils.isEmpty(password)) {
-                    AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.type_password));
-                } else {
-                    dialog.show();
-                    boolean res = wifiConnect.connect(ssid, password, cipherType);
-                    if (res) {
-                        //TODO 链接成功 调用回掉接口
-//                        AppUtils.showToast(getActivity().getApplicationContext(), "连接成功");
-                        inputPassLL.setVisibility(View.GONE);
-                        resImg.setVisibility(View.VISIBLE);
-
-                        try {
-                            int type = 0;
-                            if(cipherType == WifiConnect.WifiCipherType.WIFICIPHER_WPA) {
-                                type = 2;
-                            } else if (cipherType == WifiConnect.WifiCipherType.WIFICIPHER_WEP) {
-                                type = 1;
-                            } else {
-                                type = 0;
-                            }
-                            resImg.setImageBitmap(convert(EncodingHandler.createQRCode(ssid + "&" + password + "&" +type, 350)));
-                            dialog.dismiss();
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            AppUtils.showToast(getActivity().getApplicationContext(), "生成二维码失败，稍后重试");
-
-                        }
-                    } else {
-                        dialog.dismiss();
-                        AppUtils.showToast(getActivity().getApplicationContext(), "密码错误");
-                    }
-
-                }
+                createResImg();
                 break;
+
             case R.id.cancel_btn:
                 getActivity().getSupportFragmentManager().popBackStack();
                 break;
+        }
+
+    }
+
+    private void createResImg() {
+        String password = passwordEt.getText().toString();
+        if (TextUtils.isEmpty(password)) {
+            AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.type_password));
+        } else {
+            dialog.show();
+            boolean res = true;
+            //TODO 这里不再需要校验
+//          boolean res = wifiConnect.connect(ssid, password, cipherType);
+            if (res) {
+                //TODO 链接成功 调用回掉接口
+//                        AppUtils.showToast(getActivity().getApplicationContext(), "连接成功");
+                inputPassLL.setVisibility(View.GONE);
+                resImg.setVisibility(View.VISIBLE);
+
+                try {
+                    int type = 0;
+                    if (cipherType == WifiConnect.WifiCipherType.WIFICIPHER_WPA) {
+                        type = 2;
+                    } else if (cipherType == WifiConnect.WifiCipherType.WIFICIPHER_WEP) {
+                        type = 1;
+                    } else {
+                        type = 0;
+                    }
+                    resImg.setImageBitmap(convert(EncodingHandler.createQRCode(ssid + "&" + password + "&" + type, 350)));
+                    dialog.dismiss();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    AppUtils.showToast(getActivity().getApplicationContext(), "生成二维码失败，稍后重试");
+
+                }
+            } else {
+                dialog.dismiss();
+                AppUtils.showToast(getActivity().getApplicationContext(), "密码错误");
+            }
         }
     }
 
     /**
      * 转换二维码为镜像
+     *
      * @param a
      * @return
      */
-    Bitmap convert(Bitmap a)
-    {
+    Bitmap convert(Bitmap a) {
         int w = a.getWidth();
         int h = a.getHeight();
         Bitmap newb = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);// 创建一个新的和SRC长度宽度一样的位图
@@ -206,7 +222,7 @@ public class WifiConFragment extends BaseFragment implements View.OnClickListene
         m.postScale(-1, 1);   //镜像水平翻转
         m.postRotate(-90);  //旋转-90度
         Bitmap new2 = Bitmap.createBitmap(a, 0, 0, w, h, m, true);
-        cv.drawBitmap(new2, new Rect(0, 0, new2.getWidth(), new2.getHeight()),new Rect(0, 0, w, h), null);
+        cv.drawBitmap(new2, new Rect(0, 0, new2.getWidth(), new2.getHeight()), new Rect(0, 0, w, h), null);
         return newb;
     }
 
@@ -217,4 +233,5 @@ public class WifiConFragment extends BaseFragment implements View.OnClickListene
     public void setSsid(String ssid) {
         this.ssid = ssid;
     }
+
 }

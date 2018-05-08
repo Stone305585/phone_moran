@@ -2,7 +2,7 @@
     android:id="@+id/cq_LL"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
-    android:layout_height="160dp"
+    android:layout_height="140dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:background="@color/white"
@@ -14,8 +14,8 @@
         android:src="@mipmap/recyclerview_item"
         android:scaleType="centerCrop"
         app:riv_corner_radius="8dp"
-        android:layout_width="135dp"
-        android:layout_height="135dp" />
+        android:layout_width="115dp"
+        android:layout_height="115dp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -27,7 +27,8 @@
         <TextView
             android:id="@+id/cq_title"
             style="@style/text_common"
-            android:layout_gravity="top"
+            android:layout_gravity="top|left"
+            android:gravity="left"
             android:text="艺术的终结——丹托刘迪对话录"
             android:textColor="@color/run_text_main"
             android:textSize="13sp"
@@ -37,7 +38,7 @@
         <TextView
             android:id="@+id/cq_text"
             android:text="丹托：丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录丹托刘迪对话录"
-            android:lineSpacingExtra="15dp"
+            android:lineSpacingExtra="4dp"
             android:textSize="11sp"
             android:textColor="@color/run_text_hint"
             android:layout_marginTop="15dp"

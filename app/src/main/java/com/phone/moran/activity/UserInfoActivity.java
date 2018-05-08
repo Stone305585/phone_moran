@@ -306,6 +306,12 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        userActivityImpl.uploadUser(user);
+        dialog.show();
+    }
+
     private void goPhotoGrid() {
         checkPermission();
         PhotoPickerIntent intent = new PhotoPickerIntent(this);
@@ -495,6 +501,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void save(User user) {
         dialog.dismiss();
+        PreferencesUtils.putString(this, Constant.USER_NAME, user.getNick_name());
+        PreferencesUtils.putString(this, Constant.AVATAR, user.getHead_url());
+        PreferencesUtils.putString(this, Constant.MINE_BG, user.getBackground());
+
         finish();
     }
 

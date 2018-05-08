@@ -1,5 +1,6 @@
 package com.phone.moran.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +21,7 @@ import com.phone.moran.fragment.FrameColorFragment;
 import com.phone.moran.fragment.FrameSizeFragment;
 import com.phone.moran.presenter.implPresenter.LiningActivityImpl;
 import com.phone.moran.presenter.implView.ILiningActivity;
+import com.phone.moran.tools.AppTypeface;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.ImageLoader;
 
@@ -111,8 +114,10 @@ public class LiningActivity extends BaseActivity implements View.OnClickListener
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.size)));
         frameContent.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-
         setFrame();
+
+        changeViewGroupFonts(this, (ViewGroup)tabLayout, AppTypeface.REPLACE_FONT, 15, Color.BLACK);
+
     }
 
     @Override

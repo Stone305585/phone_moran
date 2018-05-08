@@ -2,6 +2,7 @@ package com.phone.moran.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -21,6 +23,7 @@ import com.phone.moran.config.Constant;
 import com.phone.moran.fragment.ShareMaterialFragment;
 import com.phone.moran.fragment.ShareShareFragment;
 import com.phone.moran.model.MasterQuote;
+import com.phone.moran.tools.AppTypeface;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.DateUtils;
 import com.phone.moran.tools.Util;
@@ -187,6 +190,8 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener,
         contentDaka.setText(masterQuote.getMq_content());
         dateDate.setText(DateUtils.getChineseDate(System.currentTimeMillis()));
         weekDate.setText(DateUtils.getWeekOfDate(System.currentTimeMillis()));
+
+        changeViewGroupFonts(this, (ViewGroup)tabLayout, AppTypeface.REPLACE_FONT, 15, Color.BLACK);
 
     }
 

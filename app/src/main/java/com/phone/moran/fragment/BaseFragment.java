@@ -4,6 +4,7 @@ package com.phone.moran.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -15,8 +16,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -291,5 +294,35 @@ public class BaseFragment extends Fragment {
     private LinearLayout circleShare;
     private LinearLayout sinaShare;
     private TextView cancel;
+
+
+    public void changeViewGroupFonts(Context context, ViewGroup root, String font, int size, int color){
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),font);
+        for (int i=0;i<root.getChildCount();i++){
+            View v = root.getChildAt(i);
+            if (v instanceof TextView){
+                ((TextView)v).setTypeface(tf);
+//                ((TextView)v).setTextSize((int)(size*metrics.density));
+//                ((TextView)v).setTextColor(color);
+            }else if (v instanceof Button){
+            }else if (v instanceof EditText){
+                ((TextView)v).setTypeface(tf);
+                ((TextView)v).setTextColor(color);
+            }else if (v instanceof ViewGroup){
+                changeViewGroupFonts(context, (ViewGroup)v, font, size, color);
+            }
+        }
+    }
+
+    public void changeViewFont(Context context, View element, String font, int size, int color){
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),font);
+        if (element instanceof TextView) {
+            ((TextView) element).setTypeface(tf);
+            ((TextView) element).setTextSize(size);
+            ((TextView) element).setTextColor(color);
+        }else if(element instanceof EditText){
+            ((EditText)element).setTypeface(tf);
+        }
+    }
 
 }

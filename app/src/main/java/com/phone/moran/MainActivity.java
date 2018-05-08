@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -141,11 +142,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         initDataSource();
 
-        //TODO 测试diskcache
-        diskLruCacheHelper.put("test", "test");
-        diskLruCacheHelper.get("test");
-        diskLruCacheHelper.put("test", "test");
-        diskLruCacheHelper.get("test");
     }
 
 
@@ -434,4 +430,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
+
+    /**
+     * 用于点击edittext以外的位置，隐藏键盘
+     *
+     * @param ev
+     * @return
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        switch (AppUtils.hidenSoftInputASimple(ev, this)) {
+            case 0:
+                return super.dispatchTouchEvent(ev);
+            case 1:
+                return true;
+            case 2:
+                return onTouchEvent(ev);
+            default:
+                return true;
+        }
+
+    }
 }

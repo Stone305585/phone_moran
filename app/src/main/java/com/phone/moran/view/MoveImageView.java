@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by zhaohe on 2017/11/22.
@@ -17,9 +18,12 @@ public class MoveImageView extends android.support.v7.widget.AppCompatImageView 
     int offsetX;
     int offsetY;
     private EditText tipTv;
+    private TextView resetTv;
     private Context context;
     private int rawW;
     private int rawH;
+
+    private boolean open;//当前可以移动
 
 
     public MoveImageView(Context context) {
@@ -44,9 +48,20 @@ public class MoveImageView extends android.support.v7.widget.AppCompatImageView 
         rawW = getMeasuredWidth();
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        if (!open) {
+            return true;
+        }
         int x = (int) event.getX();
         int y = (int) event.getY();
 
@@ -54,6 +69,7 @@ public class MoveImageView extends android.support.v7.widget.AppCompatImageView 
             case MotionEvent.ACTION_DOWN:
                 if(tipTv != null) {
                     tipTv.setVisibility(GONE);
+                    resetTv.setVisibility(GONE);
                 }
                 lastX = x;
                 lastY = y;
@@ -74,6 +90,7 @@ public class MoveImageView extends android.support.v7.widget.AppCompatImageView 
 
                 if(tipTv != null) {
                     tipTv.setVisibility(VISIBLE);
+                    resetTv.setVisibility(VISIBLE);
                 }
 
 
@@ -115,6 +132,14 @@ public class MoveImageView extends android.support.v7.widget.AppCompatImageView 
 
     public void setTipTv(EditText tipTv) {
         this.tipTv = tipTv;
+    }
+
+    public TextView getResetTv() {
+        return resetTv;
+    }
+
+    public void setResetTv(TextView resetTv) {
+        this.resetTv = resetTv;
     }
 
     public interface LocationListener{

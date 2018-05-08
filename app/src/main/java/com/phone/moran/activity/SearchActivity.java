@@ -1,5 +1,6 @@
 package com.phone.moran.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import com.phone.moran.fragment.SearchResultFragment;
 import com.phone.moran.model.SearchBack;
 import com.phone.moran.presenter.implPresenter.SearchActivityImpl;
 import com.phone.moran.presenter.implView.ISearchActivity;
+import com.phone.moran.tools.AppTypeface;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.PreferencesUtils;
 import com.phone.moran.tools.SLogger;
@@ -128,6 +131,14 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         fragPagerAdapter = new MainPagerAdapter(fm, fragmentList);
         viewpagerSearch.setAdapter(fragPagerAdapter);
+
+        changeViewGroupFonts(this, (ViewGroup)tabLayout, AppTypeface.REPLACE_FONT, 15, Color.BLACK);
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
     @Override
@@ -138,6 +149,17 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             @Override
             public void onTagClick(String tag) {
                 SLogger.d("<<", "--_>>>>>" + tag);
+                searchBar.setText(tag);
+                kw = tag;
+                searchActivityImpl.getSearchResult(kw);
+            }
+        });
+
+        recentTagGroup.setOnTagClickListener(new TagGroup.OnTagClickListener() {
+            @Override
+            public void onTagClick(String tag) {
+                SLogger.d("<<", "--_>>>>>" + tag);
+                searchBar.setText(tag);
                 kw = tag;
                 searchActivityImpl.getSearchResult(kw);
             }
@@ -145,6 +167,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
         searchBtn.setOnClickListener(this);
         clearBtn.setOnClickListener(this);
+        closeGroup.setOnClickListener(this);
 
         //设置setOnTabSelectedListener
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -205,35 +228,41 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void searchSuccess(SearchBack searchRes) {
-        try {
 
-            tabLayout.setVisibility(View.VISIBLE);
-            viewpagerSearch.setVisibility(View.VISIBLE);
-            wordLL.setVisibility(View.GONE);
+        if ((searchRes.getAuthro_info() == null || searchRes.getAuthro_info().size() == 0) &&
+                (searchRes.getPaint_info() == null || searchRes.getPaint_info().size() == 0) &&
+                (searchRes.getPicture_info() == null || searchRes.getPicture_info().size() == 0)) {
+            AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.no_result));
+        } else
+            try {
 
-            pictureJsonStr = JSONArray.toJSONString(searchRes.getPicture_info());
-            paintJsonStr = JSONArray.toJSONString(searchRes.getPaint_info());
-            authorJsonStr = JSONArray.toJSONString(searchRes.getAuthro_info());
-            if (pictureFragment == null) {
+                tabLayout.setVisibility(View.VISIBLE);
+                viewpagerSearch.setVisibility(View.VISIBLE);
+                wordLL.setVisibility(View.GONE);
 
-                pictureFragment = SearchResultFragment.newInstance(PICTURE, pictureJsonStr);
-                authorFragment = SearchResultFragment.newInstance(AUTHOR, authorJsonStr);
-                paintFragment = SearchResultFragment.newInstance(PAINT, paintJsonStr);
+                pictureJsonStr = JSONArray.toJSONString(searchRes.getPicture_info());
+                paintJsonStr = JSONArray.toJSONString(searchRes.getPaint_info());
+                authorJsonStr = JSONArray.toJSONString(searchRes.getAuthro_info());
+                if (pictureFragment == null) {
 
-                fragmentList.add(pictureFragment);
-                fragmentList.add(authorFragment);
-                fragmentList.add(paintFragment);
+                    pictureFragment = SearchResultFragment.newInstance(PICTURE, pictureJsonStr);
+                    authorFragment = SearchResultFragment.newInstance(AUTHOR, authorJsonStr);
+                    paintFragment = SearchResultFragment.newInstance(PAINT, paintJsonStr);
 
-                fragPagerAdapter.notifyDataSetChanged();
-            } else {
-                pictureFragment.setmParam2(pictureJsonStr);
-                paintFragment.setmParam2(paintJsonStr);
-                authorFragment.setmParam2(authorJsonStr);
+                    fragmentList.add(pictureFragment);
+                    fragmentList.add(authorFragment);
+                    fragmentList.add(paintFragment);
+
+                    fragPagerAdapter.notifyDataSetChanged();
+                } else {
+                    pictureFragment.setmParam2(pictureJsonStr);
+                    paintFragment.setmParam2(paintJsonStr);
+                    authorFragment.setmParam2(authorJsonStr);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -266,24 +295,32 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
                     String recent = PreferencesUtils.getString(getApplicationContext(), Constant.RECENT_SEARCH);
 
-                    if (TextUtils.isEmpty(recent)) {
-                        recent = "";
-                    }
-
-                    recent = recent + ("," + kw);
-
-                    PreferencesUtils.putString(getApplicationContext(), Constant.RECENT_SEARCH, recent);
-
+                    //校验本地是否已经存储改kw
                     if (!TextUtils.isEmpty(recent)) {
 
                         String[] res = recent.split(",");
 
+                        boolean isHave = false;
+
                         for (int i = 0; i < res.length; i++) {
 
-                            if (!TextUtils.isEmpty(res[i]))
-                                recentTagList.add(res[i]);
+                            if (res[i].equals(kw)) {
+                                isHave = true;
+                                break;
+                            }
                         }
+
+                        if (!isHave) {
+                            recentTagList.add(kw);
+                            recent = recent + ("," + kw);
+                        }
+                    } else {
+                        recent = kw;
+                        recentTagList.add(kw);
                     }
+
+
+                    PreferencesUtils.putString(getApplicationContext(), Constant.RECENT_SEARCH, recent);
 
                     recentTagGroup.setTags(recentTagList);
 

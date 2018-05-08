@@ -21,6 +21,7 @@ public class Constant {
     public static final String PHONE = "phone";
     public static final String PICTURE = "picture";
     public static final String PLAY_FLAG = "play_flag";
+    public static final String PLAY_INDEX = "play_index";
     public static final String PICTURE_FLAG = "picture_flag";
     public static final String PIC_LIST = "picture_list";
     public static final String PICTURE_ID = "picture_id";

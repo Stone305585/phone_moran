@@ -35,7 +35,9 @@ import com.phone.moran.model.Picture;
 import com.phone.moran.presenter.implPresenter.PlayPictureActivityImpl;
 import com.phone.moran.presenter.implView.IPlayPictureActivity;
 import com.phone.moran.tools.AppUtils;
+import com.phone.moran.tools.DensityUtils;
 import com.phone.moran.tools.SLogger;
+import com.phone.moran.tools.ScreenUtils;
 import com.phone.moran.view.gallery.CardScaleHelper;
 import com.phone.moran.view.gallery.SpeedRecyclerView;
 
@@ -126,6 +128,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
     private int recycleTime = 120000; //2分钟、5分钟  300000、15分钟  900000、30分钟  1800000
     private TimerTask timerTask;
     private int pageFlag = 0;//画单0、画作1
+    private int playIndex;
 
     private ObjectAnimator showMineC;
     private ObjectAnimator goneMineC;
@@ -142,6 +145,9 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
         ButterKnife.bind(this);
 
         pageFlag = getIntent().getIntExtra(Constant.PLAY_FLAG, PAINT);
+        playIndex = getIntent().getIntExtra(Constant.PLAY_INDEX, 0);
+
+        SLogger.d("<<", "playIndex-->>" + playIndex);
         //TODO 这里应该只有PAINT这一种类型
 //        if (pageFlag == PAINT) {
         paint = (Paint) getIntent().getSerializableExtra(Constant.PAINT);
@@ -151,7 +157,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 //            images.add(picture);
 //        }
 
-        SLogger.d("<<", "-->>>" + images.toString());
+        SLogger.d("<<", DensityUtils.dip2px(50) + "-->>>" + ScreenUtils.getScreenWidth(this) + "--height--->" + ScreenUtils.getScrrenHeight(this));
 
         localMoods = diskLruCacheHelper.getAsSerializable(Constant.LOCAL_MOOD + userId);
         playPicImpl = new PlayPictureActivityImpl(this, token, this);
@@ -175,6 +181,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
         popupWindow = new PopupWindow(popView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setContentView(popView);
         popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
+        popupWindow.setOutsideTouchable(true);
 
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -285,7 +292,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 
 //        int leftMargin = (ScreenUtils.getScreenWidth(this) - (int) (DensityUtils.dip2px(mCardWidth))) / 2;
 //        setViewMargin(recyclerPicture, leftMargin, 0, 0, 0);
-            imagePagerAdapter = new MainRecyclerAdaper(this, images);
+            imagePagerAdapter = new MainRecyclerAdaper(this, images, playIndex);
             recyclerPicture.setItemAnimator(new DefaultItemAnimator());
             recyclerPicture.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             recyclerPicture.setAdapter(imagePagerAdapter);
@@ -293,26 +300,12 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
         if (images.size() != 0 && mCardScaleHelper == null){
 
             mCardScaleHelper = new CardScaleHelper();
-            mCardScaleHelper.setCurrentItemPos(0);
             mCardScaleHelper.attachToRecyclerView(recyclerPicture, imagePagerAdapter, images);
+            mCardScaleHelper.setCurrentItemPos(playIndex);
         }
 
-            /*timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    curI = ((LinearLayoutManager) recyclerPicture.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mCardScaleHelper.setCurrentItemPos(++curI);
-                        }
-                    });
-                }
-            };*/
-
-
-
-//        testTimer.schedule(timerTask, 3000, recycleTime);
+        rightImageBtn3.setVisibility(View.VISIBLE);
+        rightImageBtn3.setImageDrawable(getResources().getDrawable(R.mipmap.share_right));
     }
 
     @Override
@@ -324,6 +317,9 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
         playTipBtn.setOnClickListener(this);
         playUploadBtn.setOnClickListener(this);
         collectPopFL.setOnClickListener(this);
+        rightImageBtn1.setOnClickListener(this);
+
+
         imagePagerAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Object model) {
@@ -354,6 +350,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
 
                 if (index >= manager.getItemCount() - 3 && last_id != 0) {
                     playPicImpl.getPaintDetail(paint.getPaint_id(), last_id);
+                    last_id = 0;
                 }
             }
         });
@@ -459,7 +456,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.play_lining_btn:
                 Intent intent = new Intent(this, LiningActivity.class);
-                intent.putExtra(Constant.IMAGE, images.get(getCurPos()).getPicture_url());
+                intent.putExtra(Constant.IMAGE, images.get(getCurPos()).getDetail_url());
                 startActivity(intent);
                 break;
             case R.id.play_upload_btn:
@@ -559,22 +556,34 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
             //TODO 推送到硬件
             case R.id.normal_iv:
             case R.id.normal_node:
-
+                lightMode = NORMAL;
                 playPicImpl.addPlayLight(lightMode);
                 break;
             case R.id.night_iv:
             case R.id.night_node:
 
+                lightMode = NIGHT;
                 playPicImpl.addPlayLight(lightMode);
                 break;
             case R.id.sleep_iv:
             case R.id.sleep_node:
 
+                lightMode = SLEEP;
                 playPicImpl.addPlayLight(SLEEP);
                 break;
 
             case R.id.collect_pop_FL:
                 goneCollectPop();
+                break;
+
+            case R.id.right_image_btn3:
+                String titleUrl = paint.getTitle_detail_url();
+                paint.setTitle_detail_url(images.get(getCurPos()).getDetail_url());
+                Intent intent1 = new Intent(this, ShareMainActivity.class);
+                intent1.putExtra(Constant.PAINT, paint);
+                startActivity(intent1);
+                //这里分享是分享画作，所以把画作暂时当作封面传过去，再重新赋值回来
+                paint.setTitle_detail_url(titleUrl);
                 break;
         }
     }
@@ -772,7 +781,6 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
             case NORMAL:
                 normalNode.setImageDrawable(getResources().getDrawable(R.mipmap.bar_node_selected));
 
-                lightMode = NORMAL;
                 msg = getResources().getString(R.string.normal);
                 break;
             case NIGHT:
@@ -808,7 +816,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
         if (images.size() != 0 && mCardScaleHelper == null){
 
             mCardScaleHelper = new CardScaleHelper();
-            mCardScaleHelper.setCurrentItemPos(0);
+            mCardScaleHelper.setCurrentItemPos(playIndex);
             mCardScaleHelper.attachToRecyclerView(recyclerPicture, imagePagerAdapter, images);
         }
     }

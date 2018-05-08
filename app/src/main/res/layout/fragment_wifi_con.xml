@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/bg_light"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context="com.phone.moran.fragment.WifiConFragment">
 
@@ -10,13 +10,13 @@
     <LinearLayout
         android:id="@+id/input_pass_LL"
         android:orientation="vertical"
-        android:background="@color/bg_light"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
             android:text="请输入密码"
             android:gravity="top"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="35dp"
             style="@style/text_common_moran"
             android:textSize="14sp"
             android:textColor="@color/run_blue_main"
@@ -26,6 +26,7 @@
             android:id="@+id/name_wifi"
             android:text="wifi名字"
             android:gravity="top"
+            android:visibility="gone"
             android:layout_marginTop="7dp"
             android:textSize="14sp"
             style="@style/text_common_moran"
@@ -37,8 +38,8 @@
             android:id="@+id/password_et"
             android:inputType="textPassword"
             android:gravity="center"
-            android:layout_marginTop="12dp"
-            android:background="@color/white"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/corner_login_ring_blue"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_width="match_parent"

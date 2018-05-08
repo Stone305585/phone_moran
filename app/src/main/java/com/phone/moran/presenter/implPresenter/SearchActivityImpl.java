@@ -68,7 +68,6 @@ public class SearchActivityImpl extends BasePresenterImpl implements ISearchActi
                             try {
                                 diskLruCacheHelper.put(ApiHelper.SEARCHHOT, JSON.toJSONString(allJourneysBack));
                             } catch (ClassCastException e) {
-                                SLogger.d("<<", "异常");
                                 e.printStackTrace();
                                 allJourneysBack = JSONObject.parseObject(diskLruCacheHelper.getAsString(ApiHelper.SEARCHHOT), SearchHotBack.class);
                             }
@@ -113,6 +112,7 @@ public class SearchActivityImpl extends BasePresenterImpl implements ISearchActi
                     public void onNext(SearchBack allJourneysBack) {
 
                         searchActivity.hidProgressDialog();
+                        SLogger.d("<<", JSON.toJSONString(allJourneysBack));
 
                         if (allJourneysBack.getRet() == Constant.SUCCESSRESPONSE) {
 

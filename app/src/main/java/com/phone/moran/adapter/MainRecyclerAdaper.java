@@ -36,12 +36,14 @@ public class MainRecyclerAdaper extends RecyclerView.Adapter<BaseRecyclerHolder>
     public LayoutInflater mInflater;
     private CardAdapterHelper mCardAdapterHelper = new CardAdapterHelper();
     private int mPagePadding = 30;
-    private int mCardWidth = 300;//单个画
+    private int mCardWidth = 262;//单个画
+    private int playIndex;
 
-    public MainRecyclerAdaper(Context context, List<Picture> datas) {
+    public MainRecyclerAdaper(Context context, List<Picture> datas, int playIndex) {
         this.mContext = context;
         this.mData = datas;
         mInflater = LayoutInflater.from(context);
+        this.playIndex = playIndex;
 
         SLogger.d("<<", "--分辨率->>>" + DensityUtils.dip2px(1));
     }
@@ -58,14 +60,19 @@ public class MainRecyclerAdaper extends RecyclerView.Adapter<BaseRecyclerHolder>
         final MainHolder mainHolder = (MainHolder) holder;
         if (position == 0) {
             int leftMargin = (ScreenUtils.getScreenWidth(mContext) - (int) (DensityUtils.dip2px(mCardWidth))) / 2;
-            setViewMargin(mainHolder.itemView, leftMargin, 0, DensityUtils.dip2px(8), 0);
+            setViewMargin(mainHolder.itemView, leftMargin, 0, DensityUtils.dip2px(15), 0);
+        } else if (position < mData.size() - 1) {
+            setViewMargin(mainHolder.itemView, DensityUtils.dip2px(15), 0, DensityUtils.dip2px(15), 0);
+        } else {
+            int rightMargin = (ScreenUtils.getScreenWidth(mContext) - (int) (DensityUtils.dip2px(mCardWidth))) / 2;
+            setViewMargin(mainHolder.itemView, DensityUtils.dip2px(15), 0, rightMargin, 0);
         }
 //        else if (position == mData.size() - 1) {
 //            int rightMargin = (ScreenUtils.getScreenWidth(mContext) - (int) (DensityUtils.dip2px(mCardWidth))) / 2;
 //            setViewMargin(mainHolder.itemView, 0, 0, rightMargin, 0);
 //        }
 
-        if(itemClickListener != null) {
+        if (itemClickListener != null) {
             mainHolder.imageRecycler.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,7 +83,6 @@ public class MainRecyclerAdaper extends RecyclerView.Adapter<BaseRecyclerHolder>
 
         ImageLoader.displayImg(mContext, painting.getDetail_url(), mainHolder.imageRecycler);
     }
-
 
 
     /**

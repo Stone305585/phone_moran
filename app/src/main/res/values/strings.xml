@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">墨染</string>
+    <string name="app_name">墨染博物馆</string>
     <string name="facebook_app_id">550504378626576</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -66,7 +66,7 @@
     <string name="request_use_device_msg">该设备已被绑定，是否请求\n使用该设备</string>
     <string name="go_wifi_and_use">请进入Moran画框设置页面\n并进入Wi-Fi链接选项</string>
     <string name="device_scan_qr_to_auto_scan">请在墨染画框上选择“链接app”\n并将墨染画框中的二维码放入框内\n即可自动扫描</string>
-
+    <string name="no_wifi">无信号\n请检查网络连接</string>
 
     <!--搜索-->
 

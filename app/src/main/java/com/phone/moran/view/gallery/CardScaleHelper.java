@@ -9,7 +9,6 @@ import android.view.View;
 import com.phone.moran.adapter.MainRecyclerAdaper;
 import com.phone.moran.model.Picture;
 import com.phone.moran.tools.DensityUtils;
-import com.phone.moran.tools.SLogger;
 import com.phone.moran.tools.ScreenUtils;
 
 import java.util.List;
@@ -68,12 +67,12 @@ public class CardScaleHelper {
                 final int childCount = recyclerView.getChildCount();
                 int allCount = adaper.getItemCount();
                 int pos = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastVisibleItemPosition();
-                if (pos == allCount - 1) {
+                /*if (pos == allCount - 1) {
                     //TODO 添加后有边距   另外 设置touch down 停止滑动（如何调节 手动滑动后的位置和自动滑动开始的位置）
                     SLogger.d("<<", "-->>>>开始添加");
                     adaper.getmData().addAll(pictures);
                     adaper.notifyDataSetChanged();
-                }
+                }*/
                 Log.e("tag", childCount + "");
                 for (int i = 0; i < childCount; i++) {
                     View child = recyclerView.getChildAt(i);
@@ -118,8 +117,10 @@ public class CardScaleHelper {
         this.mCurrentItemPos = currentItemPos;
 
 
-        if (mRecyclerView != null)
+        //滚动到当前位置，由于偏移量在原因，需要强制滚动距离，制造移动到中间
+        if (mRecyclerView != null) {
             mRecyclerView.smoothScrollToPosition(currentItemPos);
+        }
 
 //        View child = mRecyclerView.getChildAt(currentItemPos);
 //        if(child == null) {

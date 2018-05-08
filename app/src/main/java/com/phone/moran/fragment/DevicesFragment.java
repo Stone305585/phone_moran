@@ -321,7 +321,17 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
 //                FragmentTransaction ft1 = fm.beginTransaction();
                 if (scanCodeFragment == null) {
                     scanCodeFragment = ScanCodeFragment.newInstance("", "");
+                    scanCodeFragment.setMineFragment(mineFragment);
+                    scanCodeFragment.setDevicesFragment(this);
 //                    ft1.add(R.id.mine_content, scanCodeFragment);
+                } else {
+                    try {
+                        if(scanCodeFragment != null) {
+                            scanCodeFragment.getPreView().setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 //                ((MainActivity)getActivity()).setMineF(scanCodeFragment);
 
@@ -336,6 +346,15 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
 
             case R.id.devices_des_tv:
                 if(deviceInfos.size() != 0) {
+
+                    try {
+                        if(scanCodeFragment != null) {
+                            scanCodeFragment.getPreView().setVisibility(View.GONE);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     popupWindow.showAtLocation(devicesDesTv, Gravity.BOTTOM, 0, 0);
                     // 设置popWindow弹出窗体可点击
                     popupWindow.setFocusable(true);
@@ -350,6 +369,14 @@ public class DevicesFragment extends BaseFragment implements View.OnClickListene
 
     }
 
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden) {
+            mineFragment.hideBack();
+        }
+    }
 
     /**
      * 暂时用来测试

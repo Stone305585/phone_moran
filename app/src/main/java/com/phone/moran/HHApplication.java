@@ -63,6 +63,9 @@ public class HHApplication extends Application {
 
         SLogger.d("<<", "user_id-->>>" + TextUtils.isEmpty(PreferencesUtils.getString(this, Constant.USER_ID)));
 
+        PreferencesUtils.putString(this, Constant.FIRST, null);
+
+
         //替换字体
         AppTypeface.init(this);
 
@@ -104,7 +107,7 @@ public class HHApplication extends Application {
         Configuration configuration = getResources().getConfiguration();
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         if (isEnglish) {
-            //设置英文
+            //设置英文  这里一定要设置成LOCAL.US  LOCAL.ENGLISH不可以的
             configuration.locale = Locale.US;
         } else {
             //设置中文

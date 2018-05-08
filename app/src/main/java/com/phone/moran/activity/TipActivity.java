@@ -1,11 +1,13 @@
 package com.phone.moran.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,6 +20,7 @@ import com.phone.moran.R;
 import com.phone.moran.config.Constant;
 import com.phone.moran.presenter.implPresenter.TipsActivityImpl;
 import com.phone.moran.presenter.implView.ITipsActivity;
+import com.phone.moran.tools.AppTypeface;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.DensityUtils;
 import com.phone.moran.tools.ImageLoader;
@@ -127,6 +130,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
         ninePosition.setVisibility(View.GONE);
         material1.setChecked(true);
         positionTip.setTipTv(tipTv);
+        positionTip.setResetTv(tipRest);
 
         ImageLoader.displayImg(this, picUrl, materialBackground);
 
@@ -150,6 +154,8 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
 
         positionTip.setLayoutParams(lp);
 
+        changeViewGroupFonts(this, (ViewGroup)tabLayout, AppTypeface.REPLACE_FONT, 15, Color.BLACK);
+
     }
 
     @Override
@@ -172,13 +178,15 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
             @Override
             public void onCheck(Switch aSwitch, boolean b) {
                 if (!b) {
+                    tipTv.setAlpha(0.5f);
                     pushFlag = 2;
-                    tipsActivityImpl.uploadTips("", 1, 1, pushFlag);
                 } else {
                     pushFlag = 1;
+                    tipTv.setAlpha(1f);
                 }
             }
         });
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -192,11 +200,15 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
                     pos5.setVisibility(View.INVISIBLE);
                     tabLL.setVisibility(View.VISIBLE);
                     flag = TAB1;
+
+                    positionTip.setOpen(false);
                 } else {
                     tipTip.setVisibility(View.GONE);
                     tabLL.setVisibility(View.GONE);
                     ninePosition.setVisibility(View.VISIBLE);
                     flag = TAB2;
+
+                    positionTip.setOpen(true);
                 }
 
             }

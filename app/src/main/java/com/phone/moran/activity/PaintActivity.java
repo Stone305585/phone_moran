@@ -186,10 +186,19 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
             @Override
             public void onItemClick(View view, int position, Object model) {
                 if (!goLogin()) {
+
+                    if(leftBtnGallery.isChecked()) {
+                        paint.setPicture_info(picturesHList);
+                    } else if (rightBtnGallery.isChecked()) {
+                        paint.setPicture_info(picturesSList);
+                    }
                     Intent intent = new Intent(PaintActivity.this, PlayPictureActivity.class);
                     intent.putExtra(Constant.PLAY_FLAG, PlayPictureActivity.PAINT);
                     intent.putExtra(Constant.PAINT, paint);
+                    intent.putExtra(Constant.PLAY_INDEX, position);
                     startActivity(intent);
+
+                    paint.setPicture_info(picturesHSList);
                 }
 
 //                Picture picture = (Picture) model;
@@ -222,6 +231,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
 
                     if (index >= manager.getItemCount() - 1 && last_id != 0) {
                         paintActivityImpl.getPaintDetail(paintId, last_id);
+                        last_id = 0;
                     }
                 }
             });
@@ -254,6 +264,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
                 rightBtnGallery.setChecked(false);
 
                 numBottomGallery.setText(String.valueOf(picturesHList.size()));
+
                 break;
             //横竖
             case R.id.center_btn_gallery:
@@ -530,6 +541,7 @@ public class PaintActivity extends BaseActivity implements View.OnClickListener,
 //        }
 
         last_id = paint.getLast_id();
+        paint.setPicture_info(picturesHSList);
 
     }
 

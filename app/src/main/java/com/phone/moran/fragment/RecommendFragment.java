@@ -284,6 +284,8 @@ public class RecommendFragment extends BaseFragment implements IRecommendFragmen
 
         diskLruCacheHelper.put(Constant.LAST_PAINT, newArray.get(0));
 
+        Paint paint = diskLruCacheHelper.getAsSerializable(Constant.LAST_PAINT);
+
         initDataSource();
     }
 

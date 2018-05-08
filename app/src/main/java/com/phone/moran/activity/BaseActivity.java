@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -24,6 +25,7 @@ import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -108,8 +110,9 @@ public class BaseActivity extends AppCompatActivity {
 
         connected = NetWorkUtil.isNetworkConnected(this);
 
-        if (!connected) {
+        if (!connected && !(this instanceof NoNetActivity)) {
             AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.net_dissconncted));
+            startActivity(new Intent(this, NoNetActivity.class));
         }
 
         connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -503,7 +506,7 @@ public class BaseActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         if (isEnglish) {
             //设置英文
-            configuration.locale = Locale.ENGLISH;
+            configuration.locale = Locale.US;
         } else {
             //设置中文
             configuration.locale = Locale.SIMPLIFIED_CHINESE;
@@ -511,4 +514,50 @@ public class BaseActivity extends AppCompatActivity {
         //更新配置
         getResources().updateConfiguration(configuration, displayMetrics);
     }
+
+    /**
+     * 修改viewgroup的字体
+     * @param context
+     * @param root
+     * @param font
+     * @param size
+     * @param color
+     */
+    public void changeViewGroupFonts(Context context, ViewGroup root, String font, int size, int color){
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),font);
+        for (int i=0;i<root.getChildCount();i++){
+            View v = root.getChildAt(i);
+            if (v instanceof TextView){
+                ((TextView)v).setTypeface(tf);
+//                ((TextView)v).setTextSize((int)(size*metrics.density));
+//                ((TextView)v).setTextColor(color);
+            }else if (v instanceof Button){
+            }else if (v instanceof EditText){
+                ((TextView)v).setTypeface(tf);
+                ((TextView)v).setTextColor(color);
+            }else if (v instanceof ViewGroup){
+                changeViewGroupFonts(context, (ViewGroup)v, font, size, color);
+            }
+        }
+    }
+
+    /**
+     * 修改view的字体
+     * @param context
+     * @param element
+     * @param font
+     * @param size
+     * @param color
+     */
+    public void changeViewFont(Context context, View element, String font, int size, int color){
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),font);
+        if (element instanceof TextView) {
+            ((TextView) element).setTypeface(tf);
+            ((TextView) element).setTextSize(size);
+            ((TextView) element).setTextColor(color);
+        }else if(element instanceof EditText){
+            ((EditText)element).setTypeface(tf);
+        }
+    }
+
 }

@@ -36,8 +36,8 @@ public class AnimActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        startActivity(new Intent(AnimActivity.this, LoginActivity.class));
-        finish();
+//        startActivity(new Intent(AnimActivity.this, LoginActivity.class));
+//        finish();
 //        final AnimationDrawable ad = (AnimationDrawable) animFL.getBackground();
 //        ad.start();
     }

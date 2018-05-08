@@ -43,7 +43,7 @@ import static android.content.Context.VIBRATOR_SERVICE;
  * Use the {@link ScanCodeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Callback, IScanCodeActivity {
+public class ScanCodeFragment extends BaseFragment implements SurfaceHolder.Callback, IScanCodeActivity {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -57,6 +57,7 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
 
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
+    private SurfaceView preView;
     private boolean hasSurface;
     private Vector<BarcodeFormat> decodeFormats;
     private String characterSet;
@@ -67,10 +68,37 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
     private boolean vibrate;
 
     private ScanCodeActivityImpl scanCodeActivityImpl;
+    private MineFragment mineFragment;
+    private DevicesFragment devicesFragment;
 
+    public DevicesFragment getDevicesFragment() {
+        return devicesFragment;
+    }
+
+    public void setDevicesFragment(DevicesFragment devicesFragment) {
+        this.devicesFragment = devicesFragment;
+    }
+
+    public boolean startScan = false;
+
+    public MineFragment getMineFragment() {
+        return mineFragment;
+    }
+
+    public void setMineFragment(MineFragment mineFragment) {
+        this.mineFragment = mineFragment;
+    }
 
     public ScanCodeFragment() {
         // Required empty public constructor
+    }
+
+    public SurfaceView getPreView() {
+        return preView;
+    }
+
+    public void setPreView(SurfaceView preView) {
+        this.preView = preView;
     }
 
     /**
@@ -120,8 +148,9 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
 
         SLogger.d("<<", "--...>>" + a);
         //初始化view，初始化camera manager
-        CameraManager.init(getActivity().getApplication());
+        CameraManager.init(getActivity().getApplication(), a);
         viewfinderView = (ViewfinderView) view.findViewById(R.id.viewfinder_view);
+        preView = (SurfaceView) view.findViewById(R.id.preview_view);
         hasSurface = false;
 //        inactivityTimer = new InactivityTimer(getActivity());
     }
@@ -129,6 +158,15 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
     @Override
     public void onResume() {
         super.onResume();
+        startScan();
+    }
+
+    /**
+     * 抽出来作为函数调用
+     */
+    public void startScan() {
+
+        startScan = true;
         //初始化摄像页面
         SurfaceView surfaceView = (SurfaceView) v.findViewById(R.id.preview_view);
         SurfaceHolder surfaceHolder = surfaceView.getHolder();
@@ -149,10 +187,29 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
         }
         initBeepSound();
         vibrate = true;
+        viewfinderView.setVisibility(View.VISIBLE);
+        preView.setVisibility(View.VISIBLE);
+
+    }
+
+    /**
+     * 抽出来作为函数
+     */
+    private void stopScan() {
+        if (handler != null) {
+            SLogger.d("<<", "--camera  close--->>>>>>");
+            handler.quitSynchronously();
+            handler = null;
+
+        }
+        startScan = false;
+        CameraManager.get().closeDriver();
+        preView.setVisibility(View.GONE);
     }
 
     /**
      * 初始化camera
+     *
      * @param surfaceHolder
      */
     private void initCamera(SurfaceHolder surfaceHolder) {
@@ -164,8 +221,8 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
             return;
         }
         if (handler == null) {
-			handler = new CaptureActivityHandler(this, decodeFormats,
-					characterSet);
+            handler = new CaptureActivityHandler(this, decodeFormats,
+                    characterSet);
         }
     }
 
@@ -241,13 +298,23 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
     @Override
     public void onPause() {
         super.onPause();
-        if (handler != null) {
-            SLogger.d("<<", "--camera  close--->>>>>>");
-            handler.quitSynchronously();
-            handler = null;
-        }
-        CameraManager.get().closeDriver();
+
+        stopScan();
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        if (hidden) {
+            stopScan();
+
+        } else {
+            if (!startScan)
+                startScan();
+        }
+    }
+
 
     @Override
     public void onDestroy() {
@@ -265,6 +332,7 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
 
     /**
      * Handler scan result
+     *
      * @param result
      * @param barcode
      */
@@ -276,10 +344,10 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
         //FIXMEe
         if (resultString.equals("")) {
             Toast.makeText(getActivity().getApplicationContext(), "Scan failed!", Toast.LENGTH_SHORT).show();
-        }else {
-			SLogger.d("<<", "Result:"+resultString);
-			viewfinderView.setVisibility(View.GONE);
-			scanCodeActivityImpl.bind(resultString);
+        } else {
+            SLogger.d("<<", "Result:" + resultString);
+            viewfinderView.setVisibility(View.GONE);
+            scanCodeActivityImpl.bind(resultString);
             //显示结果
 //            resultText.setText(resultString);
         }
@@ -316,6 +384,8 @@ public class ScanCodeFragment extends BaseFragment  implements SurfaceHolder.Cal
         EventBus.getDefault().post(new BindSuccess());
 
         AppUtils.showToast(getActivity().getApplicationContext(), getResources().getString(R.string.bind_success));
+
+        mineFragment.showFragment(devicesFragment);
     }
 
     public int getDisplayRotation(Activity activity) {

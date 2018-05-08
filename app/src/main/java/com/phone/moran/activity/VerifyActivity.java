@@ -24,6 +24,7 @@ import com.phone.moran.presenter.implPresenter.RegisterActivityImpl;
 import com.phone.moran.presenter.implView.IRegisterActivity;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.PreferencesUtils;
+import com.phone.moran.tools.SLogger;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -79,10 +80,10 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
         ButterKnife.bind(this);
 
         timer = new Timer();
-        initView();
-        setListener();
 
         flag = getIntent().getIntExtra(Constant.PLAY_FLAG, 0);
+
+        SLogger.d("<<", "flagflagflagflag-->>" + flag);
 
         registerActivityImpl = new RegisterActivityImpl(this, token, this);
         phone = getIntent().getStringExtra(PHONE);
@@ -90,13 +91,16 @@ public class VerifyActivity extends BaseActivity implements IRegisterActivity {
 
         if (flag != 0)
             registerActivityImpl.getCode(phone);
+
+        initView();
+        setListener();
     }
 
     @Override
     protected void initView() {
         super.initView();
 
-        title.setText(flag == 0 ? getResources().getString(R.string.sign_up) : getResources().getString(R.string.change_password));
+        title.setText(flag == 0 ? getResources().getString(R.string.sign_up) : getResources().getString(R.string.reset_password));
         startTimer();
     }
 

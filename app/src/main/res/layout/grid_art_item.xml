@@ -13,6 +13,7 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/recyclerview_item"
         app:riv_corner_radius="7dp"
+        android:layout_gravity="center"
         android:layout_width="104dp"
         android:layout_height="104dp" />
     <TextView

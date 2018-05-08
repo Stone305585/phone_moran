@@ -23,7 +23,6 @@ import com.phone.moran.presenter.implPresenter.RecyclerActivityImpl;
 import com.phone.moran.presenter.implView.IRecyclerActivity;
 import com.phone.moran.tools.AppUtils;
 import com.phone.moran.tools.DensityUtils;
-import com.phone.moran.tools.SLogger;
 import com.phone.moran.view.RefreshLayout;
 
 import java.util.ArrayList;
@@ -91,7 +90,7 @@ public class RecyclerActivity extends BaseActivity implements IRecyclerActivity,
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         srl = (RefreshLayout) findViewById(R.id.srl);
-        title.setText("最新上传");
+        title.setText(uploadType == UPLOAD_HOT ? getResources().getString(R.string.hot_paint) : getResources().getString(R.string.latest_paint));
         srl.setColorSchemeColors(ContextCompat.getColor(this, R.color.purple),
                 ContextCompat.getColor(this, R.color.yellow),
                 ContextCompat.getColor(this, R.color.blue),
@@ -129,7 +128,7 @@ public class RecyclerActivity extends BaseActivity implements IRecyclerActivity,
         });
 
         srl.setOnRefreshListener(this);
-        srl.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+/*        srl.setOnLoadListener(new RefreshLayout.OnLoadListener() {
                                   @Override
                                   public void onLoad() {
                                       AppUtils.showFooter(doingfooterView);
@@ -138,7 +137,7 @@ public class RecyclerActivity extends BaseActivity implements IRecyclerActivity,
                                   }
 
                               }
-        );
+        );*/
 
         backTitle.setOnClickListener(new View.OnClickListener() {
             @Override

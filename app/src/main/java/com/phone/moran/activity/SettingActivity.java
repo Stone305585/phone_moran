@@ -148,9 +148,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void positiveGo() {
 
+                        ad.dismiss();
+
                         if(PreferencesUtils.getString(getApplicationContext(), Constant.LANGUAGE) != null && PreferencesUtils.getString(getApplicationContext(), Constant.LANGUAGE).equals(CHINESE)) {
                             AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.change_language_msg_c));
-                            ad.dismiss();
                             return;
                         }
                         setLanguage(false);
@@ -164,9 +165,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void negativeGo() {
 
+                        ad.dismiss();
+
                         if(PreferencesUtils.getString(getApplicationContext(), Constant.LANGUAGE) != null && PreferencesUtils.getString(getApplicationContext(), Constant.LANGUAGE).equals(Constant.ENGLISH)) {
                             AppUtils.showToast(getApplicationContext(), getResources().getString(R.string.change_language_msg_e));
-                            ad.dismiss();
                             return;
                         }
                         setLanguage(true);

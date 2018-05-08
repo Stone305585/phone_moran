@@ -1,16 +1,22 @@
 package com.phone.moran.fragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.phone.moran.R;
 import com.phone.moran.adapter.MainPagerAdapter;
+import com.phone.moran.tools.AppTypeface;
 import com.phone.moran.view.ScrollerViewPager;
 
 import java.util.ArrayList;
@@ -35,6 +41,22 @@ public class EaselFragment extends BaseFragment {
     @BindView(R.id.viewpager)
     ScrollerViewPager viewpager;
     Unbinder unbinder;
+    @BindView(R.id.back_title)
+    ImageView backTitle;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.right_text_btn)
+    TextView rightTextBtn;
+    @BindView(R.id.right_image_btn1)
+    ImageView rightImageBtn1;
+    @BindView(R.id.right_image_btn2)
+    ImageView rightImageBtn2;
+    @BindView(R.id.right_image_btn3)
+    ImageView rightImageBtn3;
+    @BindView(R.id.rl_title)
+    LinearLayout rlTitle;
+    @BindView(R.id.toolbar_common)
+    Toolbar toolbarCommon;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -45,7 +67,7 @@ public class EaselFragment extends BaseFragment {
     MinePaintFragment minePaintFragment;
     private FragmentManager fm;
     private List<Fragment> fragmentList = new ArrayList<>();
-    private MainPagerAdapter  mainPagerAdapter;
+    private MainPagerAdapter mainPagerAdapter;
 
 
     public EaselFragment() {
@@ -103,6 +125,10 @@ public class EaselFragment extends BaseFragment {
     protected void initView(View view) {
         super.initView(view);
 
+        title.setText(getResources().getString(R.string.tab_3));
+
+        backTitle.setVisibility(View.GONE);
+
         fragmentList.add(minePaintFragment);
         fragmentList.add(recentPaintFragment);
         fragmentList.add(collectPaintFragment);
@@ -116,6 +142,9 @@ public class EaselFragment extends BaseFragment {
 
         //给ViewPager添加监听(这里我们直接使用TabLayout里面提供的TabLayoutOnPageChangeListener无需自己再编写
         viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        changeViewGroupFonts(getActivity(), (ViewGroup)tabLayout, AppTypeface.REPLACE_FONT, 15, Color.BLACK);
+
     }
 
     @Override
