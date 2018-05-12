@@ -451,7 +451,7 @@ public class PlayPictureActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.play_tip_btn:
                 Intent intentTip = new Intent(this, TipActivity.class);
-                intentTip.putExtra(Constant.IMAGE, images.get(getCurPos()).getPicture_url());
+                intentTip.putExtra(Constant.IMAGE, images.get(getCurPos()).getDetail_url());
                 startActivity(intentTip);
                 break;
             case R.id.play_lining_btn:

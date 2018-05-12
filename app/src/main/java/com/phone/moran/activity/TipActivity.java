@@ -93,6 +93,8 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
     ImageView clickGone;
     @BindView(R.id.tab_LL)
     LinearLayout tabLL;
+    @BindView(R.id.float_tip_LL)
+    LinearLayout floatTipLL;
 
     private String flag = TAB1;//当前页面标志
     private int position = 1;
@@ -128,6 +130,7 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
         tabLayout.addTab(tabLayout.newTab().setText(TAB1));
         tabLayout.addTab(tabLayout.newTab().setText(TAB2));
         ninePosition.setVisibility(View.GONE);
+        floatTipLL.setVisibility(View.GONE);
         material1.setChecked(true);
         positionTip.setTipTv(tipTv);
         positionTip.setResetTv(tipRest);
@@ -180,9 +183,12 @@ public class TipActivity extends BaseActivity implements View.OnClickListener, I
                 if (!b) {
                     tipTv.setAlpha(0.5f);
                     pushFlag = 2;
+                    floatTipLL.setVisibility(View.GONE);
                 } else {
                     pushFlag = 1;
                     tipTv.setAlpha(1f);
+                    floatTipLL.setVisibility(View.VISIBLE);
+
                 }
             }
         });

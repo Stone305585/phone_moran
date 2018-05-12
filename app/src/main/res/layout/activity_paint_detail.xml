@@ -23,11 +23,12 @@
             android:scaleType="centerCrop"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="25dp"
             android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp"
             android:orientation="vertical">
 
             <TextView

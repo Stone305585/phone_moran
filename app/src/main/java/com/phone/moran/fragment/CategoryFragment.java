@@ -129,7 +129,7 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
         fragmentList.add(sceneCFragment);
         viewpagerCategory.setAdapter(mainPagerAdapter);
 
-        backTitle.setVisibility(View.GONE);
+        backTitle.setVisibility(View.INVISIBLE);
 
         rightImageBtn3.setVisibility(View.VISIBLE);
         rightImageBtn3.setImageDrawable(getResources().getDrawable(R.mipmap.show_right));

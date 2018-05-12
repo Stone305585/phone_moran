@@ -218,7 +218,7 @@ public class MinePaintFragment extends BaseFragment {
             LocalPaintArray localPaintArray = new LocalPaintArray();
             Paint paint = new Paint();
             paint.setPaint_id(-1);
-            paint.setTitle_detail_url(getResources().getString(R.string.mine_collect));
+            paint.setTitle_detail_url(getResources().getString(R.string.default_category));
             localPaintArray.setPaint1(paint);
             list.clear();
             list.add(localPaintArray);

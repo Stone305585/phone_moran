@@ -127,7 +127,7 @@ public class EaselFragment extends BaseFragment {
 
         title.setText(getResources().getString(R.string.tab_3));
 
-        backTitle.setVisibility(View.GONE);
+        backTitle.setVisibility(View.INVISIBLE);
 
         fragmentList.add(minePaintFragment);
         fragmentList.add(recentPaintFragment);

@@ -180,7 +180,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener,
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         try {
-            barcodeShare.setImageBitmap(EncodingHandler.createQRCode("www.atmoran.com", 260));
+            barcodeShare.setImageBitmap(EncodingHandler.createQRCode("http://www.atmoran.com", 260));
 
         } catch (Exception e) {
             e.printStackTrace();

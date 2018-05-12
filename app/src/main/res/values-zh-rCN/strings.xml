@@ -175,6 +175,8 @@
     <string name="my_art_list">我的画单</string>
     <string name="recent_art">最近浏览</string>
     <string name="mine_collect">收藏画单</string>
+    <string name="default_paint">默认画单</string>
+
 
     <!--分类-->
     <string name="emptiness">空</string>

@@ -182,6 +182,7 @@
     <string name="my_art_list">My art work list</string>
     <string name="recent_art">Recent viewed</string>
     <string name="mine_collect">My collection</string>
+    <string name="default_paint">Default Paint</string>
 
     <!--分类-->
     <string name="emptiness">Emptiness</string>

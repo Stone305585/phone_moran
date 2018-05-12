@@ -135,7 +135,7 @@ public class ShareMainActivity extends BaseActivity implements View.OnClickListe
         ImageLoader.displayImg(this, paint.getTitle_detail_url(), picImage);
 
         try {
-            barcode.setImageBitmap(EncodingHandler.createQRCode("www.atmoran.com", DensityUtils.dip2px(120)));
+            barcode.setImageBitmap(EncodingHandler.createQRCode("http://www.atmoran.com", DensityUtils.dip2px(120)));
 
         } catch (Exception e) {
             e.printStackTrace();
